@@ -22,13 +22,13 @@ function editarUsuario($conexao, $email, $senha, $id) {
 
 #=================================================================================================================
 
-function criarPefil($conexao, $nome_perfil, $pokemon_fav, $descricao) {
+function criarPerfil($conexao, $nome_perfil, $pokemon_fav, $descricao) {
 
 }
 
 
 
-function editarPefil($conexao, $nome_perfil, $pokemon_fav, $descricao, $id) {
+function editarPerfil($conexao, $nome_perfil, $pokemon_fav, $descricao, $id) {
 
 }
 
@@ -114,9 +114,15 @@ function pesquisarPokemon($conexao, $idpokemon) {
 
 #=================================================================================================================
 
-function criarBuild($conexao, $nome) {
+function criarBuild($conexao, $nome) 
+    $sql = "INSERT INTO tb_build (idusuario, idperfil, idstats, idPokemon) VALUES (?, ?, ?, ?)";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_bind_param($comando);
+    $Feito! = mysqli_stmt_execute($comando);
 
-}
+    mysqli_stmt_close($comando);
+    return $Feito!;    
 
 
 
@@ -127,9 +133,23 @@ function editarBuild($conexao, $nome, $id) {
 
 
 function listarBuild($conexao) {
-
+    $sql = "SELECT * FROM tb_build";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_execute($comando);
+    $resultados = mysqli_stmt_get_result($comando);
+    
+    while ($venda = mysqli_fetch_assoc($)) 
+        $idcliente = $venda['idusuario'];
+        $cliente = pesquisarClienteid($conexao, $idcliente);
+        $venda['nomeusuario'] = $cliente['nome'];
+        
+        $idproduto = $venda['id'];
+        $produto = pesquisarPokemonid($conexao, $idproduto);
+        $venda['nome'] = $produto['nome'];
+        
+        $lista_venda[] = $venda;
 }
-
 
 
 #=================================================================================================================
@@ -146,6 +166,7 @@ function criaSugestao_reclamacao($conexao, $reclamacao, $sugestao) {
     
 }
 
+function PesquisarBuild($conexao, $nome, $id) 
 
 
 
