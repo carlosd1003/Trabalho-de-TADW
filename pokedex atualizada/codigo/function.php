@@ -37,6 +37,15 @@ function editarPefil($conexao, $nome_perfil, $pokemon_fav, $descricao, $id) {
 #=================================================================================================================
 
 function criarPokemon ($conexao, $national, $nome, $gen) {
+    $sql = "INSERT INTO pokemon (national, nome, gen) VALUES (?, ?, ?)";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_bind_param($comando, 'isi', $national, $nome, $gen);
+    
+    $funcionou = mysqli_stmt_execute($comando);
+    mysqli_stmt_close($comando);
+    
+    return $funcionou;
 
 }
 
