@@ -64,6 +64,14 @@ function editarStats ($conexao, $hp, $attack, $defense, $sp_attack, $sp_defense,
 
 
 function editarPokemon($conexao, $national, $nome, $gen) {
+    $sql = "UPDATE pokemon SET national=?, nome=?, gen=? WHERE idpokemon=?";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_bind_param($comando, 'isii', $national, $nome, $gen, $id);
+    $funcionou = mysqli_stmt_execute($comando);
+
+    mysqli_stmt_close($comando);
+    return $funcionou; 
 
 }
 
