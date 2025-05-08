@@ -78,6 +78,19 @@ function editarPokemon($conexao, $national, $nome, $gen) {
 
 
 function listarPokemon($conexao) {
+    $sql = "SELECT * FROM pokemon";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_execute($comando);
+    $resultados = mysqli_stmt_get_result($comando);
+    
+    $lista_pokemon = [];
+    while ($pokemon = mysqli_fetch_assoc($resultados)) {
+        $lista_pokemon[] = $pokemon;
+    }
+    mysqli_stmt_close($comando);
+
+    return $lista_pokemon;
 
 }
 
