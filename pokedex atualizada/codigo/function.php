@@ -1,10 +1,10 @@
 <?php
     function criarUsuario($conexao, $email, $senha, ) {
         $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO usuario (email, senha, nome_perfil, pokemon_fav) VALUES (?, ?, ? ,?)";
+        $sql = "INSERT INTO usuario (email, senha) VALUES (?, ?)";
         $comando = mysqli_prepare($conexao, $sql);
 
-        mysqli_stmt_bind_param($comando, 'ssss', $email, $senha_hash, $nome_perfil, $pokemon_fav);
+        mysqli_stmt_bind_param($comando, 'ss', $email, $senha_hash);
 
         $funcionou = mysqli_stmt_execute($comando);
         mysqli_stmt_close($comando);
