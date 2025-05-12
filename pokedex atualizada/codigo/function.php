@@ -96,7 +96,7 @@ function listarPokemon($conexao) {
 
 
 
-function pesquisarPokemon($conexao, $idpokemon) {
+function pesquisarPokemonId($conexao, $idpokemon) {
     $sql = "SELECT * FROM pokemon WHERE idpokemon = ?";
     $comando = mysqli_prepare($conexao, $sql);
 
@@ -114,41 +114,45 @@ function pesquisarPokemon($conexao, $idpokemon) {
 
 #=================================================================================================================
 
-function criarBuild($conexao, $nome) 
-    $sql = "INSERT INTO tb_build (idusuario, idperfil, idstats, idPokemon) VALUES (?, ?, ?, ?)";
+function criarBuild($conexao, $nome, $idpokemon) 
+    $sql = "INSERT INTO build (nome, idpokemon) VALUES (?, ?)";
     $comando = mysqli_prepare($conexao, $sql);
     
     mysqli_stmt_bind_param($comando);
-    $Feito! = mysqli_stmt_execute($comando);
+    $Feito = mysqli_stmt_execute($comando);
 
     mysqli_stmt_close($comando);
-    return $Feito!;    
+    return $Feito;    
 
 
 
 function editarBuild($conexao, $nome, $id) {
+    $sql = "UPDATE build SET nome=?, idpokemon=? WHERE idbuild=?";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_bind_param($comando, 'sii', $nome, $pokemon_idpokemon, $id);
+    $funcionou = mysqli_stmt_execute($comando);
 
+    mysqli_stmt_close($comando);
+    return $funcionou;    
 }
 
 
 
 function listarBuild($conexao) {
-    $sql = "SELECT * FROM tb_build";
+    $sql = "SELECT * FROM build";
     $comando = mysqli_prepare($conexao, $sql);
     
     mysqli_stmt_execute($comando);
     $resultados = mysqli_stmt_get_result($comando);
     
     while ($venda = mysqli_fetch_assoc($)) 
-        $idcliente = $venda['idusuario'];
-        $cliente = pesquisarClienteid($conexao, $idcliente);
-        $venda['nomeusuario'] = $cliente['nome'];
+        $pokemon_idpokemon = $bd['pokemon_idpokemon'];
+        $pokemon = pesquisarPokemonId($conexao, $idpokemon);
+        $bd['nomepokemon'] = $pokemon['nome'];
+
         
-        $idproduto = $venda['id'];
-        $produto = pesquisarPokemonid($conexao, $idproduto);
-        $venda['nome'] = $produto['nome'];
-        
-        $lista_venda[] = $venda;
+        $lista_bd[] = $bd;
 }
 
 
