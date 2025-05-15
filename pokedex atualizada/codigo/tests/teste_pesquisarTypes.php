@@ -3,9 +3,9 @@
 require_once "../conexao.php";
 require_once "../function.php";
 
-$idpokemon = 152;
+$nome = "Fogo";
 
 echo "<pre>";
-print_r(pesquisarTipos($conexao, $idpokemon));
+print_r(pesquisarTipos($conexao, $nome));
 echo "</pre>";
 ?>
