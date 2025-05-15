@@ -1,6 +1,6 @@
 <?php
     require_once "../conexao.php";
-    require_once "../funcoes.php";
+    require_once "../function.php";
 
     $nome = "oi";
     $pokemon_fav = "ola";

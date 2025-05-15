@@ -14,9 +14,17 @@
 
 
 
-function editarUsuario($conexao, $email, $senha, $id) {
-
-}
+    function editarUsuario($conexao, $email, $senha, $id) {
+        $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
+        $sql = "UPDATE usuario SET email=?, senha=? WHERE id=?";
+        $comando = mysqli_prepare($conexao, $sql);
+    
+        mysqli_stmt_bind_param($comando, 'ssi', $email, $senha_hash, $id);
+        $funcionou = mysqli_stmt_execute($comando);
+    
+        mysqli_stmt_close($comando);
+        return $funcionou;
+    }
 
 
 
@@ -121,7 +129,7 @@ function pesquisarPokemonId($conexao, $idpokemon) {
 
 #=================================================================================================================
 
-function criarBuild($conexao, $nome, $idpokemon) 
+function criarBuild($conexao, $nome, $idpokemon) {
     $sql = "INSERT INTO build (nome, idpokemon) VALUES (?, ?)";
     $comando = mysqli_prepare($conexao, $sql);
     
@@ -131,36 +139,40 @@ function criarBuild($conexao, $nome, $idpokemon)
     mysqli_stmt_close($comando);
     return $Feito;    
 
+}
 
-
-function editarBuild($conexao, $nome, $id) {
+function editarBuild($conexao, $nome, $id, $idpokemon) {
     $sql = "UPDATE build SET nome=?, idpokemon=? WHERE idbuild=?";
     $comando = mysqli_prepare($conexao, $sql);
-    
-    mysqli_stmt_bind_param($comando, 'sii', $nome, $pokemon_idpokemon, $id);
+
+    mysqli_stmt_bind_param($comando, 'sii', $nome, $idpokemon, $id); // Corrigido o bind_param
     $funcionou = mysqli_stmt_execute($comando);
 
     mysqli_stmt_close($comando);
-    return $funcionou;    
+    return $funcionou;
 }
-
 
 
 function listarBuild($conexao) {
     $sql = "SELECT * FROM build";
     $comando = mysqli_prepare($conexao, $sql);
-    
+
     mysqli_stmt_execute($comando);
     $resultados = mysqli_stmt_get_result($comando);
-    
-    while ($venda = mysqli_fetch_assoc($)) 
-        $pokemon_idpokemon = $bd['pokemon_idpokemon'];
-        $pokemon = pesquisarPokemonId($conexao, $idpokemon);
+
+    $lista_bd = [];  // Inicializando a lista de builds
+    while ($bd = mysqli_fetch_assoc($resultados)) {
+        $pokemon_idpokemon = $bd['idpokemon'];
+        $pokemon = pesquisarPokemonId($conexao, $pokemon_idpokemon);
         $bd['nomepokemon'] = $pokemon['nome'];
 
-        
         $lista_bd[] = $bd;
+    }
+
+    mysqli_stmt_close($comando);
+    return $lista_bd;  // Retornando a lista
 }
+
 
 
 #=================================================================================================================
@@ -176,9 +188,6 @@ function pesquisarTipos($conexao, $idtypes) {
 function criaSugestao_reclamacao($conexao, $reclamacao, $sugestao) {
     
 }
-
-function PesquisarBuild($conexao, $nome, $id) 
-
 
 
 ?>
