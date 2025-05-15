@@ -7,5 +7,5 @@
     $descricao = "gg";
     $idusuario = "2";
 
-    salvarVenda($conexao,$nome, $pokemon_fav, $descricao, $idusuario);
+criarPerfil($conexao,$nome, $pokemon_fav, $descricao, $idusuario);
 ?>
