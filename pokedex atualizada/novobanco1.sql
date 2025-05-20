@@ -485,4 +485,5 @@ INSERT INTO stats (hp, attack, defense, sp_attack, sp_defense, speed, idpokemon)
 (100, 100, 100, 100, 100, 100, 147), -- Dragonair
 (91, 134, 95, 100, 100, 80, 148),   -- Dragonite
 (106, 110, 90, 154, 90, 130, 149),  -- Mewtwo
-(100, 100, 100, 100, 100, 100, 150); -- Mew
+(100, 100, 100, 100, 100, 100, 150),-- Mew
+(91, 134, 95, 100, 100, 80, 144);
