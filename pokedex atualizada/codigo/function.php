@@ -67,12 +67,28 @@ function criarPokemon ($conexao, $national, $nome, $gen) {
 
 
 function criarStats ($conexao, $hp, $attack, $defense, $sp_attack, $sp_defense, $speed){
-
+    $sql = "INSERT INTO stats (hp, attack, defense, sp_attack, sp_defense, speed) VALUES (?, ?, ?, ?, ?, ?)";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_bind_param($comando, 'iiiiii', $hp, $attack, $defense, $sp_attack, $sp_defense, $speed);
+    
+    $funcionou = mysqli_stmt_execute($comando);
+    mysqli_stmt_close($comando);
+    
+    return $funcionou;
 }
 
 
 
 function editarStats ($conexao, $hp, $attack, $defense, $sp_attack, $sp_defense, $speed) {
+    $sql = "UPDATE stats SET hp=?, attack=?, defense=?, sp_attack=?, sp_defense=?, speed=? WHERE idstats=?";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_bind_param($comando, 'iiiiiii', $hp, $attack, $defense, $sp_attack, $sp_defense, $speed, $id);
+    $funcionou = mysqli_stmt_execute($comando);
+
+    mysqli_stmt_close($comando);
+    return $funcionou; 
 
 }
 
