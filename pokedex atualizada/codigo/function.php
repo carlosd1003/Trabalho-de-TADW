@@ -66,11 +66,11 @@ function criarPokemon ($conexao, $national, $nome, $gen) {
 
 
 
-function criarStats ($conexao, $hp, $attack, $defense, $sp_attack, $sp_defense, $speed){
-    $sql = "INSERT INTO stats (hp, attack, defense, sp_attack, sp_defense, speed) VALUES (?, ?, ?, ?, ?, ?)";
+function criarStats($conexao, $idpokemon, $hp, $attack, $defense, $sp_attack, $sp_defense, $speed) {
+    $sql = "INSERT INTO stats (idpokemon, hp, attack, defense, sp_attack, sp_defense, speed) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $comando = mysqli_prepare($conexao, $sql);
     
-    mysqli_stmt_bind_param($comando, 'iiiiii', $hp, $attack, $defense, $sp_attack, $sp_defense, $speed);
+    mysqli_stmt_bind_param($comando, 'iiiiiii', $idpokemon, $hp, $attack, $defense, $sp_attack, $sp_defense, $speed);
     
     $funcionou = mysqli_stmt_execute($comando);
     mysqli_stmt_close($comando);
@@ -79,8 +79,7 @@ function criarStats ($conexao, $hp, $attack, $defense, $sp_attack, $sp_defense, 
 }
 
 
-
-function editarStats ($conexao, $hp, $attack, $defense, $sp_attack, $sp_defense, $speed) {
+function editarStats ($conexao, $hp, $attack, $defense, $sp_attack, $sp_defense, $speed, $id) {
     $sql = "UPDATE stats SET hp=?, attack=?, defense=?, sp_attack=?, sp_defense=?, speed=? WHERE idstats=?";
     $comando = mysqli_prepare($conexao, $sql);
     
@@ -117,7 +116,7 @@ function listarStats ($conexao, ) {
 }
 
 
-function editarPokemon($conexao, $national, $nome, $gen) {
+function editarPokemon($conexao, $national, $nome, $gen, $id) {
     $sql = "UPDATE pokemon SET national=?, nome=?, gen=? WHERE idpokemon=?";
     $comando = mysqli_prepare($conexao, $sql);
     
