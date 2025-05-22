@@ -13,3 +13,5 @@ $codigo = 152;
 editarStats($conexao, $hp, $attack, $defense, $sp_attack, $sp_defense, $speed, $codigo);
 
 ?>
+
+

@@ -2,9 +2,9 @@
     require_once "../conexao.php";
     require_once "../function.php";
 
-    $national = "152";
+    $national = 152;
     $nome = "pikaraio";
-    $gen = "1";
+    $gen = 1;
 
     criarPokemon($conexao, $national, $nome, $gen);
 ?>
