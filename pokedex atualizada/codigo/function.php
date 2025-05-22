@@ -170,12 +170,13 @@ function pesquisarPokemonId($conexao, $idpokemon) {
 function criarBuild($conexao, $nome, $idpokemon) {
     $sql = "INSERT INTO build (nome, idpokemon) VALUES (?, ?)";
     $comando = mysqli_prepare($conexao, $sql);
-    
-    mysqli_stmt_bind_param($comando);
-    $Feito = mysqli_stmt_execute($comando);
 
+    mysqli_stmt_bind_param($comando, 'si', $nome, $idpokemon);
+
+    $funcionou = mysqli_stmt_execute($comando);
     mysqli_stmt_close($comando);
-    return $Feito;    
+
+    return $funcionou;
 
 }
 
@@ -183,7 +184,7 @@ function editarBuild($conexao, $nome, $id, $idpokemon) {
     $sql = "UPDATE build SET nome=?, idpokemon=? WHERE idbuild=?";
     $comando = mysqli_prepare($conexao, $sql);
 
-    mysqli_stmt_bind_param($comando, 'sii', $nome, $idpokemon, $id); // Corrigido o bind_param
+    mysqli_stmt_bind_param($comando, 'sii', $nome, $idpokemon, $id); 
     $funcionou = mysqli_stmt_execute($comando);
 
     mysqli_stmt_close($comando);
