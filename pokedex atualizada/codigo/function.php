@@ -199,17 +199,17 @@ function listarBuild($conexao) {
     mysqli_stmt_execute($comando);
     $resultados = mysqli_stmt_get_result($comando);
 
-    $lista_bd = [];
-    while ($bd = mysqli_fetch_assoc($resultados)) {
-        $pokemon_idpokemon = $bd['idpokemon'];
-        $pokemon = pesquisarPokemonId($conexao, $pokemon_idpokemon);
-        $bd['nomepokemon'] = $pokemon['nome'];
+    $lista_build = [];
+    while ($build = mysqli_fetch_assoc($resultados)) {
+        $idpokemon = $build['idpokemon'];
+        $pokemon = pesquisarPokemonId($conexao, $idpokemon);
+        $build['NomeDoPokemon'] = $pokemon['nome'];
 
-        $lista_bd[] = $bd;
+        $lista_build[] = $build;
     }
 
     mysqli_stmt_close($comando);
-    return $lista_bd;
+    return $lista_build;
 }
 
 
