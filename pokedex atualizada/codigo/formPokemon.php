@@ -81,7 +81,7 @@ $resultTypes = mysqli_query($conexao, $sqlAllTypes);
         </select><br><br>
 
         <?php
-        // Resetando o ponteiro do resultTypes para o segundo select
+        // Resetando o ponteiro do resultTypes para reutilizar no segundo select
         mysqli_data_seek($resultTypes, 0);
         ?>
 
@@ -118,6 +118,6 @@ $resultTypes = mysqli_query($conexao, $sqlAllTypes);
         <input type="submit" value="<?php echo $botao; ?>">
     </form>
 
-    <br><a href="listaPokemon.php">Voltar para Lista</a>
+    <br><a href="listarPokemon.php">Voltar para Lista</a>
 </body>
 </html>

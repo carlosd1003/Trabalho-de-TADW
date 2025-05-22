@@ -1,54 +1,78 @@
 <?php
 require_once "conexao.php";
 
-// Pegando os dados
 $id = $_GET['id'] ?? 0;
 
-$national = $_POST['national'] ?? '';
-$nome = $_POST['nome'] ?? '';
-$gen = $_POST['gen'] ?? '';
+// Dados do formulário
+$national = $_POST['national'];
+$nome = $_POST['nome'];
+$gen = $_POST['gen'];
 
-$tipo1 = $_POST['tipo1'] ?? null;
+$tipo1 = $_POST['tipo1'];
 $tipo2 = $_POST['tipo2'] ?? null;
 
-$hp = $_POST['hp'] ?? 0;
-$attack = $_POST['attack'] ?? 0;
-$defense = $_POST['defense'] ?? 0;
-$sp_attack = $_POST['sp_attack'] ?? 0;
-$sp_defense = $_POST['sp_defense'] ?? 0;
-$speed = $_POST['speed'] ?? 0;
+$hp = $_POST['hp'];
+$attack = $_POST['attack'];
+$defense = $_POST['defense'];
+$sp_attack = $_POST['sp_attack'];
+$sp_defense = $_POST['sp_defense'];
+$speed = $_POST['speed'];
 
-// Verifica se os campos obrigatórios estão preenchidos
-if (empty($national) || empty($nome) || empty($gen) || empty($tipo1)) {
-    die("Preencha todos os campos obrigatórios.");
-}
-
+// Se for cadastro (id == 0)
 if ($id == 0) {
-    // INSERT na tabela pokemon
-    $sql = "INSERT INTO pokemon (national, nome, gen) VALUES ($national, '$nome', $gen)";
+    // Inserir Pokémon
+    $sql = "INSERT INTO pokemon (national, nome, gen) VALUES ('$national', '$nome', '$gen')";
     mysqli_query($conexao, $sql);
-    $idpokemon = mysqli_insert_id($conexao);
+
+    // Pega o último ID inserido
+    $id = mysqli_insert_id($conexao);
+
+    // Inserir stats
+    $sqlStats = "INSERT INTO stats (idpokemon, hp, attack, defense, sp_attack, sp_defense, speed) 
+                 VALUES ('$id', '$hp', '$attack', '$defense', '$sp_attack', '$sp_defense', '$speed')";
+    mysqli_query($conexao, $sqlStats);
+
+    // Inserir tipos
+    if (!empty($tipo1)) {
+        mysqli_query($conexao, "INSERT INTO pokemon_has_types (idpokemon, idtypes) VALUES ('$id', '$tipo1')");
+    }
+    if (!empty($tipo2)) {
+        mysqli_query($conexao, "INSERT INTO pokemon_has_types (idpokemon, idtypes) VALUES ('$id', '$tipo2')");
+    }
+
 } else {
-    // UPDATE na tabela pokemon
-    $sql = "UPDATE pokemon SET national = $national, nome = '$nome', gen = $gen WHERE idpokemon = $id";
+    // Atualizar Pokémon
+    $sql = "UPDATE pokemon SET national='$national', nome='$nome', gen='$gen' WHERE idpokemon = $id";
     mysqli_query($conexao, $sql);
-    $idpokemon = $id;
 
-    // Limpa tipos antigos e stats antigos
-    mysqli_query($conexao, "DELETE FROM pokemon_has_types WHERE idpokemon = $idpokemon");
-    mysqli_query($conexao, "DELETE FROM stats WHERE idpokemon = $idpokemon");
+    // Verifica se já existe stats
+    $sqlCheckStats = "SELECT * FROM stats WHERE idpokemon = $id";
+    $resultStats = mysqli_query($conexao, $sqlCheckStats);
+
+    if (mysqli_num_rows($resultStats) > 0) {
+        // Atualizar stats
+        $sqlStats = "UPDATE stats 
+                     SET hp='$hp', attack='$attack', defense='$defense', sp_attack='$sp_attack', sp_defense='$sp_defense', speed='$speed' 
+                     WHERE idpokemon = $id";
+    } else {
+        // Inserir stats
+        $sqlStats = "INSERT INTO stats (idpokemon, hp, attack, defense, sp_attack, sp_defense, speed) 
+                     VALUES ('$id', '$hp', '$attack', '$defense', '$sp_attack', '$sp_defense', '$speed')";
+    }
+    mysqli_query($conexao, $sqlStats);
+
+    // Remover tipos antigos
+    mysqli_query($conexao, "DELETE FROM pokemon_has_types WHERE idpokemon = $id");
+
+    // Inserir novos tipos
+    if (!empty($tipo1)) {
+        mysqli_query($conexao, "INSERT INTO pokemon_has_types (idpokemon, idtypes) VALUES ('$id', '$tipo1')");
+    }
+    if (!empty($tipo2)) {
+        mysqli_query($conexao, "INSERT INTO pokemon_has_types (idpokemon, idtypes) VALUES ('$id', '$tipo2')");
+    }
 }
 
-// Inserir tipos
-mysqli_query($conexao, "INSERT INTO pokemon_has_types (idpokemon, idtypes) VALUES ($idpokemon, $tipo1)");
-if (!empty($tipo2)) {
-    mysqli_query($conexao, "INSERT INTO pokemon_has_types (idpokemon, idtypes) VALUES ($idpokemon, $tipo2)");
-}
-
-// Inserir stats
-$sqlStats = "INSERT INTO stats (hp, attack, defense, sp_attack, sp_defense, speed, idpokemon) 
-VALUES ($hp, $attack, $defense, $sp_attack, $sp_defense, $speed, $idpokemon)";
-mysqli_query($conexao, $sqlStats);
-
-echo "Pokémon salvo com sucesso! <a href='cadastroPokemon.php'>Cadastrar outro</a>";
+header("Location: listarPokemon.php");
+exit;
 ?>

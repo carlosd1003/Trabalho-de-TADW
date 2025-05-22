@@ -233,6 +233,21 @@ function pesquisarTipos($conexao, $nome) {
 
 }
 
+function listarTipos($conexao) {
+    $sql = "SELECT * FROM types ORDER BY idtypes";
+
+    $comando = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_execute($comando);
+    $resultados = mysqli_stmt_get_result($comando);
+
+    $lista_tipos = [];
+    while ($tipo = mysqli_fetch_assoc($resultados)) {
+        $lista_tipos[] = $tipo;
+    }
+
+    mysqli_stmt_close($comando);
+    return $lista_tipos;
+}
 
 
 #=================================================================================================================
