@@ -180,7 +180,7 @@ function criarBuild($conexao, $nome, $idpokemon) {
 
 }
 
-function editarBuild($conexao, $nome, $id, $idpokemon) {
+function editarBuild($conexao, $nome, $idpokemon, $id) {
     $sql = "UPDATE build SET nome=?, idpokemon=? WHERE idbuild=?";
     $comando = mysqli_prepare($conexao, $sql);
 
