@@ -180,7 +180,7 @@ function criarBuild($conexao, $nome, $idpokemon) {
 
 }
 
-function editarBuild($conexao, $nome, $id, $idpokemon) {
+function editarBuild($conexao, $nome, $idpokemon, $id) {
     $sql = "UPDATE build SET nome=?, idpokemon=? WHERE idbuild=?";
     $comando = mysqli_prepare($conexao, $sql);
 
@@ -216,7 +216,7 @@ function listarBuild($conexao) {
 
 #=================================================================================================================
 
-function pesquisarTipos($conexao, $nome) {
+function pesquisarTypes($conexao, $nome) {
     $sql = "SELECT * FROM types WHERE nome = ?";
     $comando = mysqli_prepare($conexao, $sql);
 
@@ -230,6 +230,24 @@ function pesquisarTipos($conexao, $nome) {
     mysqli_stmt_close($comando);
     return $types;
 
+
+}
+
+
+function listarTypes($conexao) {
+    $sql = "SELECT * FROM types";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_execute($comando);
+    $resultados = mysqli_stmt_get_result($comando);
+    
+    $lista_tipos = [];
+    while ($types = mysqli_fetch_assoc($resultados)) {
+        $lista_tipos[] = $types;
+    }
+    mysqli_stmt_close($comando);
+
+    return $lista_tipos;
 
 }
 
