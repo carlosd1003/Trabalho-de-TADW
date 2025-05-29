@@ -1,30 +1,27 @@
 <?php
-    function criarUsuario($conexao, $email, $senha, ) {
-        $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO usuario (email, senha) VALUES (?, ?)";
-        $comando = mysqli_prepare($conexao, $sql);
-
-        mysqli_stmt_bind_param($comando, 'ss', $email, $senha_hash);
-
-        $funcionou = mysqli_stmt_execute($comando);
-        mysqli_stmt_close($comando);
-
-        return $funcionou;
-    }
+function criarUsuario($conexao, $email, $senha, ) {
+    $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
+    $sql = "INSERT INTO usuario (email, senha) VALUES (?, ?)";
+    $comando = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param($comando, 'ss', $email, $senha_hash);
+    $funcionou = mysqli_stmt_execute($comando);
+    mysqli_stmt_close($comando);
+    return $funcionou;
+}
 
 
 
-    function editarUsuario($conexao, $email, $senha, $id) {
-        $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-        $sql = "UPDATE usuario SET email=?, senha=? WHERE id=?";
-        $comando = mysqli_prepare($conexao, $sql);
-    
-        mysqli_stmt_bind_param($comando, 'ssi', $email, $senha_hash, $id);
-        $funcionou = mysqli_stmt_execute($comando);
-    
-        mysqli_stmt_close($comando);
-        return $funcionou;
-    }
+function editarUsuario($conexao, $email, $senha, $idusuario) {
+    $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
+    $sql = "UPDATE usuario SET email=?, senha=? WHERE idusuario=?";
+    $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_bind_param($comando, 'ssi', $email, $senha_hash, $idusuario);
+    $funcionou = mysqli_stmt_execute($comando);
+
+    mysqli_stmt_close($comando);
+    return $funcionou;
+}
 
 
 
@@ -79,6 +76,7 @@ function criarStats($conexao, $idpokemon, $hp, $attack, $defense, $sp_attack, $s
 }
 
 
+
 function editarStats ($conexao, $hp, $attack, $defense, $sp_attack, $sp_defense, $speed, $id) {
     $sql = "UPDATE stats SET hp=?, attack=?, defense=?, sp_attack=?, sp_defense=?, speed=? WHERE idstats=?";
     $comando = mysqli_prepare($conexao, $sql);
@@ -90,7 +88,6 @@ function editarStats ($conexao, $hp, $attack, $defense, $sp_attack, $sp_defense,
     return $funcionou; 
 
 }
-
 
 
 
@@ -114,6 +111,7 @@ function listarStats ($conexao, ) {
 
     return $lista_st;
 }
+
 
 
 function editarPokemon($conexao, $national, $nome, $gen, $id) {
@@ -192,6 +190,7 @@ function editarBuild($conexao, $nome, $idpokemon, $id) {
 }
 
 
+
 function listarBuild($conexao) {
     $sql = "SELECT * FROM build";
     $comando = mysqli_prepare($conexao, $sql);
@@ -216,7 +215,7 @@ function listarBuild($conexao) {
 
 #=================================================================================================================
 
-function pesquisarTipos($conexao, $nome) {
+function pesquisarTypes($conexao, $nome) {
     $sql = "SELECT * FROM types WHERE nome = ?";
     $comando = mysqli_prepare($conexao, $sql);
 
@@ -248,6 +247,25 @@ function listarTipos($conexao) {
     mysqli_stmt_close($comando);
     return $lista_tipos;
 }
+
+
+function listarTypes($conexao) {
+    $sql = "SELECT * FROM types";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_execute($comando);
+    $resultados = mysqli_stmt_get_result($comando);
+    
+    $lista_tipos = [];
+    while ($types = mysqli_fetch_assoc($resultados)) {
+        $lista_tipos[] = $types;
+    }
+    mysqli_stmt_close($comando);
+
+    return $lista_tipos;
+
+}
+
 
 
 #=================================================================================================================
