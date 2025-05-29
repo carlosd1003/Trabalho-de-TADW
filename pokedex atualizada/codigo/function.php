@@ -28,7 +28,7 @@ function editarUsuario($conexao, $email, $senha, $idusuario) {
 #=================================================================================================================
 
 function criarPerfil($conexao, $nome, $pokemon_fav, $descricao, $idusuario) {
-    $sql = "INSERT INTO perfil (nome, pokemon_fav, descricao, idusuario) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO perfil (nome, pokemon_fav, descricao, idusuario) VALUES (?, ?, ?, ?)";
     $comando = mysqli_prepare ($conexao, $sql);
 
     mysqli_stmt_bind_param($comando, 'sssi', $nome, $pokemon_fav, $descricao, $idusuario);
