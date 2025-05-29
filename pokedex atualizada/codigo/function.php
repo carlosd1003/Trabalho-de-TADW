@@ -11,12 +11,12 @@ function criarUsuario($conexao, $email, $senha, ) {
 
 
 
-function editarUsuario($conexao, $email, $senha, $idusuario) {
+function editarUsuario($conexao, $email, $senha, $id) {
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-    $sql = "UPDATE usuario SET email=?, senha=? WHERE idusuario=?";
+    $sql = "UPDATE usuario SET email=?, senha=? WHERE id=?";
     $comando = mysqli_prepare($conexao, $sql);
 
-    mysqli_stmt_bind_param($comando, 'ssi', $email, $senha_hash, $idusuario);
+    mysqli_stmt_bind_param($comando, 'ssi', $email, $senha_hash, $id);
     $funcionou = mysqli_stmt_execute($comando);
 
     mysqli_stmt_close($comando);
@@ -40,12 +40,16 @@ function criarPerfil($conexao, $nome, $pokemon_fav, $descricao, $idusuario) {
 
 
 
-function editarPerfil($conexao, $nome_perfil, $pokemon_fav, $descricao, $id) {
-
-}
-
-
-
+function editarPerfil($conexao, $nome, $pokemon_fav, $descricao, $idusuario, $id) {
+        $sql = "UPDATE perfil SET nome=?, pokemon_fav=?, descricao=?, idusuario=? WHERE id=?";
+        $comando = mysqli_prepare($conexao, $sql);
+    
+        mysqli_stmt_bind_param($comando, 'sssii', $nome, $pokemnon_fav, $descricao, $idusuario, $id);
+        $funcionou = mysqli_stmt_execute($comando);
+    
+        mysqli_stmt_close($comando);
+        return $funcionou;
+    }
 #=================================================================================================================
 
 function criarPokemon ($conexao, $national, $nome, $gen) {
@@ -231,23 +235,6 @@ function pesquisarTypes($conexao, $nome) {
 
 
 }
-
-function listarTipos($conexao) {
-    $sql = "SELECT * FROM types ORDER BY idtypes";
-
-    $comando = mysqli_prepare($conexao, $sql);
-    mysqli_stmt_execute($comando);
-    $resultados = mysqli_stmt_get_result($comando);
-
-    $lista_tipos = [];
-    while ($tipo = mysqli_fetch_assoc($resultados)) {
-        $lista_tipos[] = $tipo;
-    }
-
-    mysqli_stmt_close($comando);
-    return $lista_tipos;
-}
-
 
 function listarTypes($conexao) {
     $sql = "SELECT * FROM types";

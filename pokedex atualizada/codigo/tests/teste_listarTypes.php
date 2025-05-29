@@ -5,7 +5,7 @@ require_once "../function.php";
 
 echo "<pre>";
 
-print_r(listarTipos($conexao));
+print_r(listarTypes($conexao));
 
 echo "</pre>";
 ?>
