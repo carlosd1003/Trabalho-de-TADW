@@ -11,12 +11,12 @@ function criarUsuario($conexao, $email, $senha, ) {
 
 
 
-function editarUsuario($conexao, $email, $senha, $id) {
+function editarUsuario($conexao, $email, $senha, $idusuario) {
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-    $sql = "UPDATE usuario SET email=?, senha=? WHERE id=?";
+    $sql = "UPDATE usuario SET email=?, senha=? WHERE idusuario=?";
     $comando = mysqli_prepare($conexao, $sql);
 
-    mysqli_stmt_bind_param($comando, 'ssi', $email, $senha_hash, $id);
+    mysqli_stmt_bind_param($comando, 'ssi', $email, $senha_hash, $idusuario);
     $funcionou = mysqli_stmt_execute($comando);
 
     mysqli_stmt_close($comando);
@@ -257,9 +257,16 @@ function listarTypes($conexao) {
 
 #=================================================================================================================
 
-function criaSugestao_reclamacao($conexao, $reclamacao, $sugestao) {
+function criaSugestao_reclamacao($conexao, $reclamacao, $sugestao, $idusuario) {
+        $sql = "INSERT INTO suporte (reclamacao, sugestao, idusuario) VALUES (?, ?, ?)";
+        $comando = mysqli_prepare($conexao, $sql);
     
-}
-
-
+        mysqli_stmt_bind_param($comando, 'ssi', $reclamacao, $sugestao, $idusuario);
+    
+        $funcionou = mysqli_stmt_execute($comando);
+        mysqli_stmt_close($comando);
+    
+        return $funcionou;
+    
+    }
 ?>

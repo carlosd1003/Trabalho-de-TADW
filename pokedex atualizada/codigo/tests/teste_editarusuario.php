@@ -2,9 +2,9 @@
 require_once "../conexao.php";
 require_once "../function.php";
 
-$email= 'joaopedro';
+$email= 'andrepedro';
 $senha = 2222;
-$id = 1;
+$id = 7;
 
 editarUsuario($conexao,$email,$senha,$id);
 ?>
