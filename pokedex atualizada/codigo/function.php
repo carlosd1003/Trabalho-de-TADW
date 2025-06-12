@@ -270,4 +270,45 @@ function criaSugestao_reclamacao($conexao, $reclamacao, $sugestao, $idusuario) {
     
     }
 
+function criarTreinador($conexao, $nome, $idade, $genero, $cidade, $regiao, $time_atual, $data_cadastro, $idpokemon) {
+    $sql = "INSERT INTO treinador (nome, idade, genero, cidade, regiao, time_atual, data_cadastro, idpokemon) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+    $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_bind_param($comando, 'sisssssi', $nome, $idade, $genero, $cidade, $regiao, $time_atual, $data_cadastro, $idpokemon);
+
+    $funcionou = mysqli_stmt_execute($comando);
+    mysqli_stmt_close($comando);
+
+    return $funcionou;
+
+}
+
+function editarTreinador($conexao, $nome, $idade, $genero, $cidade, $regiao, $time_atual, $data_cadastro, $idpokemon, $id) {
+     $sql = "UPDATE treinador SET nome=?, idade=?, genero=?, cidade=?, regiao=?, time_atual=?, data_cadastro=?, idpokemon=? WHERE idpokemon=?";
+    $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_bind_param($comando, 'sisssssii', $nome, $idade, $genero, $cidade, $regiao, $time_atual, $data_cadastro, $idpokemon, $id);
+    $funcionou = mysqli_stmt_execute($comando);
+
+    mysqli_stmt_close($comando);
+    return $funcionou;
+}
+
+function listarTreinador($conexao) {
+    $sql = "SELECT * FROM treinador";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_execute($comando);
+    $resultados = mysqli_stmt_get_result($comando);
+    
+    $lista_tipos = [];
+    while ($treinador = mysqli_fetch_assoc($resultados)) {
+        $lista_tipos[] = $treinador;
+    }
+    mysqli_stmt_close($comando);
+
+    return $lista_tipos;
+
+}
 ?>
