@@ -2,6 +2,6 @@
 $servidor = 'db';
 $usuario = 'root';
 $password = '123';
-$banco = 'mydb';
+$banco = 'banco_pokemon';
 
 $conexao = mysqli_connect($servidor, $usuario, $password, $banco);
