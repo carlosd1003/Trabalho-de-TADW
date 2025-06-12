@@ -1,9 +1,9 @@
 <?php
-function criarUsuario($conexao, $email, $senha, ) {
+function criarUsuario($conexao, $email, $senha, $tipo ) {
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-    $sql = "INSERT INTO usuario (email, senha) VALUES (?, ?)";
+    $sql = "INSERT INTO usuario (email, senha, $tipo) VALUES (?, ?, ?)";
     $comando = mysqli_prepare($conexao, $sql);
-    mysqli_stmt_bind_param($comando, 'ss', $email, $senha_hash);
+    mysqli_stmt_bind_param($comando, 'ss', $email, $senha_hash, 'c');
     $funcionou = mysqli_stmt_execute($comando);
     mysqli_stmt_close($comando);
     return $funcionou;
@@ -269,4 +269,5 @@ function criaSugestao_reclamacao($conexao, $reclamacao, $sugestao, $idusuario) {
         return $funcionou;
     
     }
+
 ?>
