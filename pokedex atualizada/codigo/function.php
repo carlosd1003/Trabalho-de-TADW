@@ -1,15 +1,13 @@
 <?php
-function criarUsuario($conexao, $email, $senha, $tipo ) {
+function criarUsuario($conexao, $email, $senha, $Tipo ) {
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-    $sql = "INSERT INTO usuario (email, senha, $tipo) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO usuario (email, senha, Tipo) VALUES (?, ?, ?)";
     $comando = mysqli_prepare($conexao, $sql);
-    mysqli_stmt_bind_param($comando, 'ss', $email, $senha_hash, 'c');
+    mysqli_stmt_bind_param($comando, 'sss', $email, $senha_hash, $Tipo);
     $funcionou = mysqli_stmt_execute($comando);
     mysqli_stmt_close($comando);
     return $funcionou;
 }
-
-
 
 function editarUsuario($conexao, $email, $senha, $idusuario) {
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
@@ -22,8 +20,6 @@ function editarUsuario($conexao, $email, $senha, $idusuario) {
     mysqli_stmt_close($comando);
     return $funcionou;
 }
-
-
 
 #=================================================================================================================
 
@@ -116,7 +112,17 @@ function listarStats ($conexao, ) {
     return $lista_st;
 }
 
+function deletarStats($conexao, $idstats) {
+    $sql = "DELETE FROM stats WHERE idstats = ?";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_bind_param($comando, 'i', $idstats);
 
+    $funcionou = mysqli_stmt_execute($comando);
+    mysqli_stmt_close($comando);
+    
+    return $funcionou;
+}
 
 function editarPokemon($conexao, $national, $nome, $gen, $id) {
     $sql = "UPDATE pokemon SET national=?, nome=?, gen=? WHERE idpokemon=?";
@@ -167,6 +173,18 @@ function pesquisarPokemonId($conexao, $idpokemon) {
 
 }
 
+function deletarPokemon($conexao, $idpokemon) {
+    $sql = "DELETE FROM pokemon WHERE idpokemon = ?";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_bind_param($comando, 'i', $idpokemon);
+
+    $funcionou = mysqli_stmt_execute($comando);
+    mysqli_stmt_close($comando);
+    
+    return $funcionou;
+}
+
 #=================================================================================================================
 
 function criarBuild($conexao, $nome, $idpokemon) {
@@ -215,7 +233,17 @@ function listarBuild($conexao) {
     return $lista_build;
 }
 
+function deletarBuild($conexao, $idbuild) {
+    $sql = "DELETE FROM build WHERE idbuild = ?";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_bind_param($comando, 'i', $idbuild);
 
+    $funcionou = mysqli_stmt_execute($comando);
+    mysqli_stmt_close($comando);
+    
+    return $funcionou;
+}
 
 #=================================================================================================================
 
@@ -253,7 +281,17 @@ function listarTypes($conexao) {
 
 }
 
+function deletartypes($conexao, $idtypes) {
+    $sql = "DELETE FROM types WHERE idtypes = ?";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_bind_param($comando, 'i', $idtypes);
 
+    $funcionou = mysqli_stmt_execute($comando);
+    mysqli_stmt_close($comando);
+    
+    return $funcionou;
+}
 
 #=================================================================================================================
 
@@ -269,6 +307,35 @@ function criaSugestao_reclamacao($conexao, $reclamacao, $sugestao, $idusuario) {
         return $funcionou;
     
     }
+
+function listarSugestao_reclamacao($conexao) {
+        $sql = "SELECT * FROM suporte";
+        $comando = mysqli_prepare($conexao, $sql);
+        
+        mysqli_stmt_execute($comando);
+        $resultados = mysqli_stmt_get_result($comando);
+        
+        $lista_suporte = [];
+        while ($suporte = mysqli_fetch_assoc($resultados)) {
+            $lista_suporte[] = $suporte;
+        }
+        mysqli_stmt_close($comando);
+    
+        return $lista_suporte;
+    
+    }
+
+function deletarSugestao_reclamacao($conexao, $idsuporte) {
+        $sql = "DELETE FROM suporte WHERE idsuporte = ?";
+        $comando = mysqli_prepare($conexao, $sql);
+        
+        mysqli_stmt_bind_param($comando, 'i', $idsuporte);
+    
+        $funcionou = mysqli_stmt_execute($comando);
+        mysqli_stmt_close($comando);
+        
+        return $funcionou;
+}
 
 function criarTreinador($conexao, $nome, $idade, $genero, $cidade, $regiao, $time_atual, $data_cadastro, $idpokemon) {
     $sql = "INSERT INTO treinador (nome, idade, genero, cidade, regiao, time_atual, data_cadastro, idpokemon) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -302,13 +369,26 @@ function listarTreinador($conexao) {
     mysqli_stmt_execute($comando);
     $resultados = mysqli_stmt_get_result($comando);
     
-    $lista_tipos = [];
+    $lista_treinador = [];
     while ($treinador = mysqli_fetch_assoc($resultados)) {
-        $lista_tipos[] = $treinador;
+        $lista_treinador[] = $treinador;
     }
     mysqli_stmt_close($comando);
 
-    return $lista_tipos;
+    return $lista_treinador;
 
 }
+
+function deletarTreinador($conexao, $idtreinador) {
+    $sql = "DELETE FROM treinador WHERE idtreinador = ?";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_bind_param($comando, 'i', $idtreinador);
+
+    $funcionou = mysqli_stmt_execute($comando);
+    mysqli_stmt_close($comando);
+    
+    return $funcionou;
+}
+
 ?>
