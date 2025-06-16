@@ -3,9 +3,7 @@
 require_once "../conexao.php";
 require_once "../function.php";
 
-$nome = "Fogo";
-
 echo "<pre>";
-print_r(pesquisarTypes($conexao, $nome));
+print_r(listarSugestao_reclamacao($conexao));
 echo "</pre>";
 ?>
