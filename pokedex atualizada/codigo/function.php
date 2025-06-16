@@ -369,13 +369,13 @@ function listarTreinador($conexao) {
     mysqli_stmt_execute($comando);
     $resultados = mysqli_stmt_get_result($comando);
     
-    $lista_tipos = [];
+    $lista_treinador = [];
     while ($treinador = mysqli_fetch_assoc($resultados)) {
-        $lista_tipos[] = $treinador;
+        $lista_treinador[] = $treinador;
     }
     mysqli_stmt_close($comando);
 
-    return $lista_tipos;
+    return $lista_treinador;
 
 }
 
