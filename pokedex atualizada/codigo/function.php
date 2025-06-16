@@ -243,13 +243,13 @@ function listarTypes($conexao) {
     mysqli_stmt_execute($comando);
     $resultados = mysqli_stmt_get_result($comando);
     
-    $lista_tipos = [];
+    $lista_typos = [];
     while ($types = mysqli_fetch_assoc($resultados)) {
-        $lista_tipos[] = $types;
+        $lista_typos[] = $types;
     }
     mysqli_stmt_close($comando);
 
-    return $lista_tipos;
+    return $lista_typos;
 
 }
 

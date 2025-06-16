@@ -1,123 +1,69 @@
-<?php
-require_once "conexao.php";
-
-// Verificar se está editando
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    
-    $sql = "SELECT * FROM pokemon WHERE idpokemon = $id";
-    $result = mysqli_query($conexao, $sql);
-    $linha = mysqli_fetch_array($result);
-
-    $national = $linha['national'];
-    $nome = $linha['nome'];
-    $gen = $linha['gen'];
-
-    // Buscar stats
-    $sqlStats = "SELECT * FROM stats WHERE idpokemon = $id";
-    $resultStats = mysqli_query($conexao, $sqlStats);
-    $stats = mysqli_fetch_array($resultStats);
-
-    $hp = $stats['hp'] ?? 0;
-    $attack = $stats['attack'] ?? 0;
-    $defense = $stats['defense'] ?? 0;
-    $sp_attack = $stats['sp_attack'] ?? 0;
-    $sp_defense = $stats['sp_defense'] ?? 0;
-    $speed = $stats['speed'] ?? 0;
-
-    // Buscar tipos
-    $sqlTipos = "SELECT idtypes FROM pokemon_has_types WHERE idpokemon = $id";
-    $resultTipos = mysqli_query($conexao, $sqlTipos);
-    $tipos = [];
-    while ($linhaTipo = mysqli_fetch_array($resultTipos)) {
-        $tipos[] = $linhaTipo['idtypes'];
-    }
-
-    $botao = "Atualizar";
-} else {
-    $id = 0;
-    $national = "";
-    $nome = "";
-    $gen = "";
-    $hp = $attack = $defense = $sp_attack = $sp_defense = $speed = 0;
-    $tipos = [];
-
-    $botao = "Cadastrar";
-}
-
-// Buscar todos os tipos para o select
-$sqlAllTypes = "SELECT * FROM types";
-$resultTypes = mysqli_query($conexao, $sqlAllTypes);
-?>
-
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro de Pokémon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
-    <h1>Cadastro de Pokémon</h1>
+  <form method="POST" action="salvarPokemon.php">
+    <?php
+      require_once "./conexao.php";
+      require_once "./function.php";
+      echo "Pokemon:";
+      echo "<select name='idpokemon'>";
 
-    <form action="salvarPokemon.php?id=<?php echo $id; ?>" method="post">
-        <label>National:</label><br>
-        <input type="number" name="national" value="<?php echo $national; ?>"><br><br>
+      $criarpokemon = criarPokemon($conexao);
 
-        <label>Nome:</label><br>
-        <input type="text" name="nome" value="<?php echo $nome; ?>"><br><br>
+      foreach($criarpokemon as $pokemon) {
+      $idpokemon = $pokemon['idpokemon'];
+      $nome = $pokemon['nome'];
 
-        <label>Geração:</label><br>
-        <input type="number" name="gen" value="<?php echo $gen; ?>"><br><br>
+      echo "<option value = '$idpokemon'> $nome</option>";
+      }
+      echo "</select>";
 
-        <label>Tipo 1:</label><br>
-        <select name="tipo1" required>
-            <option value="">Selecione</option>
-            <?php while($row = mysqli_fetch_array($resultTypes)) { ?>
-                <option value="<?php echo $row['idtypes']; ?>" 
-                    <?php echo (isset($tipos[0]) && $tipos[0] == $row['idtypes']) ? 'selected' : ''; ?>>
-                    <?php echo $row['nome']; ?>
-                </option>
-            <?php } ?>
-        </select><br><br>
+    ?>
+<br> <br>
+    Hp: <br>
+    <input type="text" name="hp" value="<?php echo $hp;?>">
+<br> <br>
+    Attack: <br>
+      <input type="text" name="attack" value="<?php echo $attack;?>">
+<br> <br>
+    Defense: <br>
+    <input type="text" name="defense" value="<?php echo $defense;?>">
+<br> <br>
+    Special Attack: <br>
+    <input type="text" name="spattack" value="<?php echo $sp_attack;?>">
+<br> <br>
+    Special Defense: <br>
+    <input type="text" name="spdefense" value="<?php echo $sp_defense;?>">
+<br> <br>
+    Speed: <br>
+    <input type="text" name="speed" value="<?php echo $speed;?>">
+<br> <br>
 
-        <?php
-        // Resetando o ponteiro do resultTypes para reutilizar no segundo select
-        mysqli_data_seek($resultTypes, 0);
-        ?>
+<?php
+require_once "conexao.php";
+require_once "function.php";
 
-        <label>Tipo 2 (opcional):</label><br>
-        <select name="tipo2">
-            <option value="">Nenhum</option>
-            <?php while($row = mysqli_fetch_array($resultTypes)) { ?>
-                <option value="<?php echo $row['idtypes']; ?>" 
-                    <?php echo (isset($tipos[1]) && $tipos[1] == $row['idtypes']) ? 'selected' : ''; ?>>
-                    <?php echo $row['nome']; ?>
-                </option>
-            <?php } ?>
-        </select><br><br>
+$lista_types = listarTypes($conexao);
 
-        <h3>Stats</h3>
-        <label>HP:</label><br>
-        <input type="number" name="hp" value="<?php echo $hp; ?>"><br><br>
-
-        <label>Attack:</label><br>
-        <input type="number" name="attack" value="<?php echo $attack; ?>"><br><br>
-
-        <label>Defense:</label><br>
-        <input type="number" name="defense" value="<?php echo $defense; ?>"><br><br>
-
-        <label>Sp. Attack:</label><br>
-        <input type="number" name="sp_attack" value="<?php echo $sp_attack; ?>"><br><br>
-
-        <label>Sp. Defense:</label><br>
-        <input type="number" name="sp_defense" value="<?php echo $sp_defense; ?>"><br><br>
-
-        <label>Speed:</label><br>
-        <input type="number" name="speed" value="<?php echo $speed; ?>"><br><br>
-
-        <input type="submit" value="<?php echo $botao; ?>">
-    </form>
-
-    <br><a href="listarPokemon.php">Voltar para Lista</a>
+if (!empty($lista_types)) {
+    echo "<label>Tipo:</label><br>";
+    echo "<select name='produto[]'>";
+    foreach ($lista_types as $types) {
+        $nome = htmlspecialchars($types['nome']);
+        $id = (int)$types['idtypes'];
+        echo "<option value='$id'>$nome</option>";
+    }
+    echo "</select><br><br>";
+} else {
+    echo "Nenhum tipo encontrado.";
+}
+?>
+      <input type="submit" name="Comprar" value="comprar ">
+      </form>
 </body>
 </html>

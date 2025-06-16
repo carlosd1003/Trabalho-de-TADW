@@ -1,61 +1,59 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<?php
+require_once
+?>
 
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Pokémon</title>
+    <title>Lista de Pokémons</title>
 </head>
-
 <body>
-    <h1>Lista de Pokémon</h1>
+    <h2>Pokémons Cadastrados</h2>
 
-    <?php
-    require_once "conexao.php";
-    require_once "function.php"; // Corrija para o nome certo do seu arquivo de funções
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th>Geração</th>
+            <th>Tipos</th>
+            <th>HP</th>
+            <th>Ataque</th>
+            <th>Defesa</th>
+            <th>Sp. Atk</th>
+            <th>Sp. Def</th>
+            <th>Speed</th>
+        </tr>
 
-    $lista_pokemon = listarPokemon($conexao);
+        <?php while ($row = mysqli_fetch_assoc($result)) { 
+            // Buscar os tipos do Pokémon atual
+            $idpokemon = $row['idpokemon'];
+            $sql_tipos = "SELECT t.nome FROM pokemon_has_types pt
+                          JOIN types t ON pt.idtypes = t.idtypes
+                          WHERE pt.idpokemon = $idpokemon";
+            $tipos_result = mysqli_query($conexao, $sql_tipos);
 
-    if (count($lista_pokemon) == 0) {
-        echo "Não existem pokémons cadastrados.";
-    } else {
-    ?>
-        <table border="1">
-            <tr>
-                <th>ID</th>
-                <th>National</th>
-                <th>Nome</th>
-                <th>Geração</th>
-                <th>Tipos</th>
-                <th>Ações</th>
-            </tr>
-
-            <?php
-            foreach ($lista_pokemon as $pokemon) {
-                $idpokemon = $pokemon['idpokemon'];
-                $national = $pokemon['national'];
-                $nome = $pokemon['nome'];
-                $gen = $pokemon['gen'];
-                $tipos = $pokemon['tipos'];
-
-                echo "<tr>";
-                echo "<td>$idpokemon</td>";
-                echo "<td>$national</td>";
-                echo "<td>$nome</td>";
-                echo "<td>$gen</td>";
-                echo "<td>$tipos</td>";
-                echo "<td>
-                        <a href='formPokemon.php?id=$idpokemon'>Editar</a> | 
-                        <a href='deletarPokemon.php?id=$idpokemon' onclick=\"return confirm('Tem certeza que deseja excluir?');\">Excluir</a>
-                      </td>";
-                echo "</tr>";
+            $tipos = [];
+            while ($tipo = mysqli_fetch_assoc($tipos_result)) {
+                $tipos[] = $tipo['nome'];
             }
-            ?>
-        </table>
-    <?php
-    }
-    ?>
-
+            $tipos_str = implode(" / ", $tipos);
+        ?>
+        <tr>
+            <td><?= $row['national'] ?></td>
+            <td><?= $row['nome_pokemon'] ?></td>
+            <td><?= $row['gen'] ?></td>
+            <td><?= $tipos_str ?></td>
+            <td><?= $row['hp'] ?></td>
+            <td><?= $row['attack'] ?></td>
+            <td><?= $row['defense'] ?></td>
+            <td><?= $row['sp_attack'] ?></td>
+            <td><?= $row['sp_defense'] ?></td>
+            <td><?= $row['speed'] ?></td>
+        </tr>
+        <?php } ?>
+    </table>
 </body>
-
 </html>
+
+<?php mysqli_close($conexao); ?>
