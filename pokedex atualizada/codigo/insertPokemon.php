@@ -322,3 +322,87 @@ INSERT INTO stats (hp, attack, defense, sp_attack, sp_defense, speed, idpokemon)
 (106, 110, 90, 154, 90, 130, 149),  -- Mewtwo
 (100, 100, 100, 100, 100, 100, 150),-- Mew
 (91, 134, 95, 100, 100, 80, 144);
+
+INSERT INTO `banco_pokemon`.`usuario` (email, senha, Tipo) VALUES
+('ash.ketchum@poke.com', '$2y$10$U8FzMQRoRccurTVjo1f8kudM4Y6xC7dT64N4ZtXPB7toKRdmEimre', 'C'), -- pikachu123
+('misty.waterflower@poke.com', '$2y$10$R9hnJKqVvNVmZPccTFfR8ukfJQ8rgILYZUNIEc1ZB6O2Mk80OB7Qa', 'C'), -- misty456
+('brock.stone@poke.com', '$2y$10$BdTxDRn3btWG7XogI01hZeg3mUe7GJPw8GuI08PY1jN9wDYwFIFNu', 'C'), -- onix789
+('gary.oak@poke.com', '$2y$10$A/1jydkiEJTx1iUSz3kKzO8A3Kfv1MCTjcnCO3idLSkiMG71rTqKO', 'C'), -- rival321
+('serena.kalos@poke.com', '$2y$10$1O3tFK4hwFtMf53J/Vr41eQlvTtU0s2WbFMnkkz0ymNgcCAhP8u0K', 'C'), -- fennekin007
+('may.hoen@poke.com', '$2y$10$Uj1nh3X5ALMBDFQJXZ2I2.YsUaqrICqAcAmZ4PuCkeQ0MrgwDsGEK', 'C'), -- torchic321
+('dawn.sinnoh@poke.com', '$2y$10$R0N6cuvE1n2EqKGoCLXfFup6aOT2bZ.FV8eIVUlu11aVK.C8MfW1C', 'C'), -- piplup999
+('iris.unova@poke.com', '$2y$10$lyEerxNv6gUGkTIqQJmpH.hv0BeJ3sKMwSgWaLVVuUwMTLWBWIo02', 'C'); -- axew001
+
+INSERT INTO `banco_pokemon`.`suporte` (reclamacao, sugestao, idusuario) VALUES
+('Não consigo logar no app', NULL, 1),
+(NULL, 'Adicionar mais pokémons regionais', 2),
+('Aplicativo fecha inesperadamente', NULL, 3),
+(NULL, 'Melhorar o sistema de batalhas', 4),
+('Erro ao carregar perfil', NULL, 5),
+(NULL, 'Implementar modo escuro', 6),
+('Problema na atualização do jogo', NULL, 7),
+(NULL, 'Mais eventos semanais', 8),
+('Falta notificação de eventos', NULL, 1),
+(NULL, 'Adicionar chat entre jogadores', 2),
+('Muitos bugs no sistema de troca', NULL, 3),
+(NULL, 'Melhorar a interface mobile', 4),
+('Recompensas não são entregues', NULL, 5),
+(NULL, 'Suporte em português', 6),
+('Sistema de rank travando', NULL, 7),
+(NULL, 'Adicionar tutorial para iniciantes', 8),
+('Problemas ao conectar com o servidor', NULL, 1),
+(NULL, 'Mais desafios diários', 2),
+('Dificuldade em encontrar pokémons raros', NULL, 3),
+(NULL, 'Mais opções de personalização', 4);
+
+INSERT INTO `banco_pokemon`.`treinador` (nome, idade, genero, cidade, regiao, time_atual, data_cadastro, idpokemon) VALUES
+('Ash Ketchum', 10, 'Masculino', 'Pallet Town', 'Kanto', 'Pikachu, Bulbasaur, Charizard', '2023-06-01', 1),
+('Misty Waterflower', 12, 'Feminino', 'Cerulean City', 'Kanto', 'Starmie, Psyduck, Gyarados', '2023-06-02', 2),
+('Brock Stone', 15, 'Masculino', 'Pewter City', 'Kanto', 'Onix, Geodude, Vulpix', '2023-06-03', 3),
+('Gary Oak', 12, 'Masculino', 'Pallet Town', 'Kanto', 'Blastoise, Arcanine, Umbreon', '2023-06-04', 4),
+('Serena Kalos', 14, 'Feminino', 'Vaniville Town', 'Kalos', 'Fennekin, Sylveon, Gogoat', '2023-06-05', 5),
+('May Hoenn', 12, 'Feminino', 'Petalburg City', 'Hoenn', 'Torchic, Beautifly, Sableye', '2023-06-06', 6),
+('Dawn Sinnoh', 12, 'Feminino', 'Twinleaf Town', 'Sinnoh', 'Piplup, Pachirisu, Buneary', '2023-06-07', 7),
+('Iris Unova', 14, 'Feminino', 'Mistralton City', 'Unova', 'Axew, Druddigon, Excadrill', '2023-06-08', 8),
+('Cilan Unova', 14, 'Masculino', 'Striaton City', 'Unova', 'Pansear, Leavanny, Stoutland', '2023-06-09', 9),
+('Hilda Unova', 15, 'Feminino', 'Castelia City', 'Unova', 'Snivy, Audino, Mienshao', '2023-06-10', 10),
+('Red Kanto', 11, 'Masculino', 'Pallet Town', 'Kanto', 'Charizard, Snorlax, Gyarados', '2023-06-11', 11),
+('Blue Kanto', 12, 'Masculino', 'Pallet Town', 'Kanto', 'Venusaur, Pidgeot, Alakazam', '2023-06-12', 12),
+('Leaf Kanto', 11, 'Feminino', 'Pallet Town', 'Kanto', 'Meganium, Croconaw, Quilava', '2023-06-13', 13),
+('Cynthia Sinnoh', 19, 'Feminino', 'Veilstone City', 'Sinnoh', 'Garchomp, Spiritomb, Milotic', '2023-06-14', 14),
+('Steven Hoenn', 20, 'Masculino', 'Mauville City', 'Hoenn', 'Metagross, Aggron, Claydol', '2023-06-15', 15),
+('Wallace Hoenn', 25, 'Masculino', 'Sootopolis City', 'Hoenn', 'Milotic, Gyarados, Ludicolo', '2023-06-16', 16),
+('Barry Sinnoh', 12, 'Masculino', 'Twinleaf Town', 'Sinnoh', 'Infernape, Torterra, Staraptor', '2023-06-17', 17),
+('Elesa Unova', 22, 'Feminino', 'Nimbasa City', 'Unova', 'Emolga, Zebstrika, Galvantula', '2023-06-18', 18),
+('N Unova', 19, 'Masculino', 'Driftveil City', 'Unova', 'Zoroark, Hydreigon, Archeops', '2023-06-19', 19),
+('Ghetsis Unova', 40, 'Masculino', 'Undella Town', 'Unova', 'Hydreigon, Bisharp, Seismitoad', '2023-06-20', 20),
+('May Kanto', 15, 'Feminino', 'Viridian City', 'Kanto', 'Butterfree, Pidgeot, Tauros', '2023-06-21', 21),
+('Lance Johto', 27, 'Masculino', 'Blackthorn City', 'Johto', 'Dragonite, Gyarados, Aerodactyl', '2023-06-22', 22),
+('Whitney Johto', 23, 'Feminino', 'Goldenrod City', 'Johto', 'Miltank, Clefairy, Aipom', '2023-06-23', 23),
+('Kris Johto', 13, 'Feminino', 'New Bark Town', 'Johto', 'Cyndaquil, Totodile, Chikorita', '2023-06-24', 24),
+('Ethan Johto', 14, 'Masculino', 'New Bark Town', 'Johto', 'Feraligatr, Typhlosion, Meganium', '2023-06-25', 25),
+('Silver Johto', 15, 'Masculino', 'New Bark Town', 'Johto', 'Feraligatr, Houndoom, Skarmory', '2023-06-26', 26),
+('Rosa Unova', 13, 'Feminino', 'Nuvema Town', 'Unova', 'Serperior, Emboar, Samurott', '2023-06-27', 27),
+('Hugh Unova', 14, 'Masculino', 'Aspertia City', 'Unova', 'Ferrothorn, Jellicent, Mienshao', '2023-06-28', 28),
+('Cheren Unova', 14, 'Masculino', 'Aspertia City', 'Unova', 'Stoutland, Zoroark, Simisear', '2023-06-29', 29),
+('Roxanne Hoenn', 20, 'Feminino', 'Rustboro City', 'Hoenn', 'Geodude, Nosepass, Meditite', '2023-06-30', 30),
+('Flint Sinnoh', 28, 'Masculino', 'Eterna City', 'Sinnoh', 'Rapidash, Steelix, Infernape', '2023-07-01', 31),
+('Gardenia Sinnoh', 22, 'Feminino', 'Eterna City', 'Sinnoh', 'Roserade, Turtwig, Cherubi', '2023-07-02', 32),
+('Crasher Wake Sinnoh', 35, 'Masculino', 'Pastoria City', 'Sinnoh', 'Floatzel, Gyarados, Ludicolo', '2023-07-03', 33),
+('Maylene Sinnoh', 20, 'Feminino', 'Veilstone City', 'Sinnoh', 'Lucario, Meditite, Machoke', '2023-07-04', 34),
+('Volkner Sinnoh', 30, 'Masculino', 'Sunyshore City', 'Sinnoh', 'Luxray, Raichu, Electivire', '2023-07-05', 35),
+('Marley Unova', 27, 'Masculino', 'Driftveil City', 'Unova', 'Vanilluxe, Sawsbuck, Basculin', '2023-07-06', 36),
+('Elesa Unova', 22, 'Feminino', 'Nimbasa City', 'Unova', 'Emolga, Zebstrika, Galvantula', '2023-07-07', 37),
+('Nessa Galar', 20, 'Feminino', 'Hulbury', 'Galar', 'Drednaw, Inteleon, Cursola', '2023-07-08', 38),
+('Bede Galar', 16, 'Masculino', 'Wedgehurst', 'Galar', 'Rillaboom, Toxtricity, Hatterene', '2023-07-09', 39),
+('Hop Galar', 14, 'Masculino', 'Postwick', 'Galar', 'Cinderace, Corviknight, Rillaboom', '2023-07-10', 40),
+('Marnie Galar', 16, 'Feminino', 'Spikemuth', 'Galar', 'Talonflame, Grimmsnarl, Morpeko', '2023-07-11', 41),
+('Raihan Galar', 25, 'Masculino', 'Hammerlocke', 'Galar', 'Dragapult, Flygon, Haxorus', '2023-07-12', 42),
+('Leon Galar', 23, 'Masculino', 'Wyndon', 'Galar', 'Charizard, Aegislash, Dragapult', '2023-07-13', 43),
+('Korrina Kalos', 17, 'Feminino', 'Shalour City', 'Kalos', 'Lucario, Hawlucha, Gardevoir', '2023-07-14', 44),
+('Valerie Kalos', 19, 'Feminino', 'Laverre City', 'Kalos', 'Mawile, Florges, Sylveon', '2023-07-15', 45),
+('Siebold Kalos', 22, 'Masculino', 'Coumarine City', 'Kalos', 'Gyarados, Milotic, Tentacruel', '2023-07-16', 46),
+('Grant Hoenn', 23, 'Masculino', 'Rustboro City', 'Hoenn', 'Onix, Lairon, Aggron', '2023-07-17', 47),
+('Winona Hoenn', 25, 'Feminino', 'Fortree City', 'Hoenn', 'Swellow, Altaria, Pelipper', '2023-07-18', 48),
+('Juan Hoenn', 35, 'Masculino', 'Sootopolis City', 'Hoenn', 'Tentacruel, Crawdaunt, Sharpedo', '2023-07-19', 49),
+('Phoebe Hoenn', 27, 'Feminino', 'Mossdeep City', 'Hoenn', 'Dusclops, Banette, Sableye', '2023-07-20', 50);
