@@ -38,12 +38,24 @@ function editarPerfil($conexao, $nome, $pokemon_fav, $descricao, $idusuario, $id
         $sql = "UPDATE perfil SET nome=?, pokemon_fav=?, descricao=?, idusuario=? WHERE id=?";
         $comando = mysqli_prepare($conexao, $sql);
     
-        mysqli_stmt_bind_param($comando, 'sssii', $nome, $pokemnon_fav, $descricao, $idusuario, $id);
+        mysqli_stmt_bind_param($comando, 'sssii', $nome, $pokemon_fav, $descricao, $idusuario, $id);
         $funcionou = mysqli_stmt_execute($comando);
     
         mysqli_stmt_close($comando);
         return $funcionou;
     }
+
+function deletarPerfil($conexao, $idperfil) {
+    $sql = "DELETE FROM perfil WHERE idperfil = ?";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_bind_param($comando, 'i', $idperfil);
+
+    $funcionou = mysqli_stmt_execute($comando);
+    mysqli_stmt_close($comando);
+    
+    return $funcionou;
+}
 
 #=================================================================================================================
 
