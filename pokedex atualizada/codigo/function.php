@@ -34,8 +34,6 @@ function criarPerfil($conexao, $nome, $pokemon_fav, $descricao, $idusuario) {
     return $funcionou;
 }
 
-
-
 function editarPerfil($conexao, $nome, $pokemon_fav, $descricao, $idusuario, $id) {
         $sql = "UPDATE perfil SET nome=?, pokemon_fav=?, descricao=?, idusuario=? WHERE id=?";
         $comando = mysqli_prepare($conexao, $sql);
@@ -46,22 +44,8 @@ function editarPerfil($conexao, $nome, $pokemon_fav, $descricao, $idusuario, $id
         mysqli_stmt_close($comando);
         return $funcionou;
     }
+
 #=================================================================================================================
-
-function criarPokemon ($conexao, $national, $nome, $gen) {
-    $sql = "INSERT INTO pokemon (national, nome, gen) VALUES (?, ?, ?)";
-    $comando = mysqli_prepare($conexao, $sql);
-    
-    mysqli_stmt_bind_param($comando, 'isi', $national, $nome, $gen);
-    
-    $funcionou = mysqli_stmt_execute($comando);
-    mysqli_stmt_close($comando);
-    
-    return $funcionou;
-
-}
-
-
 
 function criarStats($conexao, $idpokemon, $hp, $attack, $defense, $sp_attack, $sp_defense, $speed) {
     $sql = "INSERT INTO stats (idpokemon, hp, attack, defense, sp_attack, sp_defense, speed) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -75,8 +59,6 @@ function criarStats($conexao, $idpokemon, $hp, $attack, $defense, $sp_attack, $s
     return $funcionou;
 }
 
-
-
 function editarStats ($conexao, $hp, $attack, $defense, $sp_attack, $sp_defense, $speed, $id) {
     $sql = "UPDATE stats SET hp=?, attack=?, defense=?, sp_attack=?, sp_defense=?, speed=? WHERE idstats=?";
     $comando = mysqli_prepare($conexao, $sql);
@@ -88,8 +70,6 @@ function editarStats ($conexao, $hp, $attack, $defense, $sp_attack, $sp_defense,
     return $funcionou; 
 
 }
-
-
 
 function listarStats ($conexao, ) {
     $sql = "SELECT * FROM stats";
@@ -103,7 +83,6 @@ function listarStats ($conexao, ) {
         $pokemon = pesquisarPokemonId($conexao, $idpokemon);
         $lista['nomepokemon'] = $pokemon['nome'];
         
-
         $lista_st[] = $lista;
 
     }
@@ -124,6 +103,21 @@ function deletarStats($conexao, $idstats) {
     return $funcionou;
 }
 
+#=================================================================================================================
+
+function criarPokemon ($conexao, $national, $nome, $gen) {
+    $sql = "INSERT INTO pokemon (national, nome, gen) VALUES (?, ?, ?)";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_bind_param($comando, 'isi', $national, $nome, $gen);
+    
+    $funcionou = mysqli_stmt_execute($comando);
+    mysqli_stmt_close($comando);
+    
+    return $funcionou;
+
+}
+
 function editarPokemon($conexao, $national, $nome, $gen, $id) {
     $sql = "UPDATE pokemon SET national=?, nome=?, gen=? WHERE idpokemon=?";
     $comando = mysqli_prepare($conexao, $sql);
@@ -135,8 +129,6 @@ function editarPokemon($conexao, $national, $nome, $gen, $id) {
     return $funcionou; 
 
 }
-
-
 
 function listarPokemon($conexao) {
     $sql = "SELECT * FROM pokemon";
@@ -154,8 +146,6 @@ function listarPokemon($conexao) {
     return $lista_pokemon;
 
 }
-
-
 
 function pesquisarPokemonId($conexao, $idpokemon) {
     $sql = "SELECT * FROM pokemon WHERE idpokemon = ?";
@@ -211,8 +201,6 @@ function editarBuild($conexao, $nome, $idpokemon, $id) {
     return $funcionou;
 }
 
-
-
 function listarBuild($conexao) {
     $sql = "SELECT * FROM build";
     $comando = mysqli_prepare($conexao, $sql);
@@ -260,7 +248,6 @@ function pesquisarTypes($conexao, $nome) {
 
     mysqli_stmt_close($comando);
     return $types;
-
 
 }
 
@@ -336,6 +323,24 @@ function deletarSugestao_reclamacao($conexao, $idsuporte) {
         
         return $funcionou;
 }
+
+function pesquisarSugestao_reclamacao($conexao, $idusuario) {
+    $sql = "SELECT * FROM suporte WHERE idusuario = ?";
+    $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_bind_param($comando, 'i', $idusuario);
+
+    mysqli_stmt_execute($comando);
+    $resultado = mysqli_stmt_get_result($comando);
+
+    $suporte = mysqli_fetch_assoc($resultado);
+
+    mysqli_stmt_close($comando);
+    return $suporte;
+
+}
+
+#=================================================================================================================
 
 function criarTreinador($conexao, $nome, $idade, $genero, $cidade, $regiao, $time_atual, $data_cadastro, $idpokemon) {
     $sql = "INSERT INTO treinador (nome, idade, genero, cidade, regiao, time_atual, data_cadastro, idpokemon) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";

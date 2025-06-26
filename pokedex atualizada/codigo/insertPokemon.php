@@ -15,7 +15,6 @@ INSERT INTO types (nome) VALUES
 ('Ghost'),
 ('Dragon');
 
-
 INSERT INTO pokemon (national, nome, gen) VALUES
 (1, 'Bulbasaur', 1),
 (2, 'Ivysaur', 1),
