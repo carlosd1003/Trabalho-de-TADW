@@ -595,3 +595,13 @@ INSERT INTO `banco_pokemon`.`treinador` (nome, idade, genero, cidade, regiao, ti
 ('Winona Hoenn', 25, 'Feminino', 'Fortree City', 'Hoenn', 'Swellow, Altaria, Pelipper', '2023-07-18', 48),
 ('Juan Hoenn', 35, 'Masculino', 'Sootopolis City', 'Hoenn', 'Tentacruel, Crawdaunt, Sharpedo', '2023-07-19', 49),
 ('Phoebe Hoenn', 27, 'Feminino', 'Mossdeep City', 'Hoenn', 'Dusclops, Banette, Sableye', '2023-07-20', 50);
+
+INSERT INTO `banco_pokemon`.`perfil` (`nome`, `pokemon_fav`, `descricao`, `idusuario`) VALUES
+('TreinadorLeo', 'Charizard', 'Ama batalhas aéreas', 3),
+('MestreAna', 'Gardevoir', 'Elegante e poderosa', 1),
+('RangerCarlos', 'Lucario', 'Especialista em aura', 7),
+('ExploradoraTina', 'Absol', 'Vê desastres chegando', 5),
+('SamDoGelo', 'Glaceon', 'Frio e calculista', 2),
+('BrunoFlame', 'Infernape', 'Ágil e determinado', 6),
+('NinaSombria', 'Umbreon', 'Ama batalhas noturnas', 8),
+('KaiRaio', 'Jolteon', 'Rápido como um raio', 4);
