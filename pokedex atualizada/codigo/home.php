@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="criar_treinador.php"> Criar Um Treinador</a>
+    <a href="formtreinador.php"> Criar Um Treinador</a>
 </body>
 </html>
