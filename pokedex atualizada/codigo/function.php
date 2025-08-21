@@ -380,7 +380,11 @@ function editarTreinador($conexao, $nome, $idade, $genero, $cidade, $regiao, $ti
 }
 
 function listarTreinador($conexao) {
-    $sql = "SELECT * FROM treinador";
+    $sql = "SELECT idtreinador, treinador.nome, treinador.idade, treinador.genero, treinador.cidade, 
+            treinador.regiao, treinador.time_atual, treinador.data_cadastro, pokemon.nome 
+            AS pokemon_nome
+            FROM treinador
+            JOIN pokemon ON treinador.idpokemon = pokemon.idpokemon";
     $comando = mysqli_prepare($conexao, $sql);
     
     mysqli_stmt_execute($comando);

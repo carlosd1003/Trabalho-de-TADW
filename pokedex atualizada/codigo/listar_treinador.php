@@ -39,7 +39,7 @@
             $regiao = $treinador['regiao'];
             $time_atual = $treinador['time_atual'];
             $data_cadastro = $treinador['data_cadastro'];
-            $idpokemon = $treinador['idpokemon'];
+            $idpokemon = $treinador['pokemon_nome'];
 
             echo "<tr>";
             echo "<td>$idtreinador</td>";
