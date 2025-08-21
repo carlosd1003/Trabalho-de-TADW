@@ -1,6 +1,6 @@
 <?php
-    require_once "../conexao.php";
-    require_once "../function.php";
+    require_once "conexao.php";
+    require_once "function.php";
 
     $nome = $_POST['nome'];
     $idade = $_POST['idade'];
@@ -9,7 +9,8 @@
     $regiao = $_POST['regiao'];
     $time_atual = $_POST['time_atual'];
     $data_cadastro = $_POST['data'];
-    $idpokemon = $_POST['pokemon'];
+    $idpokemon = $_POST['idpokemon'];
 
 criarTreinador($conexao, $nome, $idade, $genero, $cidade, $regiao, $time_atual, $data_cadastro, $idpokemon);
+header("Location:home.php");
 ?>

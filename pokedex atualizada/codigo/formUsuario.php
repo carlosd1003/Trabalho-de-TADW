@@ -16,9 +16,7 @@
         <input type="text" name="senha"> <br><br>
 
         <input type="submit" value="Cadastrar">
-<?php
-        header("Location: index.html");
-?>
+        
     </form>
 </body>
 

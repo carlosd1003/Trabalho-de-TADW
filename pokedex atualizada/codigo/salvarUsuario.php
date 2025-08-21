@@ -9,3 +9,4 @@ $Tipo = 'C';
 $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
 criarUsuario($conexao, $email, $senha, $Tipo);
+header("Location:index.html");

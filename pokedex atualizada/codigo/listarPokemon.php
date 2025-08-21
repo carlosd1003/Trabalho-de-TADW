@@ -1,6 +1,3 @@
-<?php
-require_once
-?>
 
 <!DOCTYPE html>
 <html>
