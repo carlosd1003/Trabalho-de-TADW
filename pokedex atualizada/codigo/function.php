@@ -83,7 +83,7 @@ function editarStats ($conexao, $hp, $attack, $defense, $sp_attack, $sp_defense,
 
 }
 
-function listarStats ($conexao, ) {
+function listarStats ($conexao) {
     $sql = "SELECT * FROM stats";
     $comando = mysqli_prepare($conexao, $sql);
     

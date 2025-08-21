@@ -510,7 +510,7 @@ INSERT INTO stats (hp, attack, defense, sp_attack, sp_defense, speed, idpokemon)
 (91, 134, 95, 100, 100, 80, 148),   -- Dragonite
 (106, 110, 90, 154, 90, 130, 149),  -- Mewtwo
 (100, 100, 100, 100, 100, 100, 150),-- Mew
-(91, 134, 95, 100, 100, 80, 144);
+(91, 134, 95, 100, 100, 80, 151);
 
 INSERT INTO `banco_pokemon`.`usuario` (email, senha, Tipo) VALUES
 ('ash.ketchum@poke.com', '$2y$10$U8FzMQRoRccurTVjo1f8kudM4Y6xC7dT64N4ZtXPB7toKRdmEimre', 'C'), -- pikachu123

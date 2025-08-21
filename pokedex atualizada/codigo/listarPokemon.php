@@ -1,56 +1,72 @@
+<<<<<<< Updated upstream
+=======
+<?php
+// Conexão com o banco de dados
+require_once 'conexao.php'; // Arquivo que contém a variável $conexao
+require_once 'function.php'; // Arquivo que contém a função listarPokemon()
+
+// Lista os Pokémons
+$lista_pokemon = listarPokemon($conexao);
+
+$lista_stats = listarStats($conexao);
+?>
+>>>>>>> Stashed changes
 
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Lista de Pokémons</title>
 </head>
 <body>
-    <h2>Pokémons Cadastrados</h2>
+    <h1>Lista de Pokémons</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>National Dex</th>
+                <th>Nome</th>
+                <th>Geração</th>
+                <th>HP</th>
+                <th>Attack</th>
+                <th>Defense</th>
+                <th>Sp. Attack</th>
+                <th>Sp. Defense</th>
+                <th>Speed</th>
+            </tr>
+        </thead>
 
-    <table border="1" cellpadding="5">
-        <tr>
-            <th>#</th>
-            <th>Nome</th>
-            <th>Geração</th>
-            <th>Tipos</th>
-            <th>HP</th>
-            <th>Ataque</th>
-            <th>Defesa</th>
-            <th>Sp. Atk</th>
-            <th>Sp. Def</th>
-            <th>Speed</th>
-        </tr>
+        <tbody>
+        <?php
+        // Usa htmlspecialchars para converter caracteres especiais em entidades HTML
+        // Isso evita que códigos maliciosos (como scripts) sejam executados no navegador,
+        // protegendo contra ataques XSS e garantindo que o texto seja exibido corretamente.
 
-        <?php while ($row = mysqli_fetch_assoc($result)) { 
-            // Buscar os tipos do Pokémon atual
-            $idpokemon = $row['idpokemon'];
-            $sql_tipos = "SELECT t.nome FROM pokemon_has_types pt
-                          JOIN types t ON pt.idtypes = t.idtypes
-                          WHERE pt.idpokemon = $idpokemon";
-            $tipos_result = mysqli_query($conexao, $sql_tipos);
+            foreach ($lista_pokemon as $pokemon) {
+                echo "<tr>";
+                    echo "<td>" . htmlspecialchars($pokemon['idpokemon']) . "</td>";
+                    echo "<td>" . htmlspecialchars($pokemon['national']) . "</td>";
+                    echo "<td>" . htmlspecialchars($pokemon['nome']) . "</td>";
+                    echo "<td>" . htmlspecialchars($pokemon['gen']) . "</td>";
+                
 
-            $tipos = [];
-            while ($tipo = mysqli_fetch_assoc($tipos_result)) {
-                $tipos[] = $tipo['nome'];
+            foreach ($lista_stats as $stats) {
+            if ($stats['idpokemon'] == $pokemon['idpokemon']) {
+                    echo "<td>" . htmlspecialchars($stats['hp']) . "</td>";
+                    echo "<td>" . htmlspecialchars($stats['attack']) . "</td>";
+                    echo "<td>" . htmlspecialchars($stats['defense']) . "</td>";
+                    echo "<td>" . htmlspecialchars($stats['sp_attack']) . "</td>";
+                    echo "<td>" . htmlspecialchars($stats['sp_defense']) . "</td>";
+                    echo "<td>" . htmlspecialchars($stats['speed']) . "</td>";
+                }
             }
-            $tipos_str = implode(" / ", $tipos);
+
+                echo "</tr>";
+            }
         ?>
-        <tr>
-            <td><?= $row['national'] ?></td>
-            <td><?= $row['nome_pokemon'] ?></td>
-            <td><?= $row['gen'] ?></td>
-            <td><?= $tipos_str ?></td>
-            <td><?= $row['hp'] ?></td>
-            <td><?= $row['attack'] ?></td>
-            <td><?= $row['defense'] ?></td>
-            <td><?= $row['sp_attack'] ?></td>
-            <td><?= $row['sp_defense'] ?></td>
-            <td><?= $row['speed'] ?></td>
-        </tr>
-        <?php } ?>
+
+
+        </tbody>
     </table>
 </body>
 </html>
-
-<?php mysqli_close($conexao); ?>
