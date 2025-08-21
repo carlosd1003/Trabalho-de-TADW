@@ -6,7 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="formtreinador.php"> Criar Um Treinador</a> <br><br>
-    <a href="listar_treinador.php">Ver Os Treinadores Cadastrados</a> <br><br>
+    erro
 </body>
 </html>
