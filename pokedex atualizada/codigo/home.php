@@ -8,6 +8,7 @@
 <body>
     <a href="formtreinador.php"> Criar Um Treinador</a> <br><br>
     <a href="listar_treinador.php">Ver Os Treinadores Cadastrados</a> <br><br>
-    <a href="calendario.html">Ver O Calendario De Eventos</a>
+    <a href="calendario.html">Ver O Calendario De Eventos</a> <br><br>
+    <a href="formPerfil.php">Criar Seu Perfil</a>
 </body>
 </html>
