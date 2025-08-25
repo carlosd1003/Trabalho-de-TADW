@@ -1,19 +1,27 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='pt-BR'>
   <head>
     <meta charset='utf-8' />
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.19/index.global.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.19/index.global.min.js'></script>
     <script>
-
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
+          initialView: 'dayGridMonth',
+          events: [
+            {
+              title: 'Pokémon Day - Aniversário de Pokémon',
+              start: '2024-02-27'
+            },
+            {
+              title: 'Dia do Pikachu',
+              start: '2024-03-01'
+            }
+          ]
         });
         calendar.render();
       });
-
     </script>
   <body>
     <div id='calendar'></div>
