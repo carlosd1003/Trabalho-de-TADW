@@ -132,6 +132,40 @@ function criarPokemon ($conexao, $national, $nome, $gen) {
 
 }
 
+
+function nationalExiste($conexao, $national) {
+    $sql = "SELECT idpokemon FROM pokemon WHERE national = ?";
+    $stmt = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $national);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
+
+    $existe = mysqli_stmt_num_rows($stmt) > 0;
+
+    mysqli_stmt_close($stmt);
+    return $existe;
+}
+
+
+function listarNationals($conexao) {
+    $sql = "SELECT national FROM pokemon";
+    $result = mysqli_query($conexao, $sql);
+    $nationals = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $nationals[] = (int)$row['national'];
+    }
+    return $nationals;
+}
+
+
+function pegarMaiorNational($conexao) {
+    $sql = "SELECT MAX(national) AS maior FROM pokemon";
+    $result = mysqli_query($conexao, $sql);
+    $row = mysqli_fetch_assoc($result);
+    return $row ? (int)$row['maior'] : 0;
+}
+
+
 function editarPokemon($conexao, $national, $nome, $gen, $id) {
     $sql = "UPDATE pokemon SET national=?, nome=?, gen=? WHERE idpokemon=?";
     $comando = mysqli_prepare($conexao, $sql);

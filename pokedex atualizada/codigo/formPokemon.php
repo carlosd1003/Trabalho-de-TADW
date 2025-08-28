@@ -4,6 +4,8 @@ require_once "./function.php";
 
 // ✅ CHAMAR A FUNÇÃO AQUI, ANTES DE USAR NO FORMULÁRIO
 $lista_types = listarTypes($conexao);
+$maiorNational = pegarMaiorNational($conexao);
+
 ?>
 
 <!DOCTYPE html>
@@ -13,6 +15,7 @@ $lista_types = listarTypes($conexao);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Pokémon</title>
 </head>
+
 <body>
 
 <h1>Cadastro de Pokémon</h1>
@@ -20,7 +23,7 @@ $lista_types = listarTypes($conexao);
 <form method="POST" action="salvarPokemon.php" enctype="multipart/form-data">
 
     <label>National Dex:<br>
-        <input type="number" name="national" required>
+        <input type="text" name="national" required>
     </label><br><br>
 
     <label>Nome do Pokémon:<br>
@@ -28,7 +31,7 @@ $lista_types = listarTypes($conexao);
     </label><br><br>
 
     <label>Geração:<br>
-        <input type="number" name="gen" required>
+        <input type="number" name="gen" min="0" required>
     </label><br><br>
 
     <label>Imagem (opcional):<br>
@@ -36,27 +39,27 @@ $lista_types = listarTypes($conexao);
     </label><br><br>
 
     <label>HP:<br>
-        <input type="number" name="hp" required>
+        <input type="number" name="hp" min="0" required>
     </label><br><br>
 
     <label>Attack:<br>
-        <input type="number" name="attack" required>
+        <input type="number" name="attack" min="0" required>
     </label><br><br>
 
     <label>Defense:<br>
-        <input type="number" name="defense" required>
+        <input type="number" name="defense" min="0" required>
     </label><br><br>
 
     <label>Special Attack:<br>
-        <input type="number" name="sp_attack" required>
+        <input type="number" name="sp_attack" min="0" required>
     </label><br><br>
 
     <label>Special Defense:<br>
-        <input type="number" name="sp_defense" required>
+        <input type="number" name="sp_defense" min="0" required>
     </label><br><br>
 
     <label>Speed:<br>
-        <input type="number" name="speed" required>
+        <input type="number" name="speed" min="0" required>
     </label><br><br>
 
     <!-- ✅ EXIBE OS TIPOS SOMENTE SE EXISTIREM -->
@@ -77,6 +80,29 @@ $lista_types = listarTypes($conexao);
 
     <input type="submit" name="salvar" value="Salvar Pokémon">
 </form>
+
+<script>
+  const maiorNational = <?php echo $maiorNational; ?>;
+</script>
+<script>
+document.querySelector('form').addEventListener('submit', function(event) {
+    const inputNational = this.querySelector('input[name="national"]');
+    const valorNational = parseInt(inputNational.value, 10);
+
+    if (isNaN(valorNational)) {
+        alert("Por favor, insira um número válido para National Dex.");
+        event.preventDefault();
+        return;
+    }
+
+    if (valorNational <= maiorNational) {
+        alert(`O número National Dex deve ser maior que o atual maior cadastrado (${maiorNational}).`);
+        event.preventDefault();
+        inputNational.focus();
+        return;
+    }
+});
+</script>
 
 </body>
 </html>
