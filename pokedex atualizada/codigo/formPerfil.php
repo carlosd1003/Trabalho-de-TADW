@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-
-</body>
-
-</html><?php
+<?php
         if (isset($_GET['id'])) {
             // echo "editar";
 
@@ -38,7 +25,6 @@
             $botao = "Cadastrar";
         }
         ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,7 +52,6 @@
         <input type="text" name="idusuario" value="<?php echo $idusuario; ?>"> <br><br>
             <br>
             <input type="submit" value="<?php echo $botao; ?>">
-
     </form> <br>
     <a href="home.php">Voltar</a>
 
