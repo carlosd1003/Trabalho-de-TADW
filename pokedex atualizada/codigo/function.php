@@ -82,26 +82,28 @@ function editarStats ($conexao, $hp, $attack, $defense, $sp_attack, $sp_defense,
     return $funcionou; 
 
 }
-
 function listarStats ($conexao) {
     $sql = "SELECT * FROM stats";
     $comando = mysqli_prepare($conexao, $sql);
     
     mysqli_stmt_execute($comando);
     $resultados = mysqli_stmt_get_result($comando);
-    
+
+    $lista_st = []; // Inicialização aqui evita o erro
+
     while ($lista = mysqli_fetch_assoc($resultados)) {
         $idpokemon = $lista['idpokemon'];
         $pokemon = pesquisarPokemonId($conexao, $idpokemon);
         $lista['nomepokemon'] = $pokemon['nome'];
-        
-        $lista_st[] = $lista;
 
+        $lista_st[] = $lista;
     }
+
     mysqli_stmt_close($comando);
 
     return $lista_st;
 }
+
 
 function deletarStats($conexao, $idstats) {
     $sql = "DELETE FROM stats WHERE idstats = ?";
