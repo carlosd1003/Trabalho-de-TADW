@@ -266,20 +266,24 @@ function pesquisarTypes($conexao, $nome) {
 }
 
 function listarTypes($conexao) {
-    $sql = "SELECT * FROM types";
+    $sql = "SELECT idtypes, nome FROM types";
     $comando = mysqli_prepare($conexao, $sql);
-    
+
     mysqli_stmt_execute($comando);
-    $resultados = mysqli_stmt_get_result($comando);
-    
+    mysqli_stmt_bind_result($comando, $idtypes, $nome);
+
     $lista_typos = [];
-    while ($types = mysqli_fetch_assoc($resultados)) {
-        $lista_typos[] = $types;
+
+    while (mysqli_stmt_fetch($comando)) {
+        $lista_typos[] = [
+            'idtypes' => $idtypes,
+            'nome' => $nome
+        ];
     }
+
     mysqli_stmt_close($comando);
 
     return $lista_typos;
-
 }
 
 function deletartypes($conexao, $idtypes) {
