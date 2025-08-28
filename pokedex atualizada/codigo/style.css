@@ -52,3 +52,15 @@
             margin: 3px 0;
             font-size: 13px;
         }
+
+        header {
+            background-color:#ffffff; /* Cor escura padrão */
+            height: 60px; /* Altura do topo */
+            width: 100%; /* Ocupa toda a largura da tela */
+            top: 0; /* Grudado no topo da página */
+            display: flex; /* Layout em linha (horizontal) */
+            justify-content: space-between; /* Espaço entre logo e menu */
+            align-items: center; /* Alinha itens verticalmente ao centro */
+            padding: 0 30px; /* Espaço interno nas laterais */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Sombra suave abaixo */
+        }

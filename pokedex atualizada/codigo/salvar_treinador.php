@@ -17,4 +17,4 @@ if ($id == 0) {
 } else {
     editarTreinador($conexao, $nome, $idade, $genero, $cidade, $regiao, $time_atual, $data_cadastro, $idpokemon, $id);
 }
-header("Location:listar_treinador.php");
+header("Location:listarTreinador.php");
