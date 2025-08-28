@@ -4,8 +4,8 @@
 
     $id = $_GET['id'];
 
-    if (deletarTreinador($conexao, $id)) {
-        header("Location: listarTreinador.php");
+    if (deletarBuild($conexao, $id)) {
+        header("Location: listarBuild.php");
     }
     else {
         header("Location: erro.php");

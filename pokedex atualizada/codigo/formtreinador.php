@@ -66,7 +66,7 @@
         Data Cadastro: <br>
         <input type="date" name="data" value="<?php echo $data_cadastro; ?>"> <br><br>
         Selecione Um Pokemon:
-        <select name="idpokemon" id="idpokemon" value="<?php echo $idpokemon; ?>">
+        <select name="idpokemon" id="idpokemon" value="<?php echo $idpokemon; ?>"> <br>
 <?php
 
         $lista_pokemon = listarPokemon($conexao);

@@ -1,6 +1,11 @@
 <?php
 require_once "./conexao.php";
 require_once "./function.php";
+
+// ✅ CHAMAR A FUNÇÃO AQUI, ANTES DE USAR NO FORMULÁRIO
+$lista_types = listarTypes($conexao);
+$maiorNational = pegarMaiorNational($conexao);
+
 ?>
 
 <!DOCTYPE html>
@@ -10,51 +15,58 @@ require_once "./function.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Pokémon</title>
 </head>
+
 <body>
+
+<h1>Cadastro de Pokémon</h1>
 
 <form method="POST" action="salvarPokemon.php" enctype="multipart/form-data">
 
+    <label>National Dex:<br>
+        <input type="text" name="national" required>
+    </label><br><br>
 
-National:<br>
-<input type="text" name="national"><br><br>
+    <label>Nome do Pokémon:<br>
+        <input type="text" name="nome" required>
+    </label><br><br>
 
-Nome do Pokémon:<br>
-<input type="text" name="nome"><br><br>
+    <label>Geração:<br>
+        <input type="number" name="gen" min="0" required>
+    </label><br><br>
 
-Geração:<br>
-<input type="text" name="gen"><br><br>
+    <label>Imagem (opcional):<br>
+        <input type="file" name="imagem" accept="image/*">
+    </label><br><br>
 
-Imagem:<br>
-<input type="file" name="imagem"><br><br>
+    <label>HP:<br>
+        <input type="number" name="hp" min="0" required>
+    </label><br><br>
 
+    <label>Attack:<br>
+        <input type="number" name="attack" min="0" required>
+    </label><br><br>
 
+    <label>Defense:<br>
+        <input type="number" name="defense" min="0" required>
+    </label><br><br>
 
+    <label>Special Attack:<br>
+        <input type="number" name="sp_attack" min="0" required>
+    </label><br><br>
 
-    Hp:<br>
-    <input type="text" name="hp"><br><br>
+    <label>Special Defense:<br>
+        <input type="number" name="sp_defense" min="0" required>
+    </label><br><br>
 
-    Attack:<br>
-    <input type="text" name="attack"><br><br>
+    <label>Speed:<br>
+        <input type="number" name="speed" min="0" required>
+    </label><br><br>
 
-    Defense:<br>
-    <input type="text" name="defense"><br><br>
-
-    Special Attack:<br>
-    <input type="text" name="spattack"><br><br>
-
-    Special Defense:<br>
-    <input type="text" name="spdefense"><br><br>
-
-    Speed:<br>
-    <input type="text" name="speed"><br><br>
-
+    <!-- ✅ EXIBE OS TIPOS SOMENTE SE EXISTIREM -->
     <?php
-    //vai pegar a função feita e guardar
-    $lista_types = listarTypes($conexao);
-
     if (!empty($lista_types)) {
-        echo "Tipo:<br>";
-        echo "<select name='types[]' multiple>";
+        echo "Tipos (segure Ctrl para selecionar múltiplos):<br>";
+        echo "<select name='types[]' multiple required>";
         foreach ($lista_types as $types) {
             $nome = htmlspecialchars($types['nome']);
             $id = (int)$types['idtypes'];
@@ -62,12 +74,35 @@ Imagem:<br>
         }
         echo "</select><br><br>";
     } else {
-        echo "Nenhum tipo encontrado.<br><br>";
+        echo "⚠ Nenhum tipo encontrado no banco de dados.<br><br>";
     }
     ?>
 
-    <input type="submit" name="salvar" value="Salvar">
+    <input type="submit" name="salvar" value="Salvar Pokémon">
 </form>
+
+<script>
+  const maiorNational = <?php echo $maiorNational; ?>;
+</script>
+<script>
+document.querySelector('form').addEventListener('submit', function(event) {
+    const inputNational = this.querySelector('input[name="national"]');
+    const valorNational = parseInt(inputNational.value, 10);
+
+    if (isNaN(valorNational)) {
+        alert("Por favor, insira um número válido para National Dex.");
+        event.preventDefault();
+        return;
+    }
+
+    if (valorNational <= maiorNational) {
+        alert(`O número National Dex deve ser maior que o atual maior cadastrado (${maiorNational}).`);
+        event.preventDefault();
+        inputNational.focus();
+        return;
+    }
+});
+</script>
 
 </body>
 </html>

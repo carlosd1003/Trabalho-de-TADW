@@ -9,18 +9,6 @@ function criarUsuario($conexao, $email, $senha, $Tipo ) {
     return $funcionou;
 }
 
-function editarUsuario($conexao, $email, $senha, $idusuario) {
-    $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-    $sql = "UPDATE usuario SET email=?, senha=? WHERE idusuario=?";
-    $comando = mysqli_prepare($conexao, $sql);
-
-    mysqli_stmt_bind_param($comando, 'ssi', $email, $senha_hash, $idusuario);
-    $funcionou = mysqli_stmt_execute($comando);
-
-    mysqli_stmt_close($comando);
-    return $funcionou;
-}
-
 #=================================================================================================================
 
 function criarPerfil($conexao, $nome, $pokemon_fav, $descricao, $idusuario) {
@@ -132,6 +120,40 @@ function criarPokemon ($conexao, $national, $nome, $gen) {
 
 }
 
+
+function nationalExiste($conexao, $national) {
+    $sql = "SELECT idpokemon FROM pokemon WHERE national = ?";
+    $stmt = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $national);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
+
+    $existe = mysqli_stmt_num_rows($stmt) > 0;
+
+    mysqli_stmt_close($stmt);
+    return $existe;
+}
+
+
+function listarNationals($conexao) {
+    $sql = "SELECT national FROM pokemon";
+    $result = mysqli_query($conexao, $sql);
+    $nationals = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $nationals[] = (int)$row['national'];
+    }
+    return $nationals;
+}
+
+
+function pegarMaiorNational($conexao) {
+    $sql = "SELECT MAX(national) AS maior FROM pokemon";
+    $result = mysqli_query($conexao, $sql);
+    $row = mysqli_fetch_assoc($result);
+    return $row ? (int)$row['maior'] : 0;
+}
+
+
 function editarPokemon($conexao, $national, $nome, $gen, $id) {
     $sql = "UPDATE pokemon SET national=?, nome=?, gen=? WHERE idpokemon=?";
     $comando = mysqli_prepare($conexao, $sql);
@@ -235,6 +257,22 @@ function listarBuild($conexao) {
     return $lista_build;
 }
 
+function pesquisarBuild($conexao, $idbuild) {
+    $sql = "SELECT * FROM build WHERE idbuild = ?";
+    $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_bind_param($comando, 'i', $idbuild);
+
+    mysqli_stmt_execute($comando);
+    $resultado = mysqli_stmt_get_result($comando);
+
+    $build = mysqli_fetch_assoc($resultado);
+
+    mysqli_stmt_close($comando);
+    return $build;
+
+}
+
 function deletarBuild($conexao, $idbuild) {
     $sql = "DELETE FROM build WHERE idbuild = ?";
     $comando = mysqli_prepare($conexao, $sql);
@@ -266,20 +304,24 @@ function pesquisarTypes($conexao, $nome) {
 }
 
 function listarTypes($conexao) {
-    $sql = "SELECT * FROM types";
+    $sql = "SELECT idtypes, nome FROM types";
     $comando = mysqli_prepare($conexao, $sql);
-    
+
     mysqli_stmt_execute($comando);
-    $resultados = mysqli_stmt_get_result($comando);
-    
+    mysqli_stmt_bind_result($comando, $idtypes, $nome);
+
     $lista_typos = [];
-    while ($types = mysqli_fetch_assoc($resultados)) {
-        $lista_typos[] = $types;
+
+    while (mysqli_stmt_fetch($comando)) {
+        $lista_typos[] = [
+            'idtypes' => $idtypes,
+            'nome' => $nome
+        ];
     }
+
     mysqli_stmt_close($comando);
 
     return $lista_typos;
-
 }
 
 function deletartypes($conexao, $idtypes) {
