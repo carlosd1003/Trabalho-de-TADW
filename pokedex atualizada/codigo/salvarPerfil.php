@@ -13,3 +13,5 @@ if ($id == 0) {
 } else {
     editarPerfil($conexao, $nome, $pokemon_fav, $descricao, $idusuario, $id);
 }
+header("Location:home.php");
+
