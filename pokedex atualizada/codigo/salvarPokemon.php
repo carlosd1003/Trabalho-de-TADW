@@ -3,7 +3,7 @@ require_once "conexao.php";
 require_once "function.php";
 
 // Recebe os dados do formulário com isset para evitar erros
-$national = isset($_POST['national']) ;
+$national = isset($_POST['national']) ? (int)$_POST['national'] : null;
 $nome = isset($_POST['nome']) ;
 $gen = isset($_POST['gen']);
 $hp = isset($_POST['hp']);

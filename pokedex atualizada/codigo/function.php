@@ -107,11 +107,11 @@ function deletarStats($conexao, $idstats) {
 
 #=================================================================================================================
 
-function criarPokemon ($conexao, $national, $nome, $gen) {
-    $sql = "INSERT INTO pokemon (national, nome, gen) VALUES (?, ?, ?)";
+function criarPokemon ($conexao, $national, $nome, $gen, $imagem) {
+    $sql = "INSERT INTO pokemon (national, nome, gen, imagem) VALUES (?, ?, ?, ?)";
     $comando = mysqli_prepare($conexao, $sql);
     
-    mysqli_stmt_bind_param($comando, 'isi', $national, $nome, $gen);
+    mysqli_stmt_bind_param($comando, 'isis', $national, $nome, $gen, $imagem);
     
     $funcionou = mysqli_stmt_execute($comando);
     mysqli_stmt_close($comando);
