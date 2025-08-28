@@ -20,7 +20,6 @@
     ?>
         <table border="1">
             <tr>
-                <td>Id</td>
                 <td>Nome</td>
                 <td>Idade</td>
                 <td>Gênero</td>
@@ -44,7 +43,6 @@
             $idpokemon = $treinador['pokemon_nome'];
 
             echo "<tr>";
-            echo "<td>$idtreinador</td>";
             echo "<td>$nome</td>";
             echo "<td>$idade</td>";
             echo "<td>$genero</td>";

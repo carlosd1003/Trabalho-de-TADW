@@ -42,14 +42,14 @@
     <form action="salvarPerfil.php?id=<?php echo $id; ?>" method="post" enctype="multipart/form-data">
 
         Nome: <br>
-        <input type="text" name="nome" value="<?php echo $nome; ?>"> <br><br>
+        <input type="text" name="nome" placeholder="Informe Seu Nome" value="<?php echo $nome; ?>"> <br><br>
         Seu Pokemon Favorito: <br>
-        <input type="text" name="pokemon_fav" value="<?php echo $pokemon_fav; ?>">
+        <input type="text" name="pokemon_fav" placeholder="Informe Seu Pokemon Favorito" value="<?php echo $pokemon_fav; ?>">
         <br><br>
         Descrição (Opcional): <br>
-        <input type="text" name="descricao" value="<?php echo $descricao; ?>"> <br><br>
+        <input type="text" name="descricao" placeholder="Opcional" value="<?php echo $descricao; ?>"> <br><br>
         Usuario: <br>
-        <input type="text" name="idusuario" value="<?php echo $idusuario; ?>"> <br><br>
+        <input type="text" name="idusuario" placeholder="Informe Seu Usuário" value="<?php echo $idusuario; ?>"> <br><br>
             <br>
             <input type="submit" value="<?php echo $botao; ?>">
     </form> <br>

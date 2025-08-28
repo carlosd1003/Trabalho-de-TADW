@@ -64,3 +64,15 @@
             padding: 0 30px; /* Espaço interno nas laterais */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Sombra suave abaixo */
         }
+         .container {
+            margin-top: 20px; /* Espaço entre a barra e o iframe */
+            padding: 0 20px;  /* Padding nas laterais */
+        }
+
+        /* Iframe ocupando o espaço restante da tela */
+        iframe {
+            width: 100%;
+            height: calc(100vh - 140px); /* Ajusta a altura para ocupar o espaço restante */
+            border: 1px solid #ccc;
+                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); 
+        }

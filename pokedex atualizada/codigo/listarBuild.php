@@ -22,7 +22,7 @@
             <tr>
                 <td>Id</td>
                 <td>Nome</td>
-                <td>idpokemon</td>
+                <td>Pokemon</td>
                 <td colspan="2">Ação</td>
             </tr>
         <?php

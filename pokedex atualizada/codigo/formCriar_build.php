@@ -1,26 +1,26 @@
 <?php
-        if (isset($_GET['id'])) {
-            // echo "editar";
+if (isset($_GET['id'])) {
+    // echo "editar";
 
-            require_once "conexao.php";
-            require_once "function.php";
+    require_once "conexao.php";
+    require_once "function.php";
 
-            $id = $_GET['id'];
+    $id = $_GET['id'];
 
-            $build = pesquisarBuild($conexao, $id);
-            $nome = $build['nome'];
-            $idpokemon = $build['idpokemon'];
+    $build = pesquisarBuild($conexao, $id);
+    $nome = $build['nome'];
+    $idpokemon = $build['idpokemon'];
 
-            $botao = "Atualizar";
-        } else {
-            // echo "novo";
-            $id = 0;
-            $nome = "";
-            $idpokemon = "";
+    $botao = "Atualizar";
+} else {
+    // echo "novo";
+    $id = 0;
+    $nome = "";
+    $idpokemon = "";
 
-            $botao = "Cadastrar";
-        }
-        ?>
+    $botao = "Cadastrar";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,20 +40,22 @@
         Nome: <br>
         <input type="text" name="nome" value="<?php echo $nome; ?>"> <br><br>
         Selecione Um Pokemon:
-        <select name="idpokemon" id="idpokemon" value="<?php echo $idpokemon; ?>"> <br>
-<?php
+        <select name="idpokemon" id="idpokemon">
+            <?php
+            $lista_pokemon = listarPokemon($conexao);
 
-        $lista_pokemon = listarPokemon($conexao);
-            
             foreach ($lista_pokemon as $pokemon) {
-                $idpokemon = $pokemon['idpokemon'];
-                $nome = $pokemon['nome'];
-                
-                echo "<option value='$idpokemon'>$nome</option>";
-            }
-?>
+                $id = $pokemon['idpokemon'];
+                $nome_pokemon = $pokemon['nome'];
 
-    <input type="submit" value="<?php echo $botao; ?>">
+                // Verifica se o Pokémon atual é o selecionado
+                $selected = ($id == $idpokemon) ? "selected" : "";
+
+                echo "<option value='$id' $selected>$nome_pokemon</option>";
+            }
+            ?>
+
+            <input type="submit" value="<?php echo $botao; ?>">
     </form> <br>
     <a href="home.php">Voltar</a>
 
