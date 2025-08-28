@@ -17,15 +17,25 @@ $lista_stats = listarStats($conexao);
     <div class="card-container">
         <?php
         foreach ($lista_pokemon as $pokemon) {
-            $idImagem = htmlspecialchars($pokemon['idpokemon']);
-            $urlImagem = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$idImagem.png";
-
+            // Pega a imagem do banco
+            $imagemBanco = $pokemon['imagem'];
+            
+            if (!empty($imagemBanco)) {
+                // Usa a imagem do banco (supondo que seja um caminho relativo válido)
+                $urlImagem = 'uploads/' . $imagemBanco; // Exemplo: 'uploads/pokemon_123.png'
+            } else {
+                // Se não tiver imagem no banco, usa a da PokeAPI
+                $idImagem = htmlspecialchars($pokemon['idpokemon']);
+                $urlImagem = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$idImagem.png";
+            }
+            
             echo "<div class='card'>";
             echo "<img src='$urlImagem' alt='Imagem do Pokémon'>";
             echo "<h2>" . htmlspecialchars($pokemon['nome']) . "</h2>";
             echo "<p><strong>Dex:</strong> " . htmlspecialchars($pokemon['national']) . "</p>";
             echo "<p><strong>Geração:</strong> " . htmlspecialchars($pokemon['gen']) . "</p>";
 
+            // Exibe os stats do Pokémon atual
             foreach ($lista_stats as $stats) {
                 if ($stats['idpokemon'] == $pokemon['idpokemon']) {
                     echo "<div class='stats'>";
@@ -36,15 +46,9 @@ $lista_stats = listarStats($conexao);
                     echo "<p><strong>Sp. Defense:</strong> " . htmlspecialchars($stats['sp_defense']) . "</p>";
                     echo "<p><strong>Speed:</strong> " . htmlspecialchars($stats['speed']) . "</p>";
                     echo "</div>";
-                    break;
-                    //Por que usar "break;" aqui?
-                    //se o $lista_stats tiver 500 stats de pokémons diferentes, você não quer percorrer tudo — só quer o primeiro que for igual ao Pokémon atual. Assim que encontrar, não precisa continuar o loop.
-                    //porque você só precisa pegar os stats de UM Pokémon específico, aquele que está sendo exibido no momento.
-
-
+                    break; // Não precisa procurar mais stats para este Pokémon
                 }
             }
-
             echo "</div>";
         }
         ?>
