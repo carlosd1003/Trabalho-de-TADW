@@ -2,7 +2,7 @@
 require_once "./conexao.php";
 require_once "./function.php";
 
-// ✅ CHAMAR A FUNÇÃO AQUI, ANTES DE USAR NO FORMULÁRIO
+// CHAMAR A FUNÇÃO AQUI, ANTES DE USAR NO FORMULÁRIO
 $lista_types = listarTypes($conexao);
 $maiorNational = pegarMaiorNational($conexao);
 
@@ -35,7 +35,7 @@ $maiorNational = pegarMaiorNational($conexao);
     </label><br><br>
 
     <label>Imagem (opcional):<br>
-        <input type="file" name="imagem" accept="image/*">
+        <input type="file" name="imagem">
     </label><br><br>
 
     <label>HP:<br>
@@ -79,7 +79,9 @@ $maiorNational = pegarMaiorNational($conexao);
     ?>
 
     <input type="submit" name="salvar" value="Salvar Pokémon">
+
 </form>
+
 
 <script>
   const maiorNational = <?php echo $maiorNational; ?>;
@@ -102,6 +104,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
         return;
     }
 });
+
 </script>
 
 </body>
