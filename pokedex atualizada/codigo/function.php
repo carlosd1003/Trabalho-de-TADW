@@ -303,6 +303,34 @@ function pesquisarTypes($conexao, $nome) {
 
 }
 
+
+function buscarTypesDoPokemon($conexao, $idpokemon) {
+    $sql = "SELECT t.nome
+            FROM types t
+            JOIN pokemon_has_types pht ON pht.idtypes = t.idtypes
+            WHERE pht.idpokemon = ?";
+    
+    $stmt = $conexao->prepare($sql);
+    if (!$stmt) {
+        die("Erro na preparação da query: " . $conexao->error);
+    }
+    
+    $stmt->bind_param("i", $idpokemon);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    $types = [];
+    while ($row = $resultado->fetch_assoc()) {
+        $types[] = $row['nome'];
+    }
+    
+    $stmt->close();
+    return $types;
+}
+
+
+
+
 function listarTypes($conexao) {
     $sql = "SELECT idtypes, nome FROM types";
     $comando = mysqli_prepare($conexao, $sql);

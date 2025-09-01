@@ -17,23 +17,27 @@ $lista_stats = listarStats($conexao);
     <div class="card-container">
         <?php
         foreach ($lista_pokemon as $pokemon) {
+            $types = buscarTypesDoPokemon($conexao, $pokemon['idpokemon']); // <- Aqui dentro
+            
             // Pega a imagem do banco
             $imagemBanco = $pokemon['imagem'];
             
             if (!empty($imagemBanco)) {
-                // Usa a imagem do banco (supondo que seja um caminho relativo válido)
-                $urlImagem = 'uploads/' . $imagemBanco; // Exemplo: 'uploads/pokemon_123.png'
+                $urlImagem = 'fotos/' . $imagemBanco;
             } else {
-                // Se não tiver imagem no banco, usa a da PokeAPI
                 $idImagem = htmlspecialchars($pokemon['idpokemon']);
                 $urlImagem = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$idImagem.png";
             }
-            
+
             echo "<div class='card'>";
             echo "<img src='$urlImagem' alt='Imagem do Pokémon'>";
             echo "<h2>" . htmlspecialchars($pokemon['nome']) . "</h2>";
             echo "<p><strong>Dex:</strong> " . htmlspecialchars($pokemon['national']) . "</p>";
             echo "<p><strong>Geração:</strong> " . htmlspecialchars($pokemon['gen']) . "</p>";
+            
+            if (!empty($types)) {
+                echo "<p><strong>Tipos:</strong> " . implode(', ', $types) . "</p>";
+            }
 
             // Exibe os stats do Pokémon atual
             foreach ($lista_stats as $stats) {
@@ -46,7 +50,7 @@ $lista_stats = listarStats($conexao);
                     echo "<p><strong>Sp. Defense:</strong> " . htmlspecialchars($stats['sp_defense']) . "</p>";
                     echo "<p><strong>Speed:</strong> " . htmlspecialchars($stats['speed']) . "</p>";
                     echo "</div>";
-                    break; // Não precisa procurar mais stats para este Pokémon
+                    break;
                 }
             }
             echo "</div>";

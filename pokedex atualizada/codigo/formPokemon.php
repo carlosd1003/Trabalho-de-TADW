@@ -51,11 +51,11 @@ $maiorNational = pegarMaiorNational($conexao);
     </label><br><br>
 
     <label>Special Attack:<br>
-        <input type="number" name="sp_attack" min="0" required>
+        <input type="number" name="spattack" min="0" required>
     </label><br><br>
 
     <label>Special Defense:<br>
-        <input type="number" name="sp_defense" min="0" required>
+        <input type="number" name="spdefense" min="0" required>
     </label><br><br>
 
     <label>Speed:<br>
@@ -74,7 +74,7 @@ $maiorNational = pegarMaiorNational($conexao);
         }
         echo "</select><br><br>";
     } else {
-        echo "⚠ Nenhum tipo encontrado no banco de dados.<br><br>";
+        echo "Nenhum tipo encontrado no banco de dados.<br><br>";
     }
     ?>
 
