@@ -20,11 +20,13 @@
             <a href="formCriar_build.php">Criar Build</a>
             <a href="listarBuild.php">Ver Builds</a>
             <a href="criarSuporte.php">Acesso Ao Suporte</a>
+            <a href="listarSuporte.php">Ver Informações do Suporte</a>
         </div>
     </header>
     <div class="container">
         <iframe name="iframe_conteudo" src="listarPokemon.php" allowfullscreen></iframe>
     </div>
 </body>
+<a href="deslogar.php">Sair</a>
 
 </html>
