@@ -1,16 +1,17 @@
-INSERT INTO types ( ome) VALUES
+
+INSERT INTO types (nome) VALUES
 ('Normal'),
-('Water'),
-('Fire'),
 ('Electric'),
+('Fire'),
+('Water'),
 ('Grass'),
 ('Ice'),
-('Fighting'),
+('Bug'),
 ('Poison'),
 ('Ground'),
 ('Flying'),
 ('Psychic'),
-('Bug'),
+('Fighting'),
 ('Rock'),
 ('Ghost'),
 ('Dragon'),
@@ -87,7 +88,6 @@ INSERT INTO pokemon (national, nome, gen, imagem) VALUES
 (65, 'Alakazam', 1, NULL),
 (66, 'Machop', 1, NULL),
 (67, 'Machoke', 1, NULL),
-INSERT INTO pokemon (national, nome, gen, imagem) VALUES
 (68, 'Machamp', 1, NULL),
 (69, 'Bellsprout', 1, NULL),
 (70, 'Weepinbell', 1, NULL),
@@ -327,6 +327,114 @@ INSERT INTO stats (hp, attack, defense, sp_attack, sp_defense, speed, idpokemon)
 (100, 100, 100, 100, 100, 100, 150),-- Mew
 (91, 134, 95, 100, 100, 80, 144);
 
+
+INSERT INTO pokemon_has_types (idpokemon, idtypes) VALUES
+(1, 5), (1, 8),       -- Bulbasaur: Grass, Poison
+(2, 5), (2, 8),       -- Ivysaur: Grass, Poison
+(3, 5), (3, 8),       -- Venusaur: Grass, Poison
+(4, 3),               -- Charmander: Fire
+(5, 3),               -- Charmeleon: Fire
+(6, 3), (6, 10),      -- Charizard: Fire, Flying
+(7, 4),               -- Squirtle: Water
+(8, 4),               -- Wartortle: Water
+(9, 4),               -- Blastoise: Water
+(10, 7),              -- Caterpie: Bug
+(11, 7),              -- Metapod: Bug
+(12, 7), (12, 10),    -- Butterfree: Bug, Flying
+(13, 7), (13, 8),     -- Weedle: Bug, Poison
+(14, 7), (14, 8),     -- Kakuna: Bug, Poison
+(15, 7), (15, 8),     -- Beedrill: Bug, Poison
+(16, 1), (16, 10),    -- Pidgey: Normal, Flying
+(17, 1), (17, 10),    -- Pidgeotto: Normal, Flying
+(18, 1), (18, 10),    -- Pidgeot: Normal, Flying
+(19, 1),              -- Rattata: Normal
+(20, 1),              -- Raticate: Normal
+(21, 1), (21, 10),    -- Spearow: Normal, Flying
+(22, 1), (22, 10),    -- Fearow: Normal, Flying
+(23, 8),              -- Ekans: Poison
+(24, 8),              -- Arbok: Poison
+(25, 2),              -- Pikachu: Electric
+(26, 2),              -- Raichu: Electric
+(27, 9),              -- Sandshrew: Ground
+(28, 9),              -- Sandslash: Ground
+(29, 8),              -- Nidoran♀: Poison
+(30, 8),              -- Nidorina: Poison
+(31, 8), (31, 9),     -- Nidoqueen: Poison, Ground
+(32, 8),              -- Nidoran♂: Poison
+(33, 8),              -- Nidorino: Poison
+(34, 8), (34, 9),     -- Nidoking: Poison, Ground
+(35, 18),             -- Clefairy: Fairy
+(36, 18),             -- Clefable: Fairy
+(37, 3),              -- Vulpix: Fire
+(38, 3),              -- Ninetales: Fire
+(39, 1), (39, 18),    -- Jigglypuff: Normal, Fairy
+(40, 1), (40, 18),    -- Wigglytuff: Normal, Fairy
+(41, 8), (41, 10),    -- Zubat: Poison, Flying
+(42, 8), (42, 10),    -- Golbat: Poison, Flying
+(43, 5), (43, 8),     -- Oddish: Grass, Poison
+(44, 5), (44, 8),     -- Gloom: Grass, Poison
+(45, 5), (45, 8),     -- Vileplume: Grass, Poison
+(46, 7), (46, 5),     -- Paras: Bug, Grass
+(47, 7), (47, 5),     -- Parasect: Bug, Grass
+(48, 7), (48, 8),     -- Venonat: Bug, Poison
+(49, 7), (49, 8),     -- Venomoth: Bug, Poison
+(50, 9),              -- Diglett: Ground
+(51, 9),              -- Dugtrio: Ground
+(52, 1),              -- Meowth: Normal
+(53, 1),              -- Persian: Normal
+(54, 4),
+(55, 4),
+(86, 4),
+(87, 4), (87, 6),
+(92, 14), (92, 8),
+(93, 14), (93, 8),
+(94, 14), (94, 8),
+(95, 13), (95, 9),
+(96, 11),
+(97, 11),
+(100, 2),
+(101, 2),
+(104, 9),
+(105, 9),
+(106, 12),
+(107, 12),
+(109, 8),
+(110, 8),
+(111, 9), (111, 13),
+(112, 9), (112, 13),
+(114, 5),
+(122, 11), (122, 18),
+(123, 7), (123, 10),
+(124, 6), (124, 11),
+(125, 2),
+(126, 3),
+(127, 7),
+(128, 1),
+(129, 4),
+(130, 4), (130, 10),
+(131, 4), (131, 6),
+(132, 1),
+(134, 4),
+(135, 2),
+(136, 3),
+(137, 1),
+(138, 13), (138, 4),
+(139, 13), (139, 4),
+(140, 13), (140, 4),
+(141, 13), (141, 4),
+(142, 13), (142, 10),
+(143, 1),
+(144, 6), (144, 10),
+(145, 2), (145, 10),
+(146, 3), (146, 10),
+(147, 15),
+(148, 15),
+(149, 15), (149, 10),
+(150, 11),
+(151, 11), (151, 18);
+
+
+
 INSERT INTO `banco_pokemon`.`usuario` (email, senha, Tipo) VALUES
 ('ash.ketchum@poke.com', '$2y$10$U8FzMQRoRccurTVjo1f8kudM4Y6xC7dT64N4ZtXPB7toKRdmEimre', 'C'), -- pikachu123
 ('misty.waterflower@poke.com', '$2y$10$R9hnJKqVvNVmZPccTFfR8ukfJQ8rgILYZUNIEc1ZB6O2Mk80OB7Qa', 'C'), -- misty456
@@ -452,217 +560,3 @@ INSERT INTO `banco_pokemon`.`build` (`nome`, `idpokemon`) VALUES
 ('Build Poder Bruto', 108),
 ('Build Explosiva', 146),
 ('Build Estratégica', 57);
-
-INSERT INTO pokemon_has_types (idpokemon, idtypes) VALUES
-(1, 5), (1, 8),     -- Bulbasaur: Grass, Poison
-(2, 5), (2, 8),     -- Ivysaur: Grass, Poison
-(3, 5), (3, 8),     -- Venusaur: Grass, Poison
-(4, 3),             -- Charmander: Fire
-(5, 3),             -- Charmeleon: Fire
-(6, 3),             -- Charizard: Fire, Flying
-(6, 10),
-(7, 3),             -- Squirtle: Water
-(8, 3),             -- Wartortle: Water
-(9, 3),             -- Blastoise: Water
-(10, 7),            -- Caterpie: Bug
-(11, 7),            -- Metapod: Bug
-(12, 7), (12, 12),  -- Butterfree: Bug, Flying
-(13, 5), (13, 8),   -- Weedle: Bug, Poison
-(14, 5), (14, 8),   -- Kakuna: Bug, Poison
-(15, 7), (15, 8),   -- Beedrill: Bug, Poison
-(16, 5),            -- Pidgey: Normal, Flying
-(16, 10),
-(17, 5), (17, 10),  -- Pidgeotto: Normal, Flying
-(18, 5), (18, 10),  -- Pidgeot: Normal, Flying
-(19, 8),            -- Rattata: Normal
-(19, 1),
-(20, 8),            -- Raticate: Normal
-(20, 1),
-(21, 8), (21, 7),   -- Spearow: Normal, Flying
-(21, 10),
-(22, 8), (22, 7),   -- Fearow: Normal, Flying
-(22, 10),
-(23, 8), (23, 14),  -- Ekans: Poison
-(24, 8), (24, 14),  -- Arbok: Poison
-(25, 1),            -- Pikachu: Electric
-(25, 4),
-(26, 1), (26, 4),   -- Raichu: Electric
-(27, 5),            -- Sandshrew: Ground
-(27, 9),
-(28, 5), (28, 9),   -- Sandslash: Ground
-(29, 5), (29, 13),  -- Nidoran♀: Poison
-(29, 8),
-(30, 5), (30, 8),   -- Nidorina: Poison
-(31, 5), (31, 8),   -- Nidoqueen: Poison, Ground
-(31, 9),
-(32, 5), (32, 8),   -- Nidoran♂: Poison
-(32, 8),
-(33, 5), (33, 8),   -- Nidorino: Poison
-(34, 5), (34, 8),   -- Nidoking: Poison, Ground
-(34, 9),
-(35, 1),            -- Clefairy: Fairy
-(36, 1),            -- Clefable: Fairy
-(37, 5), (37, 13),  -- Vulpix: Fire
-(38, 3),            -- Ninetales: Fire
-(39, 1),            -- Jigglypuff: Normal, Fairy
-(39, 18),
-(40, 1), (40, 18),  -- Wigglytuff: Normal, Fairy
-(41, 7),            -- Zubat: Poison, Flying
-(41, 8), (41, 10),
-(42, 7), (42, 8), (42, 10), -- Golbat: Poison, Flying
-(43, 1),            -- Oddish: Grass, Poison
-(43, 5), (43, 8),
-(44, 5), (44, 8),   -- Gloom: Grass, Poison
-(45, 5), (45, 8),   -- Vileplume: Grass, Poison
-(46, 5), (46, 13),  -- Paras: Bug, Grass
-(46, 12), (46, 5),
-(47, 12), (47, 5),  -- Parasect: Bug, Grass
-(48, 13),           -- Venonat: Bug, Poison
-(48, 12), (48, 8),
-(49, 12), (49, 8),  -- Venomoth: Bug, Poison
-(50, 1),            -- Diglett: Ground
-(50, 9),
-(51, 1), (51, 9),   -- Dugtrio: Ground
-(52, 3),            -- Meowth: Normal
-(52, 1),
-(53, 3), (53, 1),   -- Persian: Normal
-(54, 5), (54, 13),  -- Psyduck: Water
-(54, 3), (54, 5),
-(55, 3),            -- Golduck: Water
-(56, 5), (56, 13),  -- Mankey: Fighting
-(57, 7),            -- Primeape: Fighting
-(58, 13),           -- Growlithe: Fire
-(59, 3),            -- Arcanine: Fire
-(60, 1), (60, 9),   -- Poliwag: Water
-(60, 3), (60, 9),
-(61, 3), (61, 9),   -- Poliwhirl: Water
-(62, 3), (62, 7),   -- Poliwrath: Water, Fighting
-(63, 3),            -- Abra: Psychic
-(64, 3),            -- Kadabra: Psychic
-(65, 3),            -- Alakazam: Psychic
-(66, 1),            -- Machop: Fighting
-(67, 1),            -- Machoke: Fighting
-(68, 1),            -- Machamp: Fighting
-(69, 13),           -- Bellsprout: Grass, Poison
-(69, 5), (69, 8),
-(70, 5), (70, 8),   -- Weepinbell: Grass, Poison
-(71, 5), (71, 8),   -- Victreebel: Grass, Poison
-(72, 3),            -- Tentacool: Water, Poison
-(72, 3), (72, 8),
-(73, 3), (73, 8),   -- Tentacruel: Water, Poison
-(74, 13),           -- Geodude: Rock, Ground
-(74, 5), (74, 9),
-(75, 13), (75, 9),  -- Graveler: Rock, Ground
-(76, 13), (76, 9),  -- Golem: Rock, Ground
-(77, 5),            -- Ponyta: Fire
-(78, 3),            -- Rapidash: Fire
-(79, 1), (79, 10),  -- Slowpoke: Water, Psychic
-(79, 3), (79, 11),
-(80, 3), (80, 11),  -- Slowbro: Water, Psychic
-(81, 1),            -- Magnemite: Electric, Steel
-(81, 4), (81, 17),
-(82, 1), (82, 17),  -- Magneton: Electric, Steel
-(83, 1),            -- Farfetch'd: Normal, Flying
-(83, 5), (83, 10),
-(84, 1), (84, 10),  -- Doduo: Normal, Flying
-(85, 1), (85, 10),  -- Dodrio: Normal, Flying
-(86, 13),           -- Seel: Water
-(87, 3),            -- Dewgong: Water, Ice
-(88, 5), (88, 13),  -- Grimer: Poison
-(88, 8), (88, 13),
-(89, 5), (89, 8),   -- Muk: Poison
-(90, 3),            -- Shellder: Water
-(91, 3),            -- Cloyster: Water, Ice
-(92, 1), (92, 7),   -- Gastly: Ghost, Poison
-(92, 14), (92, 8),
-(93, 14), (93, 8),  -- Haunter: Ghost, Poison
-(94, 14), (94, 8),  -- Gengar: Ghost, Poison
-(95, 15),           -- Onix: Rock, Ground
-(96, 1), (96, 10),  -- Drowzee: Psychic
-(96, 11),
-(97, 1), (97, 11),  -- Hypno: Psychic
-(98, 1), (98, 9),   -- Krabby: Water
-(99, 3),            -- Kingler: Water
-(100, 5),           -- Voltorb: Electric
-(101, 4),           -- Electrode: Electric
-(102, 5), (102, 13),-- Exeggcute: Grass, Psychic
-(102, 5), (102, 11),
-(103, 5), (103, 11),-- Exeggutor: Grass, Psychic
-(104, 1),           -- Cubone: Ground
-(104, 9),
-(105, 1), (105, 9), -- Marowak: Ground
-(106, 3),           -- Hitmonlee: Fighting
-(107, 7),           -- Hitmonchan: Fighting
-(108, 1),           -- Lickitung: Normal
-(109, 1),           -- Koffing: Poison
-(109, 8),
-(110, 1), (110, 8), -- Weezing: Poison
-(111, 3),           -- Rhyhorn: Ground, Rock
-(111, 9), (111, 13),
-(112, 3), (112, 9), -- Rhydon: Ground, Rock
-(113, 1),           -- Chansey: Normal
-(114, 3),           -- Tangela: Grass
-(114, 5),
-(115, 3),           -- Kangaskhan: Normal
-(116, 5),           -- Horsea: Water
-(117, 3),           -- Seadra: Water
-(118, 15),          -- Goldeen: Water
-(118, 3), (118, 15),
-(119, 15),          -- Seaking: Water
-(120, 1),           -- Staryu: Water
-(121, 3),           -- Starmie: Water, Psychic
-(121, 3), (121, 11),
-(122, 1),           -- Mr. Mime: Psychic, Fairy
-(122, 11), (122, 18),
-(123, 1),           -- Scyther: Bug, Flying
-(123, 12), (123, 10),
-(124, 3),           -- Jynx: Ice, Psychic
-(124, 6), (124, 11),
-(125, 1),           -- Electabuzz: Electric
-(125, 4),
-(126, 1),           -- Magmar: Fire
-(126, 3),
-(127, 3), (127, 15),-- Pinsir: Bug
-(128, 12),
-(128, 15),          -- Tauros: Normal
-(129, 1),
-(129, 1),           -- Magikarp: Water
-(130, 3),
-(130, 3),           -- Gyarados: Water, Flying
-(131, 3), (131, 10),
-(131, 1),           -- Lapras: Water, Ice
-(132, 3), (132, 6),
-(132, 1),           -- Ditto: Normal
-(133, 1),           -- Eevee: Normal
-(134, 1), (134, 5), -- Vaporeon: Water
-(135, 3),
-(135, 3),           -- Jolteon: Electric
-(136, 4),
-(136, 1),           -- Flareon: Fire
-(137, 3),
-(137, 1),           -- Porygon: Normal
-(138, 1),
-(138, 1),           -- Omanyte: Rock, Water
-(139, 13), (139, 3),
-(139, 1),           -- Omastar: Rock, Water
-(140, 13), (140, 3),
-(140, 1),           -- Kabuto: Rock, Water
-(141, 13), (141, 3),
-(141, 1),           -- Kabutops: Rock, Water
-(142, 1),           -- Aerodactyl: Rock, Flying
-(142, 13), (142, 10),
-(143, 15),          -- Snorlax: Normal
-(144, 15),          -- Articuno: Ice, Flying
-(144, 6), (144, 10),
-(145, 3), (145, 10),-- Zapdos: Electric, Flying
-(145, 4), (145, 10),
-(146, 3), (146, 10),-- Moltres: Fire, Flying
-(146, 3), (146, 10),
-(147, 15),          -- Dratini: Dragon
-(148, 15),          -- Dragonair: Dragon
-(149, 15),          -- Dragonite: Dragon, Flying
-(149, 15), (149, 10),
-(150, 1),           -- Mewtwo: Psychic
-(150, 11),
-(151, 1);           -- Mew: Psychic
-(151, 11);
