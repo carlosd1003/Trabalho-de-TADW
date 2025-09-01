@@ -9,8 +9,8 @@ $gen = $_POST['gen'];
 $hp = (int)$_POST['hp'];
 $attack = (int)$_POST['attack'];
 $defense = (int)$_POST['defense'];
-$spattack = isset($_POST['spattack']);
-$spdefense = isset($_POST['spdefense']);
+$spattack = ($_POST['spattack']);
+$spdefense = ($_POST['spdefense']);
 $speed = (int)$_POST['speed'];
 $types = $_POST['types']; // você precisa ver como está salvando os types
 
