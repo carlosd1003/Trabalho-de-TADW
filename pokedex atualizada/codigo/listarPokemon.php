@@ -22,15 +22,19 @@ $lista_stats = listarStats($conexao);
             // Pega a imagem do banco
             $imagemBanco = $pokemon['imagem'];
             
-            if (!empty($imagemBanco)) {
-                $urlImagem = 'fotos/' . $imagemBanco;
-            } else {
-                $idImagem = htmlspecialchars($pokemon['idpokemon']);
-                $urlImagem = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$idImagem.png";
-            }
+         if (!empty($imagemBanco)) {
+            $urlImagem = 'fotos/' . $imagemBanco;
+        } elseif ($pokemon['idpokemon'] <= 151) {
+            // Usa imagem online apenas para os 151 primeiros
+            $idImagem = htmlspecialchars($pokemon['idpokemon']);
+            $urlImagem = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$idImagem.png";
+        } else {
+            $urlImagem = null; // Nenhuma imagem para os outros
+        }
+
 
             echo "<div class='card'>";
-            echo "<img src='$urlImagem' alt='Imagem do Pokémon'>";
+            echo "<img src='$urlImagem' alt='Adicione uma Imagem'>";
             echo "<h2>" . htmlspecialchars($pokemon['nome']) . "</h2>";
             echo "<p><strong>Dex:</strong> " . htmlspecialchars($pokemon['national']) . "</p>";
             echo "<p><strong>Geração:</strong> " . htmlspecialchars($pokemon['gen']) . "</p>";
