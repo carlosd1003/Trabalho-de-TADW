@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Pokémon</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="quiz_fundo">
+
+  <!-- Container principal do quiz -->
+  <div class="quiz-container">
+    <h1>Quiz Pokémon</h1>
+
+    <!-- Espaço onde a pergunta será exibida -->
+    <div class="question" id="question">Carregando...</div>
+
+    <!-- Espaço onde as opções serão inseridas como botões -->
+    <div class="options" id="options"></div>
+
+    <!-- Área para mostrar o resultado final -->
+    <div class="result" id="result"></div>
+
+    <!-- Link para voltar para outra página -->
+    <a href="home.php" class="back-button">Voltar</a>
+  </div>
+
+  <!-- Script JavaScript que controla o funcionamento do quiz -->
+  <script>
+    // Array com objetos que representam as perguntas, opções e respostas corretas
+    const quiz = [
+      {
+        pergunta: "Qual é o Pokémon número 25 da Pokédex?",
+        opcoes: ["Pikachu", "Charmander", "Bulbasaur", "Squirtle"],
+        resposta: "Pikachu"
+      },
+      {
+        pergunta: "Qual tipo é super efetivo contra o tipo Água?",
+        opcoes: ["Fogo", "Planta", "Voador", "Aço"],
+        resposta: "Planta"
+      },
+      {
+        pergunta: "Quem é o rival do Ash na série original?",
+        opcoes: ["Brock", "Gary", "James", "Tracey"],
+        resposta: "Gary"
+      },
+      {
+        pergunta: "Qual Pokémon inicial da 1ª geração é do tipo planta?",
+        opcoes: ["Charmander", "Squirtle", "Bulbasaur", "Pikachu"],
+        resposta: "Bulbasaur"
+      },
+      {
+        pergunta: "Qual destes NÃO é um tipo de Pokémon?",
+        opcoes: ["Sombrio", "Fada", "Vento", "Dragão"],
+        resposta: "Vento"
+      },
+      {
+        pergunta: "Quantos Pokémon existiam na 1ª geração?",
+        opcoes: ["151", "100", "250", "386"],
+        resposta: "151"
+      },
+      {
+        pergunta: "Quem é conhecido como o Pokémon Lendário do tipo Fogo da 1ª geração?",
+        opcoes: ["Zapdos", "Moltres", "Articuno", "Ho-oh"],
+        resposta: "Moltres"
+      },
+      {
+        pergunta: "Em que região se passa a 1ª temporada do anime Pokémon?",
+        opcoes: ["Johto", "Kalos", "Kanto", "Sinnoh"],
+        resposta: "Kanto"
+      },
+      {
+        pergunta: "Qual é a evolução final de Charmander?",
+        opcoes: ["Charmeleon", "Charizard", "Charjabug", "Charcoal"],
+        resposta: "Charizard"
+      },
+      {
+        pergunta: "Qual Pokémon tem uma Pokébola na cauda?",
+        opcoes: ["Meowth", "Voltorb", "Aipom", "Spoink"],
+        resposta: "Aipom"
+      }
+    ];
+
+    // Índice da pergunta atual (começa na primeira)
+    let index = 0;
+
+    // Contador de respostas corretas
+    let score = 0;
+
+    // Função que exibe a pergunta e suas opções na tela
+    function mostrarPergunta() {
+      const q = quiz[index]; // Pega o objeto da pergunta atual
+
+      // Atualiza o texto da pergunta no elemento com id "question"
+      document.getElementById("question").textContent = q.pergunta;
+
+      // Pega o container onde as opções serão mostradas
+      const optionsDiv = document.getElementById("options");
+
+      // Limpa opções anteriores antes de inserir as novas
+      optionsDiv.innerHTML = "";
+
+      // Cria um botão para cada opção disponível
+      q.opcoes.forEach(opcao => {
+        const btn = document.createElement("button"); // Cria o botão
+        btn.textContent = opcao; // Define o texto do botão como a opção
+
+        // Quando o botão for clicado, chama função para verificar resposta
+        btn.onclick = () => verificarResposta(opcao);
+
+        // Adiciona o botão ao container das opções
+        optionsDiv.appendChild(btn);
+      });
+    }
+
+    // Função para verificar se a resposta escolhida está correta
+    function verificarResposta(escolha) {
+      const correta = quiz[index].resposta; // Resposta correta da pergunta atual
+
+      // Se o usuário acertou, incrementa a pontuação
+      if (escolha === correta) {
+        score++;
+      }
+
+      // Avança para a próxima pergunta
+      index++;
+
+      // Verifica se ainda existem perguntas para mostrar
+      if (index < quiz.length) {
+        mostrarPergunta(); // Mostra próxima pergunta
+      } else {
+        // Caso o quiz tenha acabado, exibe mensagem final e resultado
+        document.getElementById("question").textContent = "Fim do Quiz!";
+        document.getElementById("options").innerHTML = ""; // Remove botões
+        document.getElementById("result").textContent = `Você acertou ${score} de ${quiz.length}!`;
+      }
+    }
+
+    // Inicializa o quiz mostrando a primeira pergunta
+    mostrarPergunta();
+
+  </script>
+</body>
+</html>

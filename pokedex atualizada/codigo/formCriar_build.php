@@ -28,6 +28,7 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -57,7 +58,7 @@ if (isset($_GET['id'])) {
 
             <input type="submit" value="<?php echo $botao; ?>">
     </form> <br>
-    <a href="home.php">Voltar</a>
+<a href="home.php" class="back-button">Voltar</a>
 
 </body>
 

@@ -14,6 +14,7 @@ $maiorNational = pegarMaiorNational($conexao);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Pokémon</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -106,6 +107,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
 });
 
 </script>
+<a href="home.php" class="back-button">Voltar</a>
 
 </body>
 </html>

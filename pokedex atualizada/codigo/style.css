@@ -1,3 +1,5 @@
+        /*css do listar pokemon*/
+
         body {
             font-family: Arial, sans-serif;
             background: #f2f2f2;
@@ -53,6 +55,8 @@
             font-size: 13px;
         }
 
+        /*css do topo home page*/
+
         header {
             background-color:#ffffff; /* Cor escura padrão */
             height: 60px; /* Altura do topo */
@@ -69,13 +73,7 @@
             padding: 0 20px;  /* Padding nas laterais */
         }
 
-        /* Iframe ocupando o espaço restante da tela */
-        iframe {
-            width: 100%;
-            height: calc(100vh - 140px); /* Ajusta a altura para ocupar o espaço restante */
-            border: 1px solid #ccc;
-                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); 
-        }
+        /*css do calendario */
 
 /* 1. ESTILOS GERAIS - Define cores e fonte base */
         body {
@@ -196,11 +194,60 @@
             .fc-toolbar-title { font-size: 1.4em; }
         }
 
-    body {
-      background-image: url('../img/list_bg.jpg'); /* Caminho da imagem */
-      background-size: cover;              /* Faz a imagem cobrir a tela toda */
-      background-repeat: no-repeat;        /* Evita repetição */
-      background-position: center center;  /* Centraliza a imagem */
-      height: 100vh;                       /* Garante que o fundo ocupe toda a altura */
-      margin: 0;
+        /*css do quiz pokemon*/
+        
+    /* Define o fundo com um gradiente azul para vermelho */
+    .quiz_fundo{
+      background: linear-gradient(to right, #052bff, #ff0000);
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      display: flex; /* Usa flexbox para centralizar conteúdo */
+      justify-content: center; /* Centraliza horizontalmente */
+      align-items: center; /* Centraliza verticalmente */
+      height: 100vh; /* Altura total da tela */
+      margin: 0; /* Remove margens padrão */
     }
+
+    /* Caixa do quiz com fundo semi-transparente e bordas arredondadas */
+    .quiz-container {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      width: 400px;
+    }
+
+    /* Estilo do texto da pergunta */
+    .question {
+      font-size: 1.3em;
+      margin-bottom: 20px;
+    }
+
+    /* Botões das opções do quiz */
+    .options button {
+      display: block; /* Cada botão em linha separada */
+      width: 100%; /* Ocupa toda largura do container */
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 1em;
+      border: none; /* Remove borda padrão */
+      border-radius: 5px;
+      cursor: pointer; /* Cursor de clique */
+      background-color: #fff;
+      color: #000;
+      transition: 0.3s; /* Transição suave para efeitos visuais */
+    }
+
+    /* Efeito hover para os botões */
+    .options button:hover {
+      background-color: #ff0505; /* Fundo vermelho */
+      color: #000; /* Texto preto */
+    }
+
+    /* Resultado do quiz */
+    .result {
+      font-size: 1.4em;
+      margin-top: 20px;
+    }
+
+    
