@@ -1,43 +1,62 @@
 <?php
-require_once "conexao.php";
-require_once "function.php";
+    require_once "conexao.php";
+    require_once "function.php";
 
-// Recebe os dados
-$national = (int)$_POST['national'];
-$nome = $_POST['nome'];
-$gen = $_POST['gen'];
-$hp = (int)$_POST['hp'];
-$attack = (int)$_POST['attack'];
-$defense = (int)$_POST['defense'];
-$spattack = ($_POST['spattack']);
-$spdefense = ($_POST['spdefense']);
-$speed = (int)$_POST['speed'];
-$types = $_POST['types']; // você precisa ver como está salvando os types
+    // Recebe os dados
+    $national = (int)$_POST['national'];
+    $nome = $_POST['nome'];
+    $gen = $_POST['gen'];
+    $hp = (int)$_POST['hp'];
+    $attack = (int)$_POST['attack'];
+    $defense = (int)$_POST['defense'];
+    $spattack = (int)$_POST['spattack'];
+    $spdefense = (int)$_POST['spdefense'];
+    $speed = (int)$_POST['speed'];
+    $types = $_POST['types']; // Ainda precisa tratar isso conforme seu schema
 
-// Upload da imagem
-$nome_arquivo = $_FILES['imagem']['name'];
-$caminho_temporario = $_FILES['imagem']['tmp_name'];
-$extensao = pathinfo($nome_arquivo, PATHINFO_EXTENSION);
-$novo_nome = uniqid() . "." . $extensao;
-$caminho_destino = "fotos/" . $novo_nome;
-move_uploaded_file($caminho_temporario, $caminho_destino);
+    $novo_nome = null; // Valor padrão caso não envie imagem
 
-// Criar o Pokémon
-$criado = criarPokemon($conexao, $national, $nome, $gen, $novo_nome);
+    // Upload da imagem, com validações
+    if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+        $nome_arquivo = $_FILES['imagem']['name'];
+        $caminho_temporario = $_FILES['imagem']['tmp_name'];
+        $extensao = strtolower(pathinfo($nome_arquivo, PATHINFO_EXTENSION));
 
-// Verifica se criou com sucesso
-if ($criado) {
-    // Recupera o ID do Pokémon recém-criado
-    $idpokemon = mysqli_insert_id($conexao);
+        // Extensões permitidas
+        $extensoes_permitidas = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 
-    // Insere os stats
-    criarStats($conexao, $idpokemon, $hp, $attack, $defense, $spattack, $spdefense, $speed);
+        if (in_array($extensao, $extensoes_permitidas)) {
+            // Gera nome único
+            $novo_nome = uniqid() . "." . $extensao;
 
-    // Aqui você pode salvar os types, se tiver uma tabela relacional tipo_pokemon
-    // salvarTypes($conexao, $idpokemon, $types); (exemplo se existir)
-}
+            // Verifica se a pasta 'fotos' existe
+            $pasta_destino = "fotos";
+            if (!is_dir($pasta_destino)) {
+                mkdir($pasta_destino, 0755, true);
+            }
 
-// Redireciona
+            $caminho_destino = $pasta_destino . "/" . $novo_nome;
+
+            // Move o arquivo
+            if (!move_uploaded_file($caminho_temporario, $caminho_destino)) {
+                // Falha ao mover o arquivo
+                $novo_nome = null; // Não salva imagem
+            }
+        }
+    }
+
+    // Criar o Pokémon
+    $criado = criarPokemon($conexao, $national, $nome, $gen, $novo_nome);
+
+    if ($criado) {
+        $idpokemon = mysqli_insert_id($conexao);
+        criarStats($conexao, $idpokemon, $hp, $attack, $defense, $spattack, $spdefense, $speed);
+
+        salvarTypes($conexao, $idpokemon, $types);
+
+    }
+
+    // Redireciona (somente se nenhum erro tiver dado output antes)
 header("Location: home.php");
 exit;
 ?>

@@ -287,6 +287,24 @@ function deletarBuild($conexao, $idbuild) {
 
 #=================================================================================================================
 
+function salvarTypes($conexao, $idpokemon, $types) {
+    // Garante que seja um array
+    if (!is_array($types)) {
+        $types = [$types];
+    }
+
+    foreach ($types as $idtype) {
+        $idtype = (int)$idtype; // segurança
+        $sql = "INSERT INTO pokemon_has_types (idpokemon, idtypes) VALUES (?, ?)";
+        $stmt = mysqli_prepare($conexao, $sql);
+        mysqli_stmt_bind_param($stmt, 'ii', $idpokemon, $idtype);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+    }
+}
+
+
+
 function pesquisarTypes($conexao, $nome) {
     $sql = "SELECT * FROM types WHERE nome = ?";
     $comando = mysqli_prepare($conexao, $sql);
