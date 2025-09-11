@@ -107,18 +107,33 @@ function deletarStats($conexao, $idstats) {
 
 #=================================================================================================================
 
-function criarPokemon ($conexao, $national, $nome, $gen, $imagem) {
-    $sql = "INSERT INTO pokemon (national, nome, gen, imagem) VALUES (?, ?, ?, ?)";
+function criarPokemon($conexao, $national, $nome, $gen, $imagem, $idusuario) {
+    $sql = "INSERT INTO pokemon (national, nome, gen, imagem, idusuario) VALUES (?, ?, ?, ?, ?)";
     $comando = mysqli_prepare($conexao, $sql);
     
-    mysqli_stmt_bind_param($comando, 'isis', $national, $nome, $gen, $imagem);
+    mysqli_stmt_bind_param($comando, 'isisi', $national, $nome, $gen, $imagem, $idusuario);
     
     $funcionou = mysqli_stmt_execute($comando);
     mysqli_stmt_close($comando);
     
     return $funcionou;
-
 }
+
+
+function pesquisarPokemonComDono($conexao, $idpokemon) {
+    $sql = "SELECT * FROM pokemon WHERE idpokemon = ?";
+    $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_bind_param($comando, 'i', $idpokemon);
+    mysqli_stmt_execute($comando);
+    $resultado = mysqli_stmt_get_result($comando);
+
+    $pokemon = mysqli_fetch_assoc($resultado);
+    mysqli_stmt_close($comando);
+
+    return $pokemon;
+}
+
 
 
 function nationalExiste($conexao, $national) {
