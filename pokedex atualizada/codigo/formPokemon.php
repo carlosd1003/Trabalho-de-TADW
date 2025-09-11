@@ -66,7 +66,7 @@ $maiorNational = pegarMaiorNational($conexao);
     <!-- ✅ EXIBE OS TIPOS SOMENTE SE EXISTIREM -->
     <?php
     if (!empty($lista_types)) {
-        echo "Tipos (segure Ctrl para selecionar múltiplos):<br>";
+        echo "Tipos (segure Ctrl para selecionar o segundo elemento):<br>";
         echo "<select name='types[]' multiple required>";
         foreach ($lista_types as $types) {
             $nome = htmlspecialchars($types['nome']);
@@ -82,6 +82,19 @@ $maiorNational = pegarMaiorNational($conexao);
     <input type="submit" name="salvar" value="Salvar Pokémon">
 
 </form>
+
+<script>
+  const selectTypes = document.querySelector('select[name="types[]"]');
+
+  selectTypes.addEventListener('change', () => {
+    const selectedOptions = Array.from(selectTypes.selectedOptions);
+    if (selectedOptions.length > 2) {
+      // Se tiver mais de 2 selecionados, desmarca a última seleção
+      const lastSelected = selectedOptions[selectedOptions.length - 1];
+      lastSelected.selected = false;
+    }
+  });
+</script>
 
 
 <script>
