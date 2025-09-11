@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <h1>Lista de Treinadores</h1>
     <?php
     require_once "conexao.php";
     require_once "function.php";

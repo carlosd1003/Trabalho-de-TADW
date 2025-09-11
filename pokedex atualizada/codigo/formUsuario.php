@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    <h1>Cadastro De Usuario</h1>
     <form action="salvarUsuario.php" method="post">
 
         E-mail: <br>

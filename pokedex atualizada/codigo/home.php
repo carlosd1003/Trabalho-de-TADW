@@ -12,9 +12,8 @@ $lista_stats = listarStats($conexao);
     <meta charset="UTF-8">
     <title>Pokédex</title>
     <link rel="stylesheet" href="style.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
-
 <body>
         <header>
         <a href="#" class="logo">Pokédex</a>
@@ -29,8 +28,9 @@ $lista_stats = listarStats($conexao);
             <a class="link-topo" href="criarSuporte.php">Acesso Ao Suporte</a>
             <a class="link-topo" href="listarSuporte.php">Ver Informações do Suporte</a>
             <a class="link-topo" href="pesquisarTreinador.php">Procurar Um Treinador</a>
+            <a class="link-topo" href="deslogar.php">Sair Da Seçao</a>
         </div>
-    </header>
+    </header> <br>
     <a href="quizPokemon.html">Teste Seu Conhecimento Sobre O Mundo Pokemon</a>
     <br><br><br>
     <h1>Pokédex</h1>
@@ -88,4 +88,5 @@ $lista_stats = listarStats($conexao);
         ?>
     </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </html>

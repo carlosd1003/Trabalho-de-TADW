@@ -40,6 +40,7 @@
     require_once "conexao.php";
     require_once "function.php";
     ?>
+    <h1>Criar Perfil</h1>
     <form action="salvarPerfil.php?id=<?php echo $id; ?>" method="post" enctype="multipart/form-data">
 
         Nome: <br>

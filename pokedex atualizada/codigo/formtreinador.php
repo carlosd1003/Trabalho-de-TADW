@@ -49,6 +49,7 @@ if (isset($_GET['id'])) {
     require_once "conexao.php";
     require_once "function.php";
     ?>
+    <h1>Cadstro De Treinador</h1>
     <form action="salvar_treinador.php?id=<?php echo $id; ?>" method="post" enctype="multipart/form-data">
 
         nome: <br>
