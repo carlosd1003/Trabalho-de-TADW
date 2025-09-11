@@ -1,82 +1,212 @@
-        /*css do listar pokemon*/
+/* Reseta os estilos padrões */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f2f2f2;
-            margin: 0;
-            padding: 20px;
-        }
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f2f2f7;
+    color: #333;
+    padding: 20px;
+}
 
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+h1 {
+    text-align: center;
+    font-size: 3em;
+    margin-bottom: 40px;
+    color: #4a4a4a;
+    font-weight: bold;
+}
 
-        .card-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
+/* Contêiner para os cards */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
 
-        .card {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: transform 0.2s ease-in-out;
-        }
+/* Estilo do Card */
+.card {
+    background-color: #fff;
+    border-radius: 15px;
+    width: 240px;
+    height: 450px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    position: relative;
+}
 
-        .card:hover {
-            transform: scale(1.03);
-        }
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    background: #f0f0f0;
+}
 
-        .card img {
-            width: 100px;
-            height: 100px;
-        }
+/* Imagem do Pokémon */
+.card img {
+    width: 130px;
+    height: 130px;
+    margin-bottom: 15px;
+    object-fit: contain;
+    align-self: center;
+}
 
-        .card h2 {
-            margin: 10px 0 5px;
-        }
+/* Nome e Número do Pokémon */
+.card h2 {
+    font-size: 1.6em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #4a4a4a;
+    text-transform: capitalize;
+}
 
-        .card p {
-            margin: 2px 0;
-            font-size: 14px;
-        }
+/* Informações gerais (Dex e Geração) */
+.card p {
+    font-size: 1em;
+    color: #777;
+    margin-bottom: 5px;
+}
 
-        .stats {
-            margin-top: 10px;
-            text-align: left;
-        }
+/* Estilo das stats */
+.card .stats p {
+    font-size: 0.9em;
+    color: #555;
+}
 
-        .stats p {
-            margin: 3px 0;
-            font-size: 13px;
-        }
+/* Tipos de Pokémon */
+.card .types {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 8px;
+}
 
-        /*css do topo home page*/
+.card .types span {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.9em;
+    color: #fff;
+    text-transform: capitalize;
+    font-weight: bold;
+}
 
-        header {
-            background-color:#ffffff; /* Cor escura padrão */
-            height: 60px; /* Altura do topo */
-            width: 100%; /* Ocupa toda a largura da tela */
-            top: 0; /* Grudado no topo da página */
-            display: flex; /* Layout em linha (horizontal) */
-            justify-content: space-between; /* Espaço entre logo e menu */
-            align-items: center; /* Alinha itens verticalmente ao centro */
-            padding: 0 30px; /* Espaço interno nas laterais */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Sombra suave abaixo */
-        }
-         .container {
-            margin-top: 20px; /* Espaço entre a barra e o iframe */
-            padding: 0 20px;  /* Padding nas laterais */
-        }
+/* Cores dos Tipos - Gradientes */
+.type-fire {
+    background: linear-gradient(135deg, #fba818, #f67d00);
+}
 
-        /*css do calendario */
+.type-water {
+    background: linear-gradient(135deg, #1e90ff, #3c7ee6);
+}
 
+.type-grass {
+    background: linear-gradient(135deg, #4caf50, #388e3c);
+}
+
+.type-electric {
+    background: linear-gradient(135deg, #ffeb3b, #ffb300);
+}
+
+.type-psychic {
+    background: linear-gradient(135deg, #ff4081, #d81b60);
+}
+
+.type-bug {
+    background: linear-gradient(135deg, #8bc34a, #5d832e);
+}
+
+.type-normal {
+    background: linear-gradient(135deg, #9e9e9e, #7b7b7b);
+}
+
+.type-fighting {
+    background: linear-gradient(135deg, #d32f2f, #c62828);
+}
+
+.type-fairy {
+    background: linear-gradient(135deg, #e91e63, #c2185b);
+}
+
+.type-poison {
+    background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+}
+
+.type-ground {
+    background: linear-gradient(135deg, #795548, #5d4037);
+}
+
+.type-flying {
+    background: linear-gradient(135deg, #3f51b5, #283593);
+}
+
+.type-rock {
+    background: linear-gradient(135deg, #8d6e63, #6d4c41);
+}
+
+.type-ice {
+    background: linear-gradient(135deg, #00bcd4, #0097a7);
+}
+
+.type-dragon {
+    background: linear-gradient(135deg, #ff5722, #d32f2f);
+}
+
+.type-dark {
+    background: linear-gradient(135deg, #616161, #424242);
+}
+
+.type-steel {
+    background: linear-gradient(135deg, #607d8b, #455a64);
+}
+
+.type-ghost {
+    background: linear-gradient(135deg, #673ab7, #512da8);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .card {
+        width: 200px;
+        height: 300px;
+    }
+    
+    .card h2 {
+        font-size: 1.4em;
+    }
+}
+
+
+/*css do topo home page*/
+header {
+    background-color:#ffffff; /* Cor escura padrão */
+    height: 60px; /* Altura do topo */
+    width: 100%; /* Ocupa toda a largura da tela */
+    top: 0; /* Grudado no topo da página */
+    display: flex; /* Layout em linha (horizontal) */
+    justify-content: space-between; /* Espaço entre logo e menu */
+    align-items: center; /* Alinha itens verticalmente ao centro */
+    padding: 0 30px; /* Espaço interno nas laterais */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Sombra suave abaixo */
+}
+ .container {
+    margin-top: 20px; /* Espaço entre a barra e o iframe */
+    padding: 0 20px;  /* Padding nas laterais */
+}
+
+
+/*css do calendario */
 /* 1. ESTILOS GERAIS - Define cores e fonte base */
-        body {
+        .fundo-calendario {
             font-family: 'Segoe UI', sans-serif; /* Fonte limpa e moderna */
             background: #f0f2f5; /* Cor de fundo suave */
             margin: 0;

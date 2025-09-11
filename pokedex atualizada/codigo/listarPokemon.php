@@ -17,32 +17,37 @@ $lista_stats = listarStats($conexao);
     <div class="card-container">
         <?php
         foreach ($lista_pokemon as $pokemon) {
-            $types = buscarTypesDoPokemon($conexao, $pokemon['idpokemon']); // <- Aqui dentro
+            $types = buscarTypesDoPokemon($conexao, $pokemon['idpokemon']); // Pega os tipos
             
             // Pega a imagem do banco
             $imagemBanco = $pokemon['imagem'];
             
-         if (!empty($imagemBanco)) {
-            $urlImagem = 'fotos/' . $imagemBanco;
-        } elseif ($pokemon['idpokemon'] <= 151) {
-            // Usa imagem online apenas para os 151 primeiros
-            $idImagem = htmlspecialchars($pokemon['idpokemon']);
-            $urlImagem = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$idImagem.png";
-        } else {
-            $urlImagem = null; // Nenhuma imagem para os outros
-        }
-
+            if (!empty($imagemBanco)) {
+                $urlImagem = 'fotos/' . $imagemBanco;
+            } elseif ($pokemon['idpokemon'] <= 151) {
+                // Usa imagem online apenas para os 151 primeiros
+                $idImagem = htmlspecialchars($pokemon['idpokemon']);
+                $urlImagem = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$idImagem.png";
+            } else {
+                $urlImagem = null; // Nenhuma imagem para os outros
+            }
 
             echo "<div class='card'>";
             echo "<img src='$urlImagem' alt='Adicione uma Imagem'>";
             echo "<h2>" . htmlspecialchars($pokemon['nome']) . "</h2>";
             echo "<p><strong>Dex:</strong> " . htmlspecialchars($pokemon['national']) . "</p>";
             echo "<p><strong>Geração:</strong> " . htmlspecialchars($pokemon['gen']) . "</p>";
-            
-            if (!empty($types)) {
-                echo "<p><strong>Tipos:</strong> " . implode(', ', $types) . "</p>";
-            }
 
+            // Exibe os tipos com a classe específica para cada tipo
+            if (!empty($types)) {
+                echo "<div class='types'>";
+                foreach ($types as $type) {
+                    $classType = strtolower($type); // Transforma o tipo em minúsculo para a classe CSS
+                    echo "<span class='type-$classType'>$type</span>";
+                }
+                echo "</div>";
+            }
+            echo "<br>";
             // Exibe os stats do Pokémon atual
             foreach ($lista_stats as $stats) {
                 if ($stats['idpokemon'] == $pokemon['idpokemon']) {
@@ -57,6 +62,7 @@ $lista_stats = listarStats($conexao);
                     break;
                 }
             }
+
             echo "</div>";
         }
         ?>
