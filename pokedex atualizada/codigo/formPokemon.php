@@ -79,7 +79,7 @@ $maiorNational = pegarMaiorNational($conexao);
     }
     ?>
 
-    <input type="submit" name="salvar" value="Salvar Pokémon">
+    <input type="submit" class="cadastrar-button" name="salvar" value="Criar Pokémon">
 
 </form>
 

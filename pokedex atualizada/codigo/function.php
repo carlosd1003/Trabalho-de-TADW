@@ -413,7 +413,13 @@ function criaSugestao_reclamacao($conexao, $reclamacao, $sugestao, $idusuario) {
     }
 
 function listarSugestao_reclamacao($conexao) {
-        $sql = "SELECT * FROM suporte";
+        $sql = "SELECT 
+                suporte.idsuporte, 
+                suporte.reclamacao, 
+                suporte.sugestao, 
+                usuario.email AS email_usuario
+            FROM suporte
+            JOIN usuario ON suporte.idusuario = usuario.idusuario";
         $comando = mysqli_prepare($conexao, $sql);
         
         mysqli_stmt_execute($comando);

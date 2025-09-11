@@ -16,7 +16,7 @@ h1 {
     text-align: center;
     font-size: 3em;
     margin-bottom: 40px;
-    color: #4a4a4a;
+    color: #000000;
     font-weight: bold;
 }
 
@@ -174,12 +174,12 @@ h1 {
         flex-direction: column;
         align-items: center;
     }
-    
+
     .card {
         width: 200px;
         height: 300px;
     }
-    
+
     .card h2 {
         font-size: 1.4em;
     }
@@ -188,196 +188,311 @@ h1 {
 
 /*css do topo home page*/
 header {
-    background-color:#ffffff; /* Cor escura padrão */
-    height: 60px; /* Altura do topo */
-    width: 100%; /* Ocupa toda a largura da tela */
-    top: 0; /* Grudado no topo da página */
-    display: flex; /* Layout em linha (horizontal) */
-    justify-content: space-between; /* Espaço entre logo e menu */
-    align-items: center; /* Alinha itens verticalmente ao centro */
-    padding: 0 30px; /* Espaço interno nas laterais */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Sombra suave abaixo */
+    background-color: #ffffff;
+    /* Cor escura padrão */
+    height: 60px;
+    /* Altura do topo */
+    width: 100%;
+    /* Ocupa toda a largura da tela */
+    top: 0;
+    /* Grudado no topo da página */
+    display: flex;
+    /* Layout em linha (horizontal) */
+    justify-content: space-between;
+    /* Espaço entre logo e menu */
+    align-items: center;
+    /* Alinha itens verticalmente ao centro */
+    padding: 0 30px;
+    /* Espaço interno nas laterais */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    /* Sombra suave abaixo */
 }
- .container {
-    margin-top: 20px; /* Espaço entre a barra e o iframe */
-    padding: 0 20px;  /* Padding nas laterais */
+
+.container {
+    margin-top: 20px;
+    /* Espaço entre a barra e o iframe */
+    padding: 0 20px;
+    /* Padding nas laterais */
 }
 
 
 /*css do calendario */
 /* 1. ESTILOS GERAIS - Define cores e fonte base */
-        .fundo-calendario {
-            font-family: 'Segoe UI', sans-serif; /* Fonte limpa e moderna */
-            background: #f0f2f5; /* Cor de fundo suave */
-            margin: 0;
-            padding: 20px;
-            color: #2c3e50; /* Cor do texto escura para boa leitura */
-        }
-        
-        /* 2. CONTÊINER DO CALENDÁRIO - Cria um cartão visual */
-        #calendar {
-            background: white;
-            border-radius: 10px; /* Cantos arredondados */
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08); /* Sombra sutil */
-        }
-        
-        /* 3. CABEÇALHO - Título com gradiente vermelho/azul Pokémon */
-        .fc-toolbar-title {
-            font-size: 1.8em;
-            background: linear-gradient(90deg, #ff1a1a 0%, #3b4cca 100%); /* Gradiente vermelho-azul */
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: bold;
-            padding: 5px 0;
-        }
-        
-        /* 4. BOTÕES - Estilização dos controles de navegação */
-        .fc-button {
-            background: #3b4cca !important; /* Azul Pokémon */
-            border: none !important;
-            border-radius: 5px !important;
-            transition: all 0.2s ease; /* Transição suave para hover */
-        }
-        
-        .fc-button:hover {
-            background: #2a3999 !important; /* Azul mais escuro no hover */
-            transform: translateY(-2px); /* Efeito de levitação */
-        }
-        
-        .fc-button-active {
-            background: #ff1a1a !important; /* Vermelho Pokémon quando ativo */
-        }
-        
-        /* 5. CABEÇALHO DOS DIAS - Estilização dos dias da semana */
-        .fc-col-header-cell {
-            background: #f8f9fa; /* Fundo cinza muito claro */
-        }
-        
-        .fc-col-header-cell a {
-            color: #3b4cca; /* Azul Pokémon */
-            font-weight: 600;
-            padding: 10px 0;
-        }
-        
-        /* 6. DIAS DO MÊS - Estilização dos dias no calendário */
-        .fc-daygrid-day-number {
-            color: #2c3e50;
-            font-weight: 500;
-            padding: 8px;
-        }
-        
-        .fc-day-today {
-            background: rgba(255, 204, 0, 0.1) !important; /* Amarelo suave para o dia atual */
-        }
-        
-        .fc-day-today .fc-daygrid-day-number {
-            color: #ff1a1a; /* Vermelho para número do dia atual */
-            font-weight: 700;
-        }
-        
-        /* 7. EVENTOS - Estilização dos eventos no calendário */
-        .fc-event {
-            background: #3b4cca; /* Azul Pokémon */
-            border: none;
-            border-radius: 3px;
-            padding: 3px 6px;
-            font-size: 0.85em;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-        
-        .fc-event:hover {
-            background: #ff1a1a; /* Vermelho Pokémon no hover */
-            transform: translateY(-1px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        /* 8. BOTÃO VOLTAR - Estilização do link de navegação */
-        .back-button {
-            display: block;
-            width: 120px;
-            margin: 25px auto;
-            padding: 10px 15px;
-            background: #3b4cca;
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .back-button:hover {
-            background: #ff1a1a;
-            transform: translateY(-2px);
-            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-        }
-        
-        /* 9. RESPONSIVIDADE - Ajustes para dispositivos móveis */
-        @media (max-width: 768px) {
-            body { padding: 10px; }
-            #calendar { padding: 10px; }
-            .fc-toolbar-title { font-size: 1.4em; }
-        }
+.fundo-calendario {
+    font-family: 'Segoe UI', sans-serif;
+    /* Fonte limpa e moderna */
+    background: #f0f2f5;
+    /* Cor de fundo suave */
+    margin: 0;
+    padding: 20px;
+    color: #2c3e50;
+    /* Cor do texto escura para boa leitura */
+}
 
-        /*css do quiz pokemon*/
-        
-    /* Define o fundo com um gradiente azul para vermelho */
-    .quiz_fundo{
-      background: linear-gradient(to right, #052bff, #ff0000);
-      color: #fff;
-      font-family: 'Arial', sans-serif;
-      display: flex; /* Usa flexbox para centralizar conteúdo */
-      justify-content: center; /* Centraliza horizontalmente */
-      align-items: center; /* Centraliza verticalmente */
-      height: 100vh; /* Altura total da tela */
-      margin: 0; /* Remove margens padrão */
+/* 2. CONTÊINER DO CALENDÁRIO - Cria um cartão visual */
+#calendar {
+    background: white;
+    border-radius: 10px;
+    /* Cantos arredondados */
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    /* Sombra sutil */
+}
+
+/* 3. CABEÇALHO - Título com gradiente vermelho/azul Pokémon */
+.fc-toolbar-title {
+    font-size: 1.8em;
+    background: linear-gradient(90deg, #ff1a1a 0%, #3b4cca 100%);
+    /* Gradiente vermelho-azul */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: bold;
+    padding: 5px 0;
+}
+
+/* 4. BOTÕES - Estilização dos controles de navegação */
+.fc-button {
+    background: #3b4cca !important;
+    /* Azul Pokémon */
+    border: none !important;
+    border-radius: 5px !important;
+    transition: all 0.2s ease;
+    /* Transição suave para hover */
+}
+
+.fc-button:hover {
+    background: #2a3999 !important;
+    /* Azul mais escuro no hover */
+    transform: translateY(-2px);
+    /* Efeito de levitação */
+}
+
+.fc-button-active {
+    background: #ff1a1a !important;
+    /* Vermelho Pokémon quando ativo */
+}
+
+/* 5. CABEÇALHO DOS DIAS - Estilização dos dias da semana */
+.fc-col-header-cell {
+    background: #f8f9fa;
+    /* Fundo cinza muito claro */
+}
+
+.fc-col-header-cell a {
+    color: #3b4cca;
+    /* Azul Pokémon */
+    font-weight: 600;
+    padding: 10px 0;
+}
+
+/* 6. DIAS DO MÊS - Estilização dos dias no calendário */
+.fc-daygrid-day-number {
+    color: #2c3e50;
+    font-weight: 500;
+    padding: 8px;
+}
+
+.fc-day-today {
+    background: rgba(255, 204, 0, 0.1) !important;
+    /* Amarelo suave para o dia atual */
+}
+
+.fc-day-today .fc-daygrid-day-number {
+    color: #ff1a1a;
+    /* Vermelho para número do dia atual */
+    font-weight: 700;
+}
+
+/* 7. EVENTOS - Estilização dos eventos no calendário */
+.fc-event {
+    background: #3b4cca;
+    /* Azul Pokémon */
+    border: none;
+    border-radius: 3px;
+    padding: 3px 6px;
+    font-size: 0.85em;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.fc-event:hover {
+    background: #ff1a1a;
+    /* Vermelho Pokémon no hover */
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 8. BOTÃO VOLTAR - Estilização do link de navegação */
+.back-button {
+    display: block;
+    width: 130px;
+    margin: 25px auto;
+    padding: 10px 15px;
+    background: #23afcc;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background: #8ae3f5;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* 9. RESPONSIVIDADE - Ajustes para dispositivos móveis */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
     }
 
-    /* Caixa do quiz com fundo semi-transparente e bordas arredondadas */
-    .quiz-container {
-      background-color: rgba(0, 0, 0, 0.7);
-      padding: 30px;
-      border-radius: 12px;
-      text-align: center;
-      width: 400px;
+    #calendar {
+        padding: 10px;
     }
 
-    /* Estilo do texto da pergunta */
-    .question {
-      font-size: 1.3em;
-      margin-bottom: 20px;
+    .fc-toolbar-title {
+        font-size: 1.4em;
     }
+}
 
-    /* Botões das opções do quiz */
-    .options button {
-      display: block; /* Cada botão em linha separada */
-      width: 100%; /* Ocupa toda largura do container */
-      margin: 10px 0;
-      padding: 10px;
-      font-size: 1em;
-      border: none; /* Remove borda padrão */
-      border-radius: 5px;
-      cursor: pointer; /* Cursor de clique */
-      background-color: #fff;
-      color: #000;
-      transition: 0.3s; /* Transição suave para efeitos visuais */
-    }
+/*css do quiz pokemon*/
 
-    /* Efeito hover para os botões */
-    .options button:hover {
-      background-color: #ff0505; /* Fundo vermelho */
-      color: #000; /* Texto preto */
-    }
+/* Define o fundo com um gradiente azul para vermelho */
+.quiz_fundo {
+    background: linear-gradient(to right, #052bff, #ff0000);
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    /* Usa flexbox para centralizar conteúdo */
+    justify-content: center;
+    /* Centraliza horizontalmente */
+    align-items: center;
+    /* Centraliza verticalmente */
+    height: 100vh;
+    /* Altura total da tela */
+    margin: 0;
+    /* Remove margens padrão */
+}
 
-    /* Resultado do quiz */
-    .result {
-      font-size: 1.4em;
-      margin-top: 20px;
-    }
+/* Caixa do quiz com fundo semi-transparente e bordas arredondadas */
+.quiz-container {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    width: 400px;
+}
 
-    
+/* Estilo do texto da pergunta */
+.question {
+    font-size: 1.3em;
+    margin-bottom: 20px;
+}
+
+/* Botões das opções do quiz */
+.options button {
+    display: block;
+    /* Cada botão em linha separada */
+    width: 100%;
+    /* Ocupa toda largura do container */
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 1em;
+    border: none;
+    /* Remove borda padrão */
+    border-radius: 5px;
+    cursor: pointer;
+    /* Cursor de clique */
+    background-color: #fff;
+    color: #000;
+    transition: 0.3s;
+    /* Transição suave para efeitos visuais */
+}
+
+/* Efeito hover para os botões */
+.options button:hover {
+    background-color: #ff0505;
+    /* Fundo vermelho */
+    color: #000;
+    /* Texto preto */
+}
+
+/* Resultado do quiz */
+.result {
+    font-size: 1.4em;
+    margin-top: 20px;
+}
+
+/* Botao de Cadastrar*/
+.cadastrar-button {
+    display: block;
+    width: 130px;
+    margin: 25px auto;
+    padding: 10px 15px;
+    background: #323D48;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.cadastrar-button:hover {
+    background: #5b6269;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Botao de Editar*/
+.editar-button {
+    display: block;
+    width: 130px;
+    margin: 25px auto;
+    padding: 10px 15px;
+    background: #3B4CCA;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.editar-button:hover {
+    background: #696bff;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Botao de Excluir*/
+.excluir-button {
+    display: block;
+    width: 130px;
+    margin: 25px auto;
+    padding: 10px 15px;
+    background: #CC0000;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.excluir-button:hover {
+    background: #ff6a6a;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+td{
+    text-align: center;
+
+}

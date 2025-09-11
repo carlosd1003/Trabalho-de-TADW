@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -16,9 +17,10 @@
         Senha: <br>
         <input type="text" name="senha"> <br><br>
 
-        <input type="submit" value="Cadastrar">
+        <input type="submit" class="cadastrar-button" value="Cadastrar">
         
     </form>
+    <a href="index.html" class="back-button">Voltar</a>
 </body>
 
 </html>

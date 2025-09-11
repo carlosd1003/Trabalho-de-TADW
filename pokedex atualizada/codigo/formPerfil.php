@@ -53,8 +53,8 @@
         Usuario: <br>
         <input type="text" name="idusuario" placeholder="Informe Seu Usuário" value="<?php echo $idusuario; ?>"> <br><br>
             <br>
-            <input type="submit" value="<?php echo $botao; ?>">
-    </form> <br>
+            <input type="submit" class="cadastrar-button" value="<?php echo $botao; ?>">
+    </form> 
 <a href="home.php" class="back-button">Voltar</a>
 
 </body>

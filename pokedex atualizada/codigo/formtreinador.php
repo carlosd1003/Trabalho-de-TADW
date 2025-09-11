@@ -82,7 +82,7 @@ if (isset($_GET['id'])) {
             }
             ?>
             <br>
-            <input type="submit" value="<?php echo $botao; ?>">
+            <input type="submit" class="cadastrar-button" value="<?php echo $botao; ?>">
 
     </form>
 <a href="home.php" class="back-button">Voltar</a>

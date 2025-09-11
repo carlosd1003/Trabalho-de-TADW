@@ -14,6 +14,7 @@
     require_once "conexao.php";
     require_once "function.php";
     ?>
+    <h1>Ver As Avaliação</h1>
     <form action="salvarSuporte.php" method="post" enctype="multipart/form-data">
 
         Fazer Reclamacao: <br>
