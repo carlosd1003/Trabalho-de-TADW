@@ -1,8 +1,16 @@
 <?php
-function criarUsuario($conexao, $email, $senha, $Tipo ) {
+/**
+ * Cria um novo usuário no sistema
+ * @param mysqli $conexao Conexão com o banco de dados
+ * @param string $email Email do usuário
+ * @param string $senha Senha do usuário (será convertida para hash)
+ * @param string $Tipo Tipo de usuário (ex: 'admin', 'usuario')
+ * @return bool True se criado com sucesso, False caso contrário
+ */
+function criarUsuario($conexao, $email, $senha, $Tipo ) { #cria um novo usuário no sistema
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
     $sql = "INSERT INTO usuario (email, senha, Tipo) VALUES (?, ?, ?)";
-    $comando = mysqli_prepare($conexao, $sql);
+    $comando = mysqli_prepare($conexao, $sql);#
     mysqli_stmt_bind_param($comando, 'sss', $email, $senha_hash, $Tipo);
     $funcionou = mysqli_stmt_execute($comando);
     mysqli_stmt_close($comando);
@@ -10,6 +18,15 @@ function criarUsuario($conexao, $email, $senha, $Tipo ) {
 }
 
 #=================================================================================================================
+/**
+ * Cria um perfil de usuário
+ * @param mysqli $conexao Conexão com o banco de dados
+ * @param string $nome Nome do perfil
+ * @param string $pokemon_fav Pokémon favorito
+ * @param string $descricao Descrição do perfil
+ * @param int $idusuario ID do usuário associado
+ * @return bool True se criado com sucesso, False caso contrário
+ */
 
 function criarPerfil($conexao, $nome, $pokemon_fav, $descricao, $idusuario) {
     $sql = "INSERT INTO perfil (nome, pokemon_fav, descricao, idusuario) VALUES (?, ?, ?, ?)";
@@ -22,6 +39,16 @@ function criarPerfil($conexao, $nome, $pokemon_fav, $descricao, $idusuario) {
     return $funcionou;
 }
 
+/**
+ * Edita um perfil existente
+ * @param mysqli $conexao Conexão com o banco de dados
+ * @param string $nome Nome do perfil
+ * @param string $pokemon_fav Pokémon favorito
+ * @param string $descricao Descrição do perfil
+ * @param int $idusuario ID do usuário associado
+ * @param int $id ID do perfil a ser editado
+ * @return bool True se editado com sucesso, False caso contrário
+ */
 function editarPerfil($conexao, $nome, $pokemon_fav, $descricao, $idusuario, $id) {
         $sql = "UPDATE perfil SET nome=?, pokemon_fav=?, descricao=?, idusuario=? WHERE id=?";
         $comando = mysqli_prepare($conexao, $sql);
@@ -33,6 +60,12 @@ function editarPerfil($conexao, $nome, $pokemon_fav, $descricao, $idusuario, $id
         return $funcionou;
     }
 
+/**
+ * Deleta um perfil
+ * @param mysqli $conexao Conexão com o banco de dados
+ * @param int $idperfil ID do perfil a ser deletado
+ * @return bool True se deletado com sucesso, False caso contrário
+ */
 function deletarPerfil($conexao, $idperfil) {
     $sql = "DELETE FROM perfil WHERE idperfil = ?";
     $comando = mysqli_prepare($conexao, $sql);
@@ -47,6 +80,18 @@ function deletarPerfil($conexao, $idperfil) {
 
 #=================================================================================================================
 
+/**
+ * Cria estatísticas para um Pokémon
+ * @param mysqli $conexao Conexão com o banco de dados
+ * @param int $idpokemon ID do Pokémon
+ * @param int $hp Pontos de vida
+ * @param int $attack Ataque
+ * @param int $defense Defesa
+ * @param int $sp_attack Ataque especial
+ * @param int $sp_defense Defesa especial
+ * @param int $speed Velocidade
+ * @return bool True se criado com sucesso, False caso contrário
+ */
 function criarStats($conexao, $idpokemon, $hp, $attack, $defense, $sp_attack, $sp_defense, $speed) {
     $sql = "INSERT INTO stats (idpokemon, hp, attack, defense, sp_attack, sp_defense, speed) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $comando = mysqli_prepare($conexao, $sql);
@@ -59,17 +104,35 @@ function criarStats($conexao, $idpokemon, $hp, $attack, $defense, $sp_attack, $s
     return $funcionou;
 }
 
+/**
+ * Edita estatísticas existentes
+ * @param mysqli $conexao Conexão com o banco de dados
+ * @param int $hp Pontos de vida
+ * @param int $attack Ataque
+ * @param int $defense Defesa
+ * @param int $sp_attack Ataque especial
+ * @param int $sp_defense Defesa especial
+ * @param int $speed Velocidade
+ * @param int $id ID das estatísticas a editar
+ * @return bool True se editado com sucesso, False caso contrário
+ */
 function editarStats ($conexao, $hp, $attack, $defense, $sp_attack, $sp_defense, $speed, $id) {
     $sql = "UPDATE stats SET hp=?, attack=?, defense=?, sp_attack=?, sp_defense=?, speed=? WHERE idstats=?";
     $comando = mysqli_prepare($conexao, $sql);
-    
+   
     mysqli_stmt_bind_param($comando, 'iiiiiii', $hp, $attack, $defense, $sp_attack, $sp_defense, $speed, $id);
     $funcionou = mysqli_stmt_execute($comando);
-
+   
     mysqli_stmt_close($comando);
     return $funcionou; 
-
 }
+
+/**
+ * Lista todas as estatísticas com nome do Pokémon
+ * @param mysqli $conexao Conexão com o banco de dados
+ * @return array Lista de estatísticas com informações do Pokémon
+ */
+
 function listarStats ($conexao) {
     $sql = "SELECT * FROM stats";
     $comando = mysqli_prepare($conexao, $sql);
@@ -92,7 +155,12 @@ function listarStats ($conexao) {
     return $lista_st;
 }
 
-
+/**
+ * Deleta estatísticas
+ * @param mysqli $conexao Conexão com o banco de dados
+ * @param int $idstats ID das estatísticas a deletar
+ * @return bool True se deletado com sucesso, False caso contrário
+ */
 function deletarStats($conexao, $idstats) {
     $sql = "DELETE FROM stats WHERE idstats = ?";
     $comando = mysqli_prepare($conexao, $sql);
@@ -106,7 +174,16 @@ function deletarStats($conexao, $idstats) {
 }
 
 #=================================================================================================================
-
+/**
+ * Cria um novo Pokémon
+ * @param mysqli $conexao Conexão com o banco de dados
+ * @param int $national Número nacional do Pokémon
+ * @param string $nome Nome do Pokémon
+ * @param int $gen Geração do Pokémon
+ * @param string $imagem URL ou caminho da imagem
+ * @param int $idusuario ID do usuário que criou
+ * @return bool True se criado com sucesso, False caso contrário
+ */
 function criarPokemon($conexao, $national, $nome, $gen, $imagem, $idusuario) {
     $sql = "INSERT INTO pokemon (national, nome, gen, imagem, idusuario) VALUES (?, ?, ?, ?, ?)";
     $comando = mysqli_prepare($conexao, $sql);
