@@ -174,24 +174,20 @@ function deletarStats($conexao, $idstats) {
 }
 
 #=================================================================================================================
-<<<<<<< HEAD
 
-function criarPokemon($conexao, $national, $nome, $gen, $imagem, $usuario_idusuario) {
-    $sql = "INSERT INTO pokemon (national, nome, gen, imagem, usuario_idusuario) VALUES (?, ?, ?, ?, ?)";
-=======
 /**
- * Cria um novo Pokémon
+ * Insere um novo Pokémon no banco de dados
+ *
  * @param mysqli $conexao Conexão com o banco de dados
- * @param int $national Número nacional do Pokémon
+ * @param int $national Número da Pokédex Nacional
  * @param string $nome Nome do Pokémon
  * @param int $gen Geração do Pokémon
- * @param string $imagem URL ou caminho da imagem
- * @param int $idusuario ID do usuário que criou
- * @return bool True se criado com sucesso, False caso contrário
+ * @param string $imagem Caminho ou URL da imagem do Pokémon
+ * @param int $usuario_idusuario ID do usuário dono do Pokémon
+ * @return bool Retorna true se a inserção for bem-sucedida, false caso contrário
  */
-function criarPokemon($conexao, $national, $nome, $gen, $imagem, $idusuario) {
-    $sql = "INSERT INTO pokemon (national, nome, gen, imagem, idusuario) VALUES (?, ?, ?, ?, ?)";
->>>>>>> 33eac9da3cdaf3972acaefed13cd433888f0c5fa
+function criarPokemon($conexao, $national, $nome, $gen, $imagem, $usuario_idusuario) {
+    $sql = "INSERT INTO pokemon (national, nome, gen, imagem, usuario_idusuario) VALUES (?, ?, ?, ?, ?)";
     $comando = mysqli_prepare($conexao, $sql);
     
     mysqli_stmt_bind_param($comando, 'isisi', $national, $nome, $gen, $imagem, $usuario_idusuario);
@@ -201,6 +197,7 @@ function criarPokemon($conexao, $national, $nome, $gen, $imagem, $idusuario) {
     
     return $funcionou;
 }
+
 
 /**
  * Pesquisa Pokémon incluindo informações do dono
