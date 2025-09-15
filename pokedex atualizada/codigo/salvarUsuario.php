@@ -1,4 +1,8 @@
 <?php
+session_start();
+require_once 'verificarLogado.php';
+?>
+<?php
 require_once "./function.php";
 require_once "./conexao.php";
 

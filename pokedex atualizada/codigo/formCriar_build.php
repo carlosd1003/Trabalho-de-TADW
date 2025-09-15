@@ -1,4 +1,9 @@
 <?php
+session_start();
+require_once 'verificarLogado.php';
+?>
+<?php
+
 if (isset($_GET['id'])) {
     // echo "editar";
 

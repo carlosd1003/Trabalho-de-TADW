@@ -1,4 +1,8 @@
 <?php
+session_start();
+require_once 'verificarLogado.php';
+?>
+<?php
 if (isset($_GET['id'])) {
     // echo "editar";
 
@@ -46,6 +50,7 @@ if (isset($_GET['id'])) {
 
 <body>
     <?php
+    require_once 'verificarLogado.php';
     require_once "conexao.php";
     require_once "function.php";
     ?>

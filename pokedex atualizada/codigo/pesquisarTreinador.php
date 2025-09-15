@@ -1,3 +1,7 @@
+<?php
+session_start();
+require_once 'verificarLogado.php';
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 

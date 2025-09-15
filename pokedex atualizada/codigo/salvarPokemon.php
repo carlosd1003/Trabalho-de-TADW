@@ -1,8 +1,15 @@
 <?php
+session_start();
+require_once 'verificarLogado.php';
+?>
+<?php
     require_once "conexao.php";
     require_once "function.php";
 
-    // Recebe os dados
+// Pega o id do usuário logado
+$usuario_idusuario = $_SESSION['usuario_idusuario'];
+
+    // Recebe os dados do formulário
     $national = (int)$_POST['national'];
     $nome = $_POST['nome'];
     $gen = $_POST['gen'];
@@ -45,18 +52,17 @@
         }
     }
 
-    // Criar o Pokémon
-    $criado = criarPokemon($conexao, $national, $nome, $gen, $novo_nome);
+    // Criar o Pokémon, passando o ID do usuário logado
+    $criado = criarPokemon($conexao, $national, $nome, $gen, $novo_nome, $usuario_idusuario);
 
     if ($criado) {
         $idpokemon = mysqli_insert_id($conexao);
         criarStats($conexao, $idpokemon, $hp, $attack, $defense, $spattack, $spdefense, $speed);
 
         salvarTypes($conexao, $idpokemon, $types);
-
     }
 
     // Redireciona (somente se nenhum erro tiver dado output antes)
-header("Location: home.php");
-exit;
+    header("Location: home.php");
+    exit;
 ?>

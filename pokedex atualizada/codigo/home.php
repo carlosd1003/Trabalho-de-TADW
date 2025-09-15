@@ -3,6 +3,8 @@ require_once 'conexao.php';
 require_once 'function.php';
 
 $lista_pokemon = listarPokemon($conexao);
+
+
 $lista_stats = listarStats($conexao);
 ?>
 <!DOCTYPE html>
