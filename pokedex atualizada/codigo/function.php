@@ -7,7 +7,7 @@
  * @param string $Tipo Tipo de usuário (ex: 'admin', 'usuario')
  * @return bool True se criado com sucesso, False caso contrário
  */
-function criarUsuario($conexao, $email, $senha, $Tipo ) { #cria um novo usuário no sistema
+function criarUsuario($conexao, $email, $senha, $Tipo ) {
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
     $sql = "INSERT INTO usuario (email, senha, Tipo) VALUES (?, ?, ?)";
     $comando = mysqli_prepare($conexao, $sql);#
