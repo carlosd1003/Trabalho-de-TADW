@@ -1,10 +1,11 @@
 <?php
+session_start();
 require_once 'conexao.php';
 require_once 'function.php';
 
+$usuario_idusuario = $_SESSION['usuario_idusuario'] ?? null;
+
 $lista_pokemon = listarPokemon($conexao);
-
-
 $lista_stats = listarStats($conexao);
 ?>
 <!DOCTYPE html>
@@ -14,9 +15,11 @@ $lista_stats = listarStats($conexao);
     <meta charset="UTF-8">
     <title>Pokédex</title>
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
-        <header>
+    <header>
         <a href="#" class="logo">Pokédex</a>
         <div>
             <a class="link-topo" href="formPokemon.php">Criar Pokémon</a>
@@ -35,14 +38,14 @@ $lista_stats = listarStats($conexao);
     <a href="quizPokemon.html">Teste Seu Conhecimento Sobre O Mundo Pokemon</a>
     <br><br><br>
     <h1>Pokédex</h1>
-   <div class="card-container">
+    <div class="card-container">
         <?php
         foreach ($lista_pokemon as $pokemon) {
             $types = buscarTypesDoPokemon($conexao, $pokemon['idpokemon']); // Pega os tipos
-            
+
             // Pega a imagem do banco
             $imagemBanco = $pokemon['imagem'];
-            
+
             if (!empty($imagemBanco)) {
                 $urlImagem = 'fotos/' . $imagemBanco;
             } elseif ($pokemon['idpokemon'] <= 151) {
@@ -69,6 +72,7 @@ $lista_stats = listarStats($conexao);
                 echo "</div>";
             }
             echo "<br>";
+
             // Exibe os stats do Pokémon atual
             foreach ($lista_stats as $stats) {
                 if ($stats['idpokemon'] == $pokemon['idpokemon']) {
@@ -84,9 +88,18 @@ $lista_stats = listarStats($conexao);
                 }
             }
 
+            // Mostrar botões só se o usuário for dono do Pokémon
+            if ($usuario_idusuario && $usuario_idusuario == $pokemon['usuario_idusuario']) {
+                echo "<div class='acoes'>";
+                echo "<a href='formPokemon.php?id=" . $pokemon['idpokemon'] . "' class='btn-editar'>Editar</a>";
+                echo "<a href='deletarPokemon.php?idpokemon=" . $pokemon['idpokemon'] . "' class='btn-deletar' onclick=\"return confirm('Tem certeza que quer deletar este Pokémon?');\">Deletar</a>";
+                echo "</div>";
+            }
+
             echo "</div>";
         }
         ?>
     </div>
 </body>
+
 </html>

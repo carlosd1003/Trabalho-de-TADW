@@ -29,11 +29,16 @@ h1 {
 }
 
 /* Estilo do Card */
+@media (max-width: 600px) {
+    .card {
+        width: 90%;
+    }
+}
+
 .card {
     background-color: #fff;
     border-radius: 15px;
     width: 240px;
-    height: 450px;
     padding: 20px;
     text-align: center;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -167,6 +172,38 @@ h1 {
 .type-ghost {
     background: linear-gradient(135deg, #673ab7, #512da8);
 }
+
+        .acoes {
+            margin-top: 15px;
+        }
+
+        .btn-editar,
+        .btn-deletar {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            margin-right: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-editar {
+            background-color: #4caf50;
+        }
+
+        .btn-editar:hover {
+            background-color: #388e3c;
+        }
+
+        .btn-deletar {
+            background-color: #f44336;
+        }
+
+        .btn-deletar:hover {
+            background-color: #c62828;
+        }
 
 /* Responsividade */
 @media (max-width: 768px) {

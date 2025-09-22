@@ -116,16 +116,24 @@ function criarStats($conexao, $idpokemon, $hp, $attack, $defense, $sp_attack, $s
  * @param int $id ID das estatísticas a editar
  * @return bool True se editado com sucesso, False caso contrário
  */
-function editarStats ($conexao, $hp, $attack, $defense, $sp_attack, $sp_defense, $speed, $id) {
-    $sql = "UPDATE stats SET hp=?, attack=?, defense=?, sp_attack=?, sp_defense=?, speed=? WHERE idstats=?";
-    $comando = mysqli_prepare($conexao, $sql);
-   
-    mysqli_stmt_bind_param($comando, 'iiiiiii', $hp, $attack, $defense, $sp_attack, $sp_defense, $speed, $id);
-    $funcionou = mysqli_stmt_execute($comando);
-   
-    mysqli_stmt_close($comando);
-    return $funcionou; 
+function editarStats($conexao, $idpokemon, $hp, $attack, $defense, $spattack, $spdefense, $speed) {
+    $sql = "UPDATE stats SET 
+                hp = ?, 
+                attack = ?, 
+                defense = ?, 
+                sp_attack = ?, 
+                sp_defense = ?, 
+                speed = ? 
+            WHERE idpokemon = ?";
+    
+    $stmt = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param($stmt, 'iiiiiii', $hp, $attack, $defense, $spattack, $spdefense, $speed, $idpokemon);
+    $ok = mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    
+    return $ok;
 }
+    
 
 /**
  * Lista todas as estatísticas com nome do Pokémon
@@ -161,11 +169,11 @@ function listarStats ($conexao) {
  * @param int $idstats ID das estatísticas a deletar
  * @return bool True se deletado com sucesso, False caso contrário
  */
-function deletarStats($conexao, $idstats) {
-    $sql = "DELETE FROM stats WHERE idstats = ?";
+function deletarStats($conexao, $idpokemon) {
+    $sql = "DELETE FROM stats WHERE idpokemon = ?";
     $comando = mysqli_prepare($conexao, $sql);
     
-    mysqli_stmt_bind_param($comando, 'i', $idstats);
+    mysqli_stmt_bind_param($comando, 'i', $idpokemon);
 
     $funcionou = mysqli_stmt_execute($comando);
     mysqli_stmt_close($comando);
@@ -197,6 +205,35 @@ function criarPokemon($conexao, $national, $nome, $gen, $imagem, $usuario_idusua
     
     return $funcionou;
 }
+
+function pegarPokemonPorId($conexao, $idpokemon) {
+    $sql = "SELECT * FROM pokemon WHERE idpokemon = ?";
+    $stmt = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $idpokemon);
+    mysqli_stmt_execute($stmt);
+    $resultado = mysqli_stmt_get_result($stmt);
+    $pokemon = mysqli_fetch_assoc($resultado);
+    mysqli_stmt_close($stmt);
+    return $pokemon; // Retorna um array associativo com os dados do Pokémon
+}
+
+
+
+function pegarStatsPorPokemon($conexao, $idpokemon) {
+    $sql = "SELECT * FROM stats WHERE idpokemon = ?";
+    $stmt = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $idpokemon);
+    mysqli_stmt_execute($stmt);
+    $resultado = mysqli_stmt_get_result($stmt);
+    $stats = mysqli_fetch_assoc($resultado);
+    mysqli_stmt_close($stmt);
+    return $stats; // Retorna um array associativo com os stats do Pokémon
+}
+
+
+
+
+
 
 
 /**
@@ -276,16 +313,23 @@ function pegarMaiorNational($conexao) {
  * @param int $id ID do Pokémon a editar
  * @return bool True se editado com sucesso, False caso contrário
  */
-function editarPokemon($conexao, $national, $nome, $gen, $id) {
-    $sql = "UPDATE pokemon SET national=?, nome=?, gen=? WHERE idpokemon=?";
-    $comando = mysqli_prepare($conexao, $sql);
-    
-    mysqli_stmt_bind_param($comando, 'isii', $national, $nome, $gen, $id);
+function editarPokemon($conexao, $national, $nome, $gen, $idpokemon, $imagem = null) {
+    if ($imagem) {
+        // Atualiza TUDO, incluindo a imagem
+        $sql = "UPDATE pokemon SET national = ?, nome = ?, gen = ?, imagem = ? WHERE idpokemon = ?";
+        $comando = mysqli_prepare($conexao, $sql);
+        mysqli_stmt_bind_param($comando, 'isisi', $national, $nome, $gen, $imagem, $idpokemon);
+    } else {
+        // Atualiza sem alterar a imagem
+        $sql = "UPDATE pokemon SET national = ?, nome = ?, gen = ? WHERE idpokemon = ?";
+        $comando = mysqli_prepare($conexao, $sql);
+        mysqli_stmt_bind_param($comando, 'isii', $national, $nome, $gen, $idpokemon);
+    }
+
     $funcionou = mysqli_stmt_execute($comando);
-
     mysqli_stmt_close($comando);
-    return $funcionou; 
-
+    
+    return $funcionou;
 }
 
 /**
@@ -467,18 +511,26 @@ function deletarBuild($conexao, $idbuild) {
  * @return void
  */
 function salvarTypes($conexao, $idpokemon, $types) {
-    // Garante que seja um array
+    // Primeiro, remove os tipos antigos do Pokémon
+    $sqlDelete = "DELETE FROM pokemon_has_types WHERE idpokemon = ?";
+    $stmtDelete = mysqli_prepare($conexao, $sqlDelete);
+    mysqli_stmt_bind_param($stmtDelete, 'i', $idpokemon);
+    mysqli_stmt_execute($stmtDelete);
+    mysqli_stmt_close($stmtDelete);
+
+    // Garante que $types seja um array
     if (!is_array($types)) {
         $types = [$types];
     }
 
+    // Insere os novos tipos
     foreach ($types as $idtype) {
         $idtype = (int)$idtype; // segurança
-        $sql = "INSERT INTO pokemon_has_types (idpokemon, idtypes) VALUES (?, ?)";
-        $stmt = mysqli_prepare($conexao, $sql);
-        mysqli_stmt_bind_param($stmt, 'ii', $idpokemon, $idtype);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
+        $sqlInsert = "INSERT INTO pokemon_has_types (idpokemon, idtypes) VALUES (?, ?)";
+        $stmtInsert = mysqli_prepare($conexao, $sqlInsert);
+        mysqli_stmt_bind_param($stmtInsert, 'ii', $idpokemon, $idtype);
+        mysqli_stmt_execute($stmtInsert);
+        mysqli_stmt_close($stmtInsert);
     }
 }
 
@@ -566,17 +618,14 @@ function listarTypes($conexao) {
  * @param int $idtypes ID do tipo a deletar
  * @return bool True se deletado com sucesso, False caso contrário
  */
-function deletartypes($conexao, $idtypes) {
-    $sql = "DELETE FROM types WHERE idtypes = ?";
+function deletarTypes($conexao, $idpokemon) {
+    $sql = "DELETE FROM pokemon_has_types WHERE idpokemon = ?";
     $comando = mysqli_prepare($conexao, $sql);
-    
-    mysqli_stmt_bind_param($comando, 'i', $idtypes);
-
-    $funcionou = mysqli_stmt_execute($comando);
+    mysqli_stmt_bind_param($comando, 'i', $idpokemon);
+    mysqli_stmt_execute($comando);
     mysqli_stmt_close($comando);
-    
-    return $funcionou;
 }
+
 
 #=================================================================================================================
 

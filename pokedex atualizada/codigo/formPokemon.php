@@ -1,130 +1,135 @@
 <?php
 session_start();
 require_once 'verificarLogado.php';
-?>
-<?php
 require_once "./conexao.php";
 require_once "./function.php";
 
-// CHAMAR A FUNÇÃO AQUI, ANTES DE USAR NO FORMULÁRIO
-$lista_types = listarTypes($conexao);
-$maiorNational = pegarMaiorNational($conexao);
+$idpokemon = $_GET['id'] ?? null;
+$usuario_idusuario = $_SESSION['usuario_idusuario'] ?? null;
 
+$pokemon = null;
+$stats = null;
+$types_do_pokemon = [];
+$ehDono = false;
+
+if ($idpokemon) {
+    // Pega dados do Pokémon, stats e tipos para edição
+    $pokemon = pegarPokemonPorId($conexao, (int)$idpokemon);
+    $stats = pegarStatsPorPokemon($conexao, (int)$idpokemon);
+    $types_do_pokemon = buscarTypesDoPokemon($conexao, (int)$idpokemon);
+
+    // Verifica se o usuário logado é o dono do Pokémon
+    if ($pokemon && $pokemon['usuario_idusuario'] == $usuario_idusuario) {
+        $ehDono = true;
+    }
+} else {
+    // Se estiver cadastrando novo Pokémon, pode mostrar o botão
+    $ehDono = true;
+}
+
+$lista_types = listarTypes($conexao);
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Pokémon</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <title><?php echo $pokemon ? "Editar Pokémon" : "Cadastro de Pokémon"; ?></title>
 </head>
-
 <body>
 
-<h1>Cadastro de Pokémon</h1>
+<h1><?php echo $pokemon ? "Editar Pokémon" : "Cadastro de Pokémon"; ?></h1>
 
 <form method="POST" action="salvarPokemon.php" enctype="multipart/form-data">
 
+    <?php if ($pokemon): ?>
+        <input type="hidden" name="idpokemon" value="<?php echo $pokemon['idpokemon']; ?>">
+    <?php endif; ?>
+
     <label>National Dex:<br>
-        <input type="text" name="national" required>
+        <input type="number" name="national" required 
+            value="<?php echo $pokemon ? htmlspecialchars($pokemon['national']) : ''; ?>">
     </label><br><br>
 
     <label>Nome do Pokémon:<br>
-        <input type="text" name="nome" required>
+        <input type="text" name="nome" required 
+            value="<?php echo $pokemon ? htmlspecialchars($pokemon['nome']) : ''; ?>">
     </label><br><br>
 
     <label>Geração:<br>
-        <input type="number" name="gen" min="0" required>
+        <input type="number" name="gen" min="0" required
+            value="<?php echo $pokemon ? htmlspecialchars($pokemon['gen']) : ''; ?>">
     </label><br><br>
 
     <label>Imagem (opcional):<br>
         <input type="file" name="imagem">
-    </label><br><br>
+    </label>
+    <?php if ($pokemon && $pokemon['imagem']): ?>
+        <br>Imagem atual: <img src="fotos/<?php echo htmlspecialchars($pokemon['imagem']); ?>" alt="Imagem do Pokémon" width="80">
+    <?php endif; ?>
+    <br><br>
 
     <label>HP:<br>
-        <input type="number" name="hp" min="0" required>
+        <input type="number" name="hp" min="0" required
+            value="<?php echo $stats ? htmlspecialchars($stats['hp']) : ''; ?>">
     </label><br><br>
 
     <label>Attack:<br>
-        <input type="number" name="attack" min="0" required>
+        <input type="number" name="attack" min="0" required
+            value="<?php echo $stats ? htmlspecialchars($stats['attack']) : ''; ?>">
     </label><br><br>
 
     <label>Defense:<br>
-        <input type="number" name="defense" min="0" required>
+        <input type="number" name="defense" min="0" required
+            value="<?php echo $stats ? htmlspecialchars($stats['defense']) : ''; ?>">
     </label><br><br>
 
     <label>Special Attack:<br>
-        <input type="number" name="spattack" min="0" required>
+        <input type="number" name="spattack" min="0" required
+            value="<?php echo $stats ? htmlspecialchars($stats['sp_attack']) : ''; ?>">
     </label><br><br>
 
     <label>Special Defense:<br>
-        <input type="number" name="spdefense" min="0" required>
+        <input type="number" name="spdefense" min="0" required
+            value="<?php echo $stats ? htmlspecialchars($stats['sp_defense']) : ''; ?>">
     </label><br><br>
 
     <label>Speed:<br>
-        <input type="number" name="speed" min="0" required>
+        <input type="number" name="speed" min="0" required
+            value="<?php echo $stats ? htmlspecialchars($stats['speed']) : ''; ?>">
     </label><br><br>
 
-    <!-- ✅ EXIBE OS TIPOS SOMENTE SE EXISTIREM -->
-    <?php
-    if (!empty($lista_types)) {
-        echo "Tipos (segure Ctrl para selecionar o segundo elemento):<br>";
-        echo "<select name='types[]' multiple required>";
-        foreach ($lista_types as $types) {
-            $nome = htmlspecialchars($types['nome']);
-            $id = (int)$types['idtypes'];
-            echo "<option value='$id'>$nome</option>";
-        }
-        echo "</select><br><br>";
-    } else {
-        echo "Nenhum tipo encontrado no banco de dados.<br><br>";
-    }
-    ?>
+    <label>Tipos (segure Ctrl para selecionar até 2):<br>
+        <select name="types[]" multiple required>
+            <?php
+            foreach ($lista_types as $type) {
+                $selected = in_array($type['nome'], $types_do_pokemon) ? 'selected' : '';
+                echo "<option value='" . (int)$type['idtypes'] . "' $selected>" . htmlspecialchars($type['nome']) . "</option>";
+            }
+            ?>
+        </select>
+    </label><br><br>
 
-    <input type="submit" class="cadastrar-button" name="salvar" value="Criar Pokémon">
+    <?php if ($ehDono): ?>
+        <input type="submit" value="<?php echo $pokemon ? "Salvar Alterações" : "Criar Pokémon"; ?>" class="btn-salvar">
+    <?php else: ?>
+        <p style="color: red; font-weight: bold;">Você não tem permissão para editar este Pokémon.</p>
+    <?php endif; ?>
 
 </form>
 
 <script>
   const selectTypes = document.querySelector('select[name="types[]"]');
-
   selectTypes.addEventListener('change', () => {
     const selectedOptions = Array.from(selectTypes.selectedOptions);
     if (selectedOptions.length > 2) {
-      // Se tiver mais de 2 selecionados, desmarca a última seleção
-      const lastSelected = selectedOptions[selectedOptions.length - 1];
-      lastSelected.selected = false;
+      selectedOptions[selectedOptions.length - 1].selected = false;
+      alert('Selecione no máximo 2 tipos.');
     }
   });
 </script>
 
-
-<script>
-  const maiorNational = <?php echo $maiorNational; ?>;
-</script>
-<script>
-document.querySelector('form').addEventListener('submit', function(event) {
-    const inputNational = this.querySelector('input[name="national"]');
-    const valorNational = parseInt(inputNational.value, 10);
-
-    if (isNaN(valorNational)) {
-        alert("Por favor, insira um número válido para National Dex.");
-        event.preventDefault();
-        return;
-    }
-
-    if (valorNational <= maiorNational) {
-        alert(`O número National Dex deve ser maior que o atual maior cadastrado (${maiorNational}).`);
-        event.preventDefault();
-        inputNational.focus();
-        return;
-    }
-});
-
-</script>
-<a href="home.php" class="back-button">Voltar</a>
+<a href="home.php">Voltar</a>
 
 </body>
 </html>
