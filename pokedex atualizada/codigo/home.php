@@ -3,7 +3,9 @@ session_start();
 require_once 'conexao.php';
 require_once 'function.php';
 
+// Corrigido aqui para usar o nome da chave certa da sessão
 $usuario_idusuario = $_SESSION['usuario_idusuario'] ?? null;
+$usuario_tipo = $_SESSION['Tipo'] ?? 'C'; // 'C' é o tipo padrão
 
 $lista_pokemon = listarPokemon($conexao);
 $lista_stats = listarStats($conexao);
@@ -15,7 +17,6 @@ $lista_stats = listarStats($conexao);
     <meta charset="UTF-8">
     <title>Pokédex</title>
     <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
@@ -88,8 +89,8 @@ $lista_stats = listarStats($conexao);
                 }
             }
 
-            // Mostrar botões só se o usuário for dono do Pokémon
-            if ($usuario_idusuario && $usuario_idusuario == $pokemon['usuario_idusuario']) {
+            // Mostrar botões se for admin (tipo 'A') ou dono do Pokémon
+            if ($usuario_tipo === 'A' || ($usuario_idusuario && $usuario_idusuario == $pokemon['usuario_idusuario'])) {
                 echo "<div class='acoes'>";
                 echo "<a href='formPokemon.php?id=" . $pokemon['idpokemon'] . "' class='btn-editar'>Editar</a>";
                 echo "<a href='deletarPokemon.php?idpokemon=" . $pokemon['idpokemon'] . "' class='btn-deletar' onclick=\"return confirm('Tem certeza que quer deletar este Pokémon?');\">Deletar</a>";
