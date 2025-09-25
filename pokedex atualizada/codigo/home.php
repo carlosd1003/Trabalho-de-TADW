@@ -20,22 +20,25 @@ $lista_stats = listarStats($conexao);
 </head>
 
 <body>
-    <header>
-        <a href="#" class="logo">Pokédex</a>
-        <div>
-            <a class="link-topo" href="formPokemon.php">Criar Pokémon</a>
-            <a class="link-topo" href="formtreinador.php">Criar Treinador</a>
-            <a class="link-topo" href="listarTreinador.php">Ver Treinadores</a>
-            <a class="link-topo" href="calendario.html">Calendário</a>
-            <a class="link-topo" href="formPerfil.php">Criar Perfil</a>
-            <a class="link-topo" href="formCriar_build.php">Criar Build</a>
-            <a class="link-topo" href="listarBuild.php">Ver Builds</a>
-            <a class="link-topo" href="criarSuporte.php">Acesso Ao Suporte</a>
-            <a class="link-topo" href="listarSuporte.php">Ver Informações do Suporte</a>
-            <a class="link-topo" href="pesquisarTreinador.php">Procurar Um Treinador</a>
-            <a class="link-topo" href="deslogar.php">Sair Da Seçao</a>
-        </div>
-    </header> <br>
+    <header id="topo">
+    <a href="#" id="logo">Pokédex</a>
+    <div id="menu-links">
+        <a id="link-criar-pokemon" href="formPokemon.php">Criar Pokémon</a>
+        <a id="link-criar-treinador" href="formtreinador.php">Criar Treinador</a>
+        <a id="link-ver-treinadores" href="listarTreinador.php">Ver Treinadores</a>
+        <a id="link-calendario" href="calendario.html">Calendário</a>
+        <a id="link-criar-build" href="formCriar_build.php">Criar Build</a>
+        <a id="link-ver-builds" href="listarBuild.php">Ver Builds</a>
+        <a id="link-acesso-suporte" href="criarSuporte.php">Acesso Ao Suporte</a>
+        <a id="link-ver-suporte" href="listarSuporte.php">Ver Informações do Suporte</a>
+        <a id="link-procurar-treinador" href="pesquisarTreinador.php">Procurar Um Treinador</a>
+        <a id="link-perfil" href="formPerfil.php">
+            <img src="./img/perfil.png" width="40" height="40" alt="Perfil">
+        </a>
+    </div>
+</header>
+ <br>
+    <a class="link-topo" href="deslogar.php"><img id="porta" src="./img/pngwing.com.png" alt="Voltar" width="35px" height="45px"></a> <br> <br>
     <a href="quizPokemon.html">Teste Seu Conhecimento Sobre O Mundo Pokemon</a>
     <br><br><br>
     <h1>Pokédex</h1>

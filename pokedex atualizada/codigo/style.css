@@ -173,37 +173,37 @@ h1 {
     background: linear-gradient(135deg, #673ab7, #512da8);
 }
 
-        .acoes {
-            margin-top: 15px;
-        }
+.acoes {
+    margin-top: 15px;
+}
 
-        .btn-editar,
-        .btn-deletar {
-            display: inline-block;
-            padding: 8px 12px;
-            border-radius: 6px;
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            margin-right: 8px;
-            transition: background-color 0.3s ease;
-        }
+.btn-editar,
+.btn-deletar {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    margin-right: 8px;
+    transition: background-color 0.3s ease;
+}
 
-        .btn-editar {
-            background-color: #4caf50;
-        }
+.btn-editar {
+    background-color: #4caf50;
+}
 
-        .btn-editar:hover {
-            background-color: #388e3c;
-        }
+.btn-editar:hover {
+    background-color: #388e3c;
+}
 
-        .btn-deletar {
-            background-color: #f44336;
-        }
+.btn-deletar {
+    background-color: #f44336;
+}
 
-        .btn-deletar:hover {
-            background-color: #c62828;
-        }
+.btn-deletar:hover {
+    background-color: #c62828;
+}
 
 /* Responsividade */
 @media (max-width: 768px) {
@@ -224,7 +224,7 @@ h1 {
 
 
 /*css do topo home page*/
-header {
+#topo {
     background-color: #ffffff;
     /* Cor escura padrão */
     height: 60px;
@@ -245,12 +245,38 @@ header {
     /* Sombra suave abaixo */
 }
 
-.container {
-    margin-top: 20px;
-    /* Espaço entre a barra e o iframe */
-    padding: 0 20px;
-    /* Padding nas laterais */
+#menu-links a {
+    text-decoration: none;
+    color: #d50000; /* cor vermelha para links (pokédex) */
+    margin-left: 15px;
+    font-weight: 600;
+    font-family: 'Arial', sans-serif;
+    transition: color 0.3s ease;
 }
+
+#menu-links a:hover {
+    color: #ff5555; /* efeito hover */
+}
+
+#logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #d50000;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+}
+
+#menu-links img {
+    vertical-align: middle;
+    border-radius: 50%;
+}
+
+/* Container para outros elementos, se usar */
+#container {
+    margin-top: 20px;
+    padding: 0 20px;
+}
+
 
 
 /*css do calendario */
@@ -529,7 +555,101 @@ header {
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
-td{
+td {
     text-align: center;
 
 }
+
+/*CSS do index*/
+/* Ajusta body para ocupar a tela toda e usar flexbox para centralizar */
+#page-body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff0000 50%, #ffffff 50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#container {
+    background-color: #ffffff;
+    border: 8px solid #000000;
+    border-radius: 20px;
+    padding: 40px 50px;
+    width: 360px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    box-sizing: border-box;
+    text-align: center;
+    position: relative;
+}
+
+#page-title {
+    color: #d50000;
+    font-size: 28px;
+    margin-bottom: 30px;
+    text-shadow: 1.5px 1.5px 0 #000;
+    font-weight: 700;
+}
+
+#label-email, #label-password, #label-senha {
+    display: block;
+    font-weight: 600;
+    color: #000;
+    font-size: 16px;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+#email, #senha {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 25px;
+    font-size: 16px;
+    border: 3px solid #d50000;
+    border-radius: 12px;
+    box-sizing: border-box;
+    font-weight: 600;
+    transition: border-color 0.3s ease;
+}
+
+#email:focus, #senha:focus {
+    border-color: #000000;
+    outline: none;
+}
+
+#submit-btn, #cadastrar-button {
+    width: 100%;
+    padding: 14px 0;
+    background-color: #d50000;
+    border: 3px solid #000000;
+    border-radius: 14px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 3px 3px 5px #000000;
+    transition: background-color 0.3s ease;
+}
+
+#submit-btn:hover, #cadastrar-button:hover {
+    background-color: #ff4444;
+}
+
+#first-access-link, #back-button {
+    display: inline-block;
+    margin-top: 25px;
+    color: #d50000;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+#first-access-link:hover, #back-button:hover {
+    text-decoration: underline;
+}
+
+input:focus, a:focus {
+    outline: none;
+}
+

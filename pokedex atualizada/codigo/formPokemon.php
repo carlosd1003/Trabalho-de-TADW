@@ -35,6 +35,7 @@ $lista_types = listarTypes($conexao);
 <head>
     <meta charset="UTF-8" />
     <title><?php echo $pokemon ? "Editar Pokémon" : "Cadastro de Pokémon"; ?></title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -129,7 +130,7 @@ $lista_types = listarTypes($conexao);
   });
 </script>
 
-<a href="home.php">Voltar</a>
+<a href="home.php" class="back-button">Voltar</a>
 
 </body>
 </html>
