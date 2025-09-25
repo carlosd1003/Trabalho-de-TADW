@@ -33,7 +33,7 @@ require_once 'verificarLogado.php';
                 <input type="text" name="idusuario" id="idusuario" class="form-control" placeholder="Informe Seu Usuário" required />
             </div>
 
-            <button type="submit" class="btn btn-danger w-100">Salvar</button>
+            <button type="submit" class="btn btn-primary w-100">Salvar</button>
         </form>
 
         <a href="home.php" class="btn btn-outline-secondary mt-3 w-100">Voltar</a>

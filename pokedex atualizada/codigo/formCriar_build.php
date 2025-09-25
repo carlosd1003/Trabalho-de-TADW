@@ -86,7 +86,7 @@ if (isset($_GET['id'])) {
                     ?>
                 </select>
             </div>
-            <button type="submit" class="btn btn-danger w-100"><?php echo $botao; ?></button>
+            <button type="submit" class="btn btn-primary w-100"><?php echo $botao; ?></button>
         </form>
         <a href="home.php" class="btn btn-outline-secondary mt-3 w-100">Voltar</a>
     </div>
