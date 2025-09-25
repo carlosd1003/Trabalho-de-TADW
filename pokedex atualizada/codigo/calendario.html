@@ -2,14 +2,45 @@
 <html lang='pt-BR'>
 <head>
     <meta charset='utf-8' />
-    <link rel="stylesheet" href="style.css">
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js'></script>
+    <title>Calendário de Eventos Pokémon (Documentado)</title>
 
+    <!-- Folha de estilos opcional do projeto (não incluída neste arquivo) -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- FullCalendar via CDN (versão 6.x em um único bundle global) -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script>
+</head>
+
+<body class="fundo-calendario">
+    <!-- Título da página. Você pode editar este texto livremente. -->
+    <h1>Caléndario De Eventos Pokemóns</h1>
+
+    <!-- Elemento onde o FullCalendar será renderizado -->
+    <div id="calendar"></div>
+
+    <!-- Link de retorno (ex.: para uma página inicial em PHP) -->
+    <a href="home.php" class="back-button">Voltar</a>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
+            // 1) Pegar o elemento que receberá o calendário
             var calendarEl = document.getElementById('calendar');
+
+            // 2) Criar o calendário com as opções desejadas
             var calendar = new FullCalendar.Calendar(calendarEl, {
+                // Visão inicial do calendário. Outras opções: 'dayGridWeek', 'dayGridDay'
                 initialView: 'dayGridMonth',
+
+                // ==================
+                // LISTA DE EVENTOS
+                // ==================
+                // Cada evento pode ter:
+                // - title (string): título exibido no calendário
+                // - start (YYYY-MM-DD): data de início (obrigatória)
+                // - end (YYYY-MM-DD): data final (opcional; não-inclusiva)
+                // - description (string): texto livre com observações
+                //
+                // Dica: Para eventos de dia inteiro, use apenas 'start' (e 'end' se for um período).
+                //       Para eventos com horário, use 'start'/'end' com data e hora (ex.: '2025-02-14T18:00:00').
                 events: [
                     {
                         title: 'Ano Novo Pokémon',
@@ -21,7 +52,7 @@
                         start: '2025-01-25',
                         description: 'Evento especial em homenagem aos Pokémon(Bulbasaur,Charmander,Squirtle e suas evoluções.'
                     },
-                     {
+                    {
                         title: 'Festival do Dragão',
                         start: '2025-02-05',
                         end: '2025-02-09',
@@ -112,27 +143,39 @@
                         end: '2025-12-05',
                         description: 'Pokémon do tipo Aço com defesas reforçadas e bônus de metal'
                     },
-                    {  
+                    {
                         title: 'Natal Pokémon',
                         start: '2025-12-25',
                         description: 'Pokemóns de gelo e neve com temática natalina e bônus especiais'
-                    },    
-                    {    
+                    },
+                    {
                         title: 'Evento de Fim de Ano',
                         start: '2025-12-28',
                         end: '2025-12-31',
                         description: 'Retrospectiva do ano com todos os Pokémon featured em 2025'
                     }
-            ]
-    
+                ],
+
+                // ===========================
+                // EXTRAS (OPCIONAIS, EXEMPLOS)
+                // ===========================
+                // 1) Mostrar a description como tooltip simples usando o atributo title:
+                // eventDidMount: function(info) {
+                //     if (info.event.extendedProps.description) {
+                //         info.el.setAttribute('title', info.event.extendedProps.description);
+                //     }
+                // },
+                //
+                // 2) Alterar idioma/locale (ex.: 'pt-br'):
+                // locale: 'pt-br',
+                //
+                // 3) Carregar eventos de um endpoint em vez de array:
+                // events: '/minha-api-de-eventos'
             });
+
+            // 3) Renderizar o calendário na página
             calendar.render();
         });
     </script>
-</head>
-<body class="fundo-calendario">
-    <h1>Caléndario De Eventos Pokemóns</h1>
-    <div id='calendar'></div>
-    <a href="home.php" class="back-button">Voltar</a>
 </body>
 </html>
