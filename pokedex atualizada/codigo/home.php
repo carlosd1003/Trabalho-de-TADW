@@ -33,13 +33,13 @@ $lista_stats = listarStats($conexao);
         <a id="link-acesso-suporte" href="criarSuporte.php">Acesso Ao Suporte</a>
         <a id="link-ver-suporte" href="listarSuporte.php">Ver Informações do Suporte</a>
         <a id="link-procurar-treinador" href="pesquisarTreinador.php">Procurar Um Treinador</a>
-        <a id="link-perfil" href="formPerfil.php">
+        <a class="perfil" href="formPerfil.php">
             <img src="./img/perfil.png" width="40" height="40" alt="Perfil">
         </a>
+        <a  href="deslogar.php"><img id="porta" src="./img/pngwing.com.png" alt="Voltar" width="20px" height="20px"></a> <br> <br>
     </div>
 </header>
  <br>
-    <a class="link-topo" href="deslogar.php"><img id="porta" src="./img/pngwing.com.png" alt="Voltar" width="35px" height="45px"></a> <br> <br>
     <a href="quizPokemon.html">
          <img src="./img/bnr_quiz.png" width="100%" height="120px" alt="quiz">
     </a>

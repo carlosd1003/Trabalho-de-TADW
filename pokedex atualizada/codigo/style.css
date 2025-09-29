@@ -630,5 +630,16 @@ body{
 
     background-image: url('img/list_bg.jpg');
 }
-/* css dos links da home */
+
+/* Ícone de perfil */
+.perfil img {
+  border-radius: 50%;
+  border: 2px solid #333;
+  transition: transform 0.2s;
+}
+.perfil img:hover {
+  transform: scale(1.1);
+}
+
+
 
