@@ -16,7 +16,7 @@ h1 {
     text-align: center;
     font-size: 3em;
     margin-bottom: 40px;
-    color: #000000;
+    color: #ffffff;
     font-weight: bold;
 }
 
@@ -247,15 +247,10 @@ h1 {
 
 #menu-links a {
     text-decoration: none;
-    color: #d50000; /* cor vermelha para links (pokédex) */
     margin-left: 15px;
     font-weight: 600;
     font-family: 'Arial', sans-serif;
     transition: color 0.3s ease;
-}
-
-#menu-links a:hover {
-    color: #ff5555; /* efeito hover */
 }
 
 #logo {
@@ -264,11 +259,6 @@ h1 {
     color: #d50000;
     font-family: 'Roboto', sans-serif;
     text-decoration: none;
-}
-
-#menu-links img {
-    vertical-align: middle;
-    border-radius: 50%;
 }
 
 /* Container para outros elementos, se usar */

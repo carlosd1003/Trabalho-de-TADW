@@ -24,15 +24,15 @@ $lista_stats = listarStats($conexao);
     <header id="topo">
     <a href="#" id="logo">Pokédex</a>
     <div id="menu-links">
-        <a id="link-criar-pokemon" href="formPokemon.php">Criar Pokémon</a>
-        <a id="link-criar-treinador" href="formtreinador.php">Criar Treinador</a>
-        <a id="link-ver-treinadores" href="listarTreinador.php">Ver Treinadores</a>
-        <a id="link-calendario" href="calendario.html">Calendário</a>
-        <a id="link-criar-build" href="formCriar_build.php">Criar Build</a>
-        <a id="link-ver-builds" href="listarBuild.php">Ver Builds</a>
-        <a id="link-acesso-suporte" href="criarSuporte.php">Acesso Ao Suporte</a>
-        <a id="link-ver-suporte" href="listarSuporte.php">Ver Informações do Suporte</a>
-        <a id="link-procurar-treinador" href="pesquisarTreinador.php">Procurar Um Treinador</a>
+        <a class="btn btn-outline-primary" href="formPokemon.php">Criar Pokémon</a>
+        <a class="btn btn-outline-secondary" href="formtreinador.php">Criar Treinador</a>
+        <a class="btn btn-outline-success"href="listarTreinador.php">Ver Treinadores</a>
+        <a class="btn btn-outline-danger" href="calendario.html">Calendário</a>
+        <a class="btn btn-outline-warning" href="formCriar_build.php">Criar Build</a>
+        <a class="btn btn-outline-info" href="listarBuild.php">Ver Builds</a>
+        <a class="btn btn-outline-dark"href="criarSuporte.php">Acesso Ao Suporte</a>
+        <a class="btn btn-outline-danger" href="listarSuporte.php">Ver Informações do Suporte</a>
+        <a class="btn btn-outline-success" href="pesquisarTreinador.php">Procurar Um Treinador</a>
         <a class="perfil" href="formPerfil.php">
             <img src="./img/perfil.png" width="40" height="40" alt="Perfil">
         </a>
