@@ -17,6 +17,7 @@ $lista_stats = listarStats($conexao);
     <meta charset="UTF-8">
     <title>Pokédex</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 
 <body>
@@ -39,9 +40,10 @@ $lista_stats = listarStats($conexao);
 </header>
  <br>
     <a class="link-topo" href="deslogar.php"><img id="porta" src="./img/pngwing.com.png" alt="Voltar" width="35px" height="45px"></a> <br> <br>
-    <a href="quizPokemon.html">Teste Seu Conhecimento Sobre O Mundo Pokemon</a>
+    <a href="quizPokemon.html">
+         <img src="./img/bnr_quiz.png" width="100%" height="120px" alt="quiz">
+    </a>
     <br><br><br>
-    <h1>Pokédex</h1>
     <div class="card-container">
         <?php
         foreach ($lista_pokemon as $pokemon) {
@@ -105,5 +107,5 @@ $lista_stats = listarStats($conexao);
         ?>
     </div>
 </body>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </html>

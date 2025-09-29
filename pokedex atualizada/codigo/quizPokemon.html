@@ -1,27 +1,89 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quiz Pokémon</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="quiz_fundo">
+      <link rel="stylesheet" href="style.css">
 
-  <!-- Container principal do quiz -->
-  <div class="quiz-container">
-    <h1>Quiz Pokémon</h1>
+  <!-- Link para o Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+  <style>
+    /* Animação para o efeito de hover nos botões */
+    .btn-hover-effect {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .btn-hover-effect:hover {
+      transform: translateY(-5px); /* Elevação do botão */
+      background-color: #0d6efd; /* Cor do botão ao passar o mouse */
+    }
+
+    .btn-hover-effect:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(13, 110, 253, 0.2); /* Cor que aparece ao passar o mouse */
+      transition: all 0.3s ease;
+    }
+
+    .btn-hover-effect:hover:after {
+      top: 100%;
+    }
+  </style>
+
+  <script src="./jquery-3.7.1.min.js"></script>
+  <script src="./jquery.validate.min.js"></script>
+
+  <script>
+    // Programar a validação do formulário
+    $('document').ready(function () {
+      $('#formulario').validate({
+        rules: {
+          nome: {
+            required: true,
+            minlength: 3,
+          },
+        },
+        messages: {
+          nome: {
+            required: "Esse campo não pode ser vazio",
+            minlength: "Tamanho mínimo de 3 símbolos"
+          },
+        }
+      })
+    })
+  </script>
+
+</head>
+
+<body class="d-flex justify-content-center align-items-center vh-100 bg-light">
+
+  <!-- Container para o Quiz -->
+  <div class="card p-4 shadow" style="width: 500px;">
+
+    <h1 class="mb-4 text-center text-danger">Quiz Pokémon</h1>
 
     <!-- Espaço onde a pergunta será exibida -->
-    <div class="question" id="question">Carregando...</div>
+    <div class="question mb-4 text-center" id="question">Carregando...</div>
 
     <!-- Espaço onde as opções serão inseridas como botões -->
-    <div class="options" id="options"></div>
+    <div class="options" id="options" class="d-flex flex-column align-items-center"></div>
 
     <!-- Área para mostrar o resultado final -->
-    <div class="result" id="result"></div>
+    <div class="result mb-3 text-center" id="result"></div>
 
-    <!-- Link para voltar para outra página -->
-    <a href="home.php" class="back-button">Voltar</a>
+    <!-- Formulário de resultado e link para voltar -->
+    <form id="formulario" action="home.php" method="get">
+      <a href="home.php" class="btn btn-outline-secondary w-100 mt-3">Voltar</a>
+    </form>
   </div>
 
   <!-- Script JavaScript que controla o funcionamento do quiz -->
@@ -103,6 +165,7 @@
       q.opcoes.forEach(opcao => {
         const btn = document.createElement("button"); // Cria o botão
         btn.textContent = opcao; // Define o texto do botão como a opção
+        btn.classList.add("btn", "btn-primary", "w-100", "mb-2", "btn-hover-effect"); // Estilo do botão com a classe de animação
 
         // Quando o botão for clicado, chama função para verificar resposta
         btn.onclick = () => verificarResposta(opcao);
@@ -137,7 +200,11 @@
 
     // Inicializa o quiz mostrando a primeira pergunta
     mostrarPergunta();
-
   </script>
+
+  <!-- Link para o Bootstrap JS (necessário para o funcionamento de alguns componentes) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
 </body>
+
 </html>

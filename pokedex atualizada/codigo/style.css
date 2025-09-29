@@ -404,7 +404,7 @@ h1 {
 }
 
 .back-button:hover {
-    background: #8ae3f5;
+    background: #ffffff;
     transform: translateY(-2px);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
@@ -425,32 +425,6 @@ h1 {
 }
 
 /*css do quiz pokemon*/
-
-/* Define o fundo com um gradiente azul para vermelho */
-.quiz_fundo {
-    background: linear-gradient(to right, #052bff, #ff0000);
-    color: #fff;
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    /* Usa flexbox para centralizar conteúdo */
-    justify-content: center;
-    /* Centraliza horizontalmente */
-    align-items: center;
-    /* Centraliza verticalmente */
-    height: 100vh;
-    /* Altura total da tela */
-    margin: 0;
-    /* Remove margens padrão */
-}
-
-/* Caixa do quiz com fundo semi-transparente e bordas arredondadas */
-.quiz-container {
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 30px;
-    border-radius: 12px;
-    text-align: center;
-    width: 400px;
-}
 
 /* Estilo do texto da pergunta */
 .question {
@@ -652,4 +626,9 @@ td {
 input:focus, a:focus {
     outline: none;
 }
+body{
+
+    background-image: url('img/list_bg.jpg');
+}
+/* css dos links da home */
 
