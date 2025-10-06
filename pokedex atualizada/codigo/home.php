@@ -36,10 +36,10 @@ $lista_stats = listarStats($conexao);
         <a class="perfil" href="formPerfil.php">
             <img src="./img/perfil.png" width="40" height="40" alt="Perfil">
         </a>
-        <a  href="deslogar.php"><img id="porta" src="./img/pngwing.com.png" alt="Voltar" width="20px" height="20px"></a> <br> <br>
     </div>
-</header>
- <br>
+</header> <br>
+<a  href="deslogar.php"><img id="porta" src="./img/sair.png" alt="Voltar" width="20px" height="20px"></a> <br> <br>
+<br>
     <a href="quizPokemon.html">
          <img src="./img/bnr_quiz.png" width="100%" height="120px" alt="quiz">
     </a>
