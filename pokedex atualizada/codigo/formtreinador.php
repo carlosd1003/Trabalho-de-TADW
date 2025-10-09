@@ -47,6 +47,78 @@ if (isset($_GET['id'])) {
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="jquery-3.7.1.min (1).js"></script>
+    <script src="jquery.validate.min.js"></script>
+    <script>
+        // programar a validação do formulário
+        $(document).ready(function () {
+            $('#formulario').validate({
+                rules: {
+                    nome: {
+                        required: true,
+                        minlength: 3,
+                    },
+                    idade:{
+                        required: true,
+                        number: true,
+                        min: 12
+                    },
+                    genero:{
+                        required: true,
+                        generoValido: true
+                    },
+                    cidade:{
+                        required: true,
+                        minlength: 5
+                    },
+                    regiao:{
+                        required: true,
+                        minlength: 5
+                    },
+                    time_atual:{
+                        required: true,
+                        minlength: 10
+                    },
+                    data:{
+                        required: true,
+                        dataValida: true
+                    },
+                },
+                messages: {
+                    nome: {
+                        required: "Esse campo não pode ser vazio",
+                        minlength: "Tamanho mínimo de 3 símbolos"
+                    },
+                    idade:{
+                        required: "Esse campo não pode ser vazio",
+                        number: "Informe um número válido",
+                        min: "O número precisa ser maior que 11"
+                    },
+                    genero:{
+                        required: "Esse campo não pode ser vazio",
+                        generoValido: "Informe masculino ou feminino"
+                    },
+                    cidade: {
+                        required: "Esse campo não pode ser vazio",
+                        minlength: "Tamanho mínimo de 5 símbolos"
+                    },
+                    regiao: {
+                        required: "Esse campo não pode ser vazio",
+                        minlength: "Tamanho mínimo de 5 símbolos"
+                    },
+                    time_atual: {
+                        required: "Esse campo não pode ser vazio",
+                        minlength: "Tamanho mínimo de 10 símbolos"
+                    },
+                    data: {
+                        required: "Esse campo não pode ser vazio",
+                        dataValida: "Informe uma data válida"
+                    }
+
+                }
+            })
+        })
+    </script>
 </head>
 
 <body>
@@ -58,15 +130,15 @@ if (isset($_GET['id'])) {
  <body class="d-flex justify-content-center align-items-center vh-100 bg-light">
     <div class="card p-4 shadow" style="width: 420px;">
         <h1 class="text-center text-danger mb-4">Cadastro De Treinador</h1>
-        <form action="salvar_treinador.php?id=<?php echo $id; ?>" method="post" enctype="multipart/form-data" id="formulario-treinador">
+        <form action="salvar_treinador.php?id=<?php echo $id; ?>" method="post" id="formulario" enctype="multipart/form-data" id="formulario-treinador">
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome:</label>
-                <input type="text" id="nome" name="nome" class="form-control" placeholder="Informe Seu Nome" value="<?php echo htmlspecialchars($nome); ?>" required />
+                <input type="text" id="nome" name="nome" class="form-control" placeholder="Informe Seu Nome" value="<?php echo htmlspecialchars($nome); ?>" />
             </div>
 
             <div class="mb-3">
                 <label for="idade" class="form-label">Idade:</label>
-                <input type="number" id="idade" name="idade" class="form-control" placeholder="Informe Sua Idade" value="<?php echo htmlspecialchars($idade); ?>" min="1" required />
+                <input type="number" id="idade" name="idade" class="form-control" placeholder="Informe Sua Idade" value="<?php echo htmlspecialchars($idade); ?>" min="1"  />
             </div>
 
             <div class="mb-3">
@@ -96,7 +168,7 @@ if (isset($_GET['id'])) {
 
             <div class="mb-3">
                 <label for="idpokemon" class="form-label">Selecione Um Pokémon:</label>
-                <select id="idpokemon" name="idpokemon" class="form-select" required>
+                <select id="idpokemon" name="idpokemon" class="form-select" >
                     <?php
                     $lista_pokemon = listarPokemon($conexao);
                     foreach ($lista_pokemon as $pokemon) {

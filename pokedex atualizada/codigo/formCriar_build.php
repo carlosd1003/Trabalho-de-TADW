@@ -35,16 +35,17 @@ if (isset($_GET['id'])) {
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <script src="./jquery-3.7.1.min.js"></script>
-    <script src="./jquery.validate.min.js"></script>
+    <script src="jquery-3.7.1.min (1).js"></script>
+    <script src="jquery.validate.min.js"></script>
     <script>
         // programar a validação do formulário
-        $('document').ready(function () {
+        $(document).ready(function () {
             $('#formulario').validate({
                 rules: {
                     nome: {
                         required: true,
                         minlength: 3,
+                        
                     },
                 },
                 messages: {

@@ -45,6 +45,112 @@ $lista_types = listarTypes($conexao);
             height: auto;
         }
     </style>
+    <script src="jquery-3.7.1.min (1).js"></script>
+    <script src="jquery.validate.min.js"></script>
+    <script>
+        // programar a validação do formulário
+        $(document).ready(function () {
+            $('#formulario').validate({
+                rules: {
+                    national: {
+                        required: true,
+                        number: true,
+                        min: 152  // aqui indica que tem que ser maior ou igual a 152
+                        
+                    },
+                    nome:{
+                        required: true,
+                        minlength: 3,
+                        
+                    },
+                    gen:{
+                        required: true,
+                        number: true,
+                        min: 1
+
+                    },
+                    hp:{
+                        required: true,
+                        number: true,
+                        min: 1                       
+                    },
+                    attack:{
+                        required: true,
+                        number: true,
+                        min: 1                    
+                    },
+                    defense:{
+                        required: true,
+                        number: true,
+                        min: 1                    
+                    },
+                    spattack:{
+                        required: true,
+                        number: true,
+                        min: 1 
+                    },
+                    spdefense:{
+                        required: true,
+                        number: true,
+                        min: 1 
+                    },
+                    speed:{
+                        required: true,
+                        number: true,
+                        min: 1 
+                    },
+
+                },
+                messages: {
+                    national: {
+                        required: "Esse campo não pode ser vazio",
+                        number: "Informe um número válido",
+                        min: "O número precisa ser maior que 151"
+                    },
+                    nome:{
+                        required: "Esse campo não pode ser vazio",
+                        minlength: "Esse campo tem que ter mais de 3 caracteres"
+                    },
+                    gen:{
+                        required: "Esse campo não pode ser vazio",
+                        number: "Informe um número válido",
+                        min: "O número precisa ser maior que 0"
+                    },
+                    hp:{
+                        required: "Esse campo não pode ser vazio",
+                        number: "Informe um número válido",
+                        min: "O número precisa ser maior que 0"
+                    },
+                    attack:{
+                        required: "Esse campo não pode ser vazio",
+                        number: "Informe um número válido",
+                        min: "O número precisa ser maior que 0"
+                    },
+                    defense:{
+                        required: "Esse campo não pode ser vazio",
+                        number: "Informe um número válido",
+                        min: "O número precisa ser maior que 0"
+                    },
+                    spattack:{
+                        required: "Esse campo não pode ser vazio",
+                        number: "Informe um número válido",
+                        min: "O número precisa ser maior que 0"
+                    },
+                    spdefense:{
+                        required: "Esse campo não pode ser vazio",
+                        number: "Informe um número válido",
+                        min: "O número precisa ser maior que 0"
+                    },
+                    speed:{
+                        required: "Esse campo não pode ser vazio",
+                        number: "Informe um número válido",
+                        min: "O número precisa ser maior que 0"
+                    },
+
+                }
+            })
+        })
+    </script>
 </head>
 
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
@@ -52,26 +158,26 @@ $lista_types = listarTypes($conexao);
             <h1 class="text-center mb-4 text-danger fw-bold"><?php echo $pokemon ? "Editar Pokémon" : "Cadastro de Pokémon"; ?></h1>
 
 
-        <form method="POST" action="salvarPokemon.php" enctype="multipart/form-data" novalidate>
+        <form method="POST" action="salvarPokemon.php" id="formulario" enctype="multipart/form-data" novalidate>
             <?php if ($pokemon): ?>
                 <input type="hidden" name="idpokemon" value="<?php echo $pokemon['idpokemon']; ?>">
             <?php endif; ?>
 
             <div class="mb-3">
                 <label for="national" class="form-label">National Dex:</label>
-                <input type="number" id="national" name="national" required class="form-control" 
+                <input type="number" id="national" name="national" class="form-control" 
                     value="<?php echo $pokemon ? htmlspecialchars($pokemon['national']) : ''; ?>">
             </div>
 
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome do Pokémon:</label>
-                <input type="text" id="nome" name="nome" required class="form-control"
+                <input type="text" id="nome" name="nome" class="form-control"
                     value="<?php echo $pokemon ? htmlspecialchars($pokemon['nome']) : ''; ?>">
             </div>
 
             <div class="mb-3">
                 <label for="gen" class="form-label">Geração:</label>
-                <input type="number" id="gen" name="gen" min="0" required class="form-control"
+                <input type="number" id="gen" name="gen" class="form-control"
                     value="<?php echo $pokemon ? htmlspecialchars($pokemon['gen']) : ''; ?>">
             </div>
 
@@ -87,37 +193,37 @@ $lista_types = listarTypes($conexao);
 
             <div class="mb-3">
                 <label for="hp" class="form-label">HP:</label>
-                <input type="number" id="hp" name="hp" min="0" required class="form-control"
+                <input type="number" id="hp" name="hp"  class="form-control"
                     value="<?php echo $stats ? htmlspecialchars($stats['hp']) : ''; ?>">
             </div>
 
             <div class="mb-3">
                 <label for="attack" class="form-label">Attack:</label>
-                <input type="number" id="attack" name="attack" min="0" required class="form-control"
+                <input type="number" id="attack" name="attack"  class="form-control"
                     value="<?php echo $stats ? htmlspecialchars($stats['attack']) : ''; ?>">
             </div>
 
             <div class="mb-3">
                 <label for="defense" class="form-label">Defense:</label>
-                <input type="number" id="defense" name="defense" min="0" required class="form-control"
+                <input type="number" id="defense" name="defense"  class="form-control"
                     value="<?php echo $stats ? htmlspecialchars($stats['defense']) : ''; ?>">
             </div>
 
             <div class="mb-3">
                 <label for="spattack" class="form-label">Special Attack:</label>
-                <input type="number" id="spattack" name="spattack" min="0" required class="form-control"
+                <input type="number" id="spattack" name="spattack"  class="form-control"
                     value="<?php echo $stats ? htmlspecialchars($stats['sp_attack']) : ''; ?>">
             </div>
 
             <div class="mb-3">
                 <label for="spdefense" class="form-label">Special Defense:</label>
-                <input type="number" id="spdefense" name="spdefense" min="0" required class="form-control"
+                <input type="number" id="spdefense" name="spdefense"  class="form-control"
                     value="<?php echo $stats ? htmlspecialchars($stats['sp_defense']) : ''; ?>">
             </div>
 
             <div class="mb-3">
                 <label for="speed" class="form-label">Speed:</label>
-                <input type="number" id="speed" name="speed" min="0" required class="form-control"
+                <input type="number" id="speed" name="speed" class="form-control"
                     value="<?php echo $stats ? htmlspecialchars($stats['speed']) : ''; ?>">
             </div>
 

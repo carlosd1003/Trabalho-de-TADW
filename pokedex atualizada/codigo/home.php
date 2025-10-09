@@ -22,26 +22,24 @@ $lista_stats = listarStats($conexao);
 
 <body>
     <header id="topo">
-    <a href="#" id="logo">Pokédex</a>
-    <div id="menu-links">
-        <a class="btn btn-outline-primary" href="formPokemon.php">Criar Pokémon</a>
-        <a class="btn btn-outline-secondary" href="formtreinador.php">Criar Treinador</a>
-        <a class="btn btn-outline-success"href="listarTreinador.php">Ver Treinadores</a>
-        <a class="btn btn-outline-danger" href="calendario.html">Calendário</a>
-        <a class="btn btn-outline-warning" href="formCriar_build.php">Criar Build</a>
-        <a class="btn btn-outline-info" href="listarBuild.php">Ver Builds</a>
-        <a class="btn btn-outline-dark"href="criarSuporte.php">Acesso Ao Suporte</a>
-        <a class="btn btn-outline-danger" href="listarSuporte.php">Ver Informações do Suporte</a>
-        <a class="btn btn-outline-success" href="pesquisarTreinador.php">Procurar Um Treinador</a>
-        <a class="perfil" href="formPerfil.php">
-            <img src="./img/perfil.png" width="40" height="40" alt="Perfil">
-        </a>
-    </div>
-</header> <br>
-<a  href="deslogar.php"><img id="porta" src="./img/sair.png" alt="Voltar" width="20px" height="20px"></a> <br> <br>
-<br>
+        <a href="#" id="logo">Pokédex</a>
+        <div id="menu-links">
+            <a class="btn btn-outline-primary" href="formPokemon.php">Criar Pokémon</a>
+            <a class="btn btn-outline-secondary" href="formtreinador.php">Criar Treinador</a>
+            <a class="btn btn-outline-success" href="listarTreinador.php">Ver Treinadores</a>
+            <a class="btn btn-outline-danger" href="calendario.html">Calendário</a>
+            <a class="btn btn-outline-warning" href="formCriar_build.php">Criar Build</a>
+            <a class="btn btn-outline-info" href="listarBuild.php">Ver Builds</a>
+            <a class="btn btn-outline-dark" href="criarSuporte.php">Acesso Ao Suporte</a>
+            <a class="btn btn-outline-danger" href="listarSuporte.php">Ver Informações do Suporte</a>
+            <a class="btn btn-outline-success" href="pesquisarTreinador.php">Procurar Treinadores</a>
+        </div>
+        <a class="perfil" href="formPerfil.php"><img src="./img/perfil.png" width="35px" height="35px" alt="Perfil"></a>
+    </header> <br>
+    <a href="deslogar.php"><img id="porta" src="./img/sair.png" alt="Voltar" width="20px" height="20px"></a> <br> <br>
+    <br>
     <a href="quizPokemon.html">
-         <img src="./img/bnr_quiz.png" width="100%" height="120px" alt="quiz">
+        <img src="./img/bnr_quiz.png" width="100%" height="120px" alt="quiz">
     </a>
     <br><br><br>
     <div class="card-container">
@@ -108,4 +106,5 @@ $lista_stats = listarStats($conexao);
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
 </html>

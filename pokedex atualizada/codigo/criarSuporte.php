@@ -1,27 +1,43 @@
-<?php 
+<?php
 // Inicia a sessão para manter dados do usuário logado
-session_start(); 
+session_start();
+require_once 'verificarLogado.php';
 
-// Inclui o script que verifica se o usuário está logado
-// Caso não esteja, normalmente redireciona para a página de login
-require_once 'verificarLogado.php'; 
-?> 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8"> <!-- Define o padrão de caracteres para UTF-8 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsividade para dispositivos móveis -->
-    <title>Document</title> <!-- Título da página -->
-    
-    <!-- Arquivo CSS personalizado -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    
-    <!-- Bootstrap CSS para estilização e componentes prontos -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" 
-          rel="stylesheet" 
-          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" 
-          crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+        crossorigin="anonymous">
+    <script src="jquery-3.7.1.min (1).js"></script>
+    <script src="jquery.validate.min.js"></script>
+    <script>
+        // programar a validação do formulário
+        $(document).ready(function() {
+            $('#formulario').validate({
+                rules: {
+                idusuario:{
+                    required: true,
+                    email: true 
+                    }
+                },
+                messages: {
+                    idusuario:{
+                        required: "Esse campo não pode ser vazio",
+                        email: "Por favor, informe um email válido"
+                    }
+                }
+            })
+        })
+    </script>
 </head>
 
 <body class="d-flex justify-content-center align-items-center vh-100 bg-light">
@@ -41,19 +57,7 @@ require_once 'verificarLogado.php';
         -->
 
         <h1 class="text-center text-danger mb-4">Ver As Avaliações</h1>
-        <!-- text-center: centraliza o título
-             text-danger: cor vermelha
-             mb-4: margem inferior -->
-        
-        <!-- Formulário para envio de reclamações e sugestões -->
-        <form action="salvarSuporte.php" method="post" enctype="multipart/form-data" id="form-suporte">
-            <!-- 
-                action: arquivo PHP que receberá os dados
-                method: POST para envio seguro
-                enctype: permite envio de arquivos (mesmo que não seja usado agora)
-                id: identificador do formulário
-            -->
-
+        <form action="salvarSuporte.php" method="post" id="formulario" enctype="multipart/form-data" id="form-suporte">
             <!-- Campo de reclamação (opcional) -->
             <div class="mb-3">
                 <label for="reclamacao" class="form-label">Fazer Reclamação:</label>
@@ -82,10 +86,8 @@ require_once 'verificarLogado.php';
 </body>
 
 <!-- Script JS do Bootstrap (necessário para alguns componentes funcionarem corretamente) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" 
-        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
 
 </html>
-
-

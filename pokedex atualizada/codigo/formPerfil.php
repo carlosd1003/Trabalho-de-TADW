@@ -39,6 +39,35 @@ require_once 'verificarLogado.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Custom CSS (optional) -->
     <link rel="stylesheet" href="style.css">
+    <script src="jquery-3.7.1.min (1).js"></script>
+    <script src="jquery.validate.min.js"></script>
+    <script>
+        // programar a validação do formulário
+        $(document).ready(function () {
+            $('#formulario').validate({
+                rules: {
+                    nome: {
+                        required: true,
+                        minlength: 3,
+                    },
+                    idusuario:{
+                        required: true,
+                        email: true 
+                    }
+                },
+                messages: {
+                    nome: {
+                        required: "Esse campo não pode ser vazio",
+                        minlength: "Tamanho mínimo de 3 símbolos"
+                    },
+                    idusuario:{
+                        required: "Esse campo não pode ser vazio",
+                        email: "Por favor, informe um email válido"
+                    }
+                }
+            })
+        })
+    </script>
 </head>
 
 <body class="d-flex justify-content-center align-items-center vh-100 bg-light">
@@ -46,7 +75,7 @@ require_once 'verificarLogado.php';
     <div class="card p-4 shadow" style="width: 400px;">
         <h1 class="mb-4 text-center text-danger">Criar Perfil</h1>
 
-        <form action="salvarPerfil.php?id=<?php echo $id; ?>" method="post" enctype="multipart/form-data">
+        <form action="salvarPerfil.php?id=<?php echo $id; ?>" method="post" id="formulario" enctype="multipart/form-data">
             
             <!-- Nome -->
             <div class="mb-3">
