@@ -1,7 +1,12 @@
 <?php
 session_start();
-require_once 'verificarLogado.php';
+require_once 'verificarLogado.php'; // Seu script de verificação de login
+require_once 'function.php'; // Incluindo o arquivo de funções
+
+// Conectar com o banco de dados
+require_once 'conexao.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -15,7 +20,7 @@ require_once 'verificarLogado.php';
 
 <body>
     <!-- Formulário de Pesquisa -->
-    <form action="pesquisarTreinador.php" method="get">
+    <form action=".php" method="get">
         <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Pesquisar Treinador" name="valor" value="<?php echo isset($_GET['valor']) ? $_GET['valor'] : ''; ?>">
             <button class="btn btn-primary" type="submit">Pesquisar</button>
@@ -25,25 +30,15 @@ require_once 'verificarLogado.php';
     <h1>Lista de Treinadores</h1>
 
     <?php
-    require_once "conexao.php";
-    require_once "function.php";
-
-    $lista_treinador = listarTreinador($conexao);
-
-    if (count($lista_treinador) == 0) {
-        echo "Não existem clientes cadastrados";
-
-
     // Verifica se existe um valor de pesquisa
     if (isset($_GET['valor']) && !empty($_GET['valor'])) {
         $valor = $_GET['valor'];
-        $sql = "SELECT * FROM treinador WHERE nome LIKE '%$valor%'";
-        $resultados = mysqli_query($conexao, $sql);
 
-        if (mysqli_num_rows($resultados) == 0) {
-            echo "Não foram encontrados treinadores com esse nome.";
-        } else {
-            // Exibindo a tabela de resultados da pesquisa
+        // Chama a função de pesquisa de treinadores
+        $treinadores = pesquisarTreinador($conexao, $valor);
+
+        if (count($treinadores) > 0) {
+            // Exibe os resultados da pesquisa
             echo "<table class='table'>";
             echo "<thead class='table-dark'>
                     <tr>
@@ -60,34 +55,26 @@ require_once 'verificarLogado.php';
                     </tr>
                   </thead>
                   <tbody>";
-        foreach ($lista_treinador as $treinador) {
-            $idtreinador = $treinador['idtreinador'];
-            $nome = $treinador['nome'];
-            $idade = $treinador['idade'];
-            $genero = $treinador['genero'];
-            $cidade = $treinador['cidade'];
-            $regiao = $treinador['regiao'];
-            $time_atual = $treinador['time_atual'];
-            $data_cadastro = $treinador['data_cadastro'];
-            $idpokemon = $treinador['pokemon_nome'];
-
-            echo "<tr>";
-            echo "<td>$idtreinador</td>";
-            echo "<td>$nome</td>";
-            echo "<td>$idade</td>";
-            echo "<td>$genero</td>";
-            echo "<td>$cidade</td>";
-            echo "<td>$regiao</td>";
-            echo "<td>$time_atual</td>";
-            echo "<td>$data_cadastro</td>";
-            echo "<td>$idpokemon</td>";
-            echo "<td><a class='excluir-button' href='deletar_treinador.php?id=$idtreinador'>Excluir</a></td>";
-            echo "<td><a class='editar-button' href='formtreinador.php?id=$idtreinador'>Editar</a></td>";
-            echo "</tr>";
+            
+            foreach ($treinadores as $treinador) {
+                echo "<tr>";
+                echo "<td>{$treinador['idtreinador']}</td>";
+                echo "<td>{$treinador['nome']}</td>";
+                echo "<td>{$treinador['idade']}</td>";
+                echo "<td>{$treinador['genero']}</td>";
+                echo "<td>{$treinador['cidade']}</td>";
+                echo "<td>{$treinador['regiao']}</td>";
+                echo "<td>{$treinador['time_atual']}</td>";
+                echo "<td>{$treinador['data_cadastro']}</td>";
+                echo "<td>{$treinador['pokemon_nome']}</td>";
+                echo "<td><a class='btn btn-danger' href='deletar_treinador.php?id={$treinador['idtreinador']}'>Excluir</a></td>";
+                echo "<td><a class='btn btn-warning' href='formtreinador.php?id={$treinador['idtreinador']}'>Editar</a></td>";
+                echo "</tr>";
             }
             echo "</tbody></table>";
+        } else {
+            echo "Não foram encontrados treinadores com esse nome.";
         }
-    }
     } else {
         // Se não houver pesquisa, exibe a lista completa de treinadores
         $lista_treinador = listarTreinador($conexao);

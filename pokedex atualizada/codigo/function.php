@@ -7,13 +7,31 @@
  * @param string $Tipo Tipo de usuário (ex: 'admin', 'usuario')
  * @return bool True se criado com sucesso, False caso contrário
  */
-function criarUsuario($conexao, $email, $senha, $Tipo ) {
+function criarUsuario($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav = NULL, $descricao = NULL) {
+    // Hash da senha
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-    $sql = "INSERT INTO usuario (email, senha, Tipo) VALUES (?, ?, ?)";
-    $comando = mysqli_prepare($conexao, $sql);#
-    mysqli_stmt_bind_param($comando, 'sss', $email, $senha_hash, $Tipo);
+
+    // SQL para inserir o novo usuário
+    $sql = "INSERT INTO usuario (nome, email, senha, Tipo, pokemon_fav, descricao) VALUES (?, ?, ?, ?, ?, ?)";
+
+    // Prepara a consulta
+    $comando = mysqli_prepare($conexao, $sql);
+
+    if (!$comando) {
+        // Se não conseguir preparar a query, retorna falso
+        return false;
+    }
+
+    // Vincula os parâmetros ao comando preparado
+    mysqli_stmt_bind_param($comando, 'ssssss', $nome, $email, $senha_hash, $Tipo, $pokemon_fav, $descricao);
+
+    // Executa o comando
     $funcionou = mysqli_stmt_execute($comando);
+
+    // Fecha a consulta
     mysqli_stmt_close($comando);
+
+    // Retorna se a execução foi bem-sucedida
     return $funcionou;
 }
 
@@ -824,18 +842,31 @@ function deletarTreinador($conexao, $idtreinador) {
  * @return array|null Dados do treinador ou null se não encontrado
  */
 function pesquisarTreinador($conexao, $nome) {
-    $sql = "SELECT * FROM treinador WHERE nome = ?";
+    // Usar LIKE para permitir pesquisa por nomes parciais
+    $sql = "SELECT * FROM treinador WHERE nome LIKE ?";
     $comando = mysqli_prepare($conexao, $sql);
 
-    mysqli_stmt_bind_param($comando, 's', $nome);
+    // Adicionar "%" para permitir busca por nome parcial
+    $nome_completo = "%$nome%";
+    
+    // Associando o parâmetro
+    mysqli_stmt_bind_param($comando, 's', $nome_completo);
 
+    // Executando a consulta
     mysqli_stmt_execute($comando);
     $resultado = mysqli_stmt_get_result($comando);
 
-    $treinador = mysqli_fetch_assoc($resultado);
+    // Armazenando o(s) treinador(es) encontrado(s)
+    $treinadores = [];
+    while ($treinador = mysqli_fetch_assoc($resultado)) {
+        $treinadores[] = $treinador;
+    }
 
+    // Fechar o comando
     mysqli_stmt_close($comando);
-    return $treinador;
 
+    // Retorna um array com todos os treinadores encontrados
+    return $treinadores;
 }
+
 ?>

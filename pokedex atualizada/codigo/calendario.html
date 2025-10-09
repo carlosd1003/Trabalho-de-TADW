@@ -20,143 +20,165 @@
 </head>
 
 <body>
-    <!-- Título da página. Você pode editar este texto livremente. -->
     <h1>Caléndario De Eventos Pokemóns</h1>
 
     <!-- Elemento onde o FullCalendar será renderizado -->
     <div id="calendar"></div>
 
-    <!-- Link de retorno (ex.: para uma página inicial em PHP) -->
+    <!-- Link de retorno -->
     <a href="home.php" class="back-button">Voltar</a>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // 1) Pegar o elemento que receberá o calendário
             var calendarEl = document.getElementById('calendar');
 
-            // 2) Criar o calendário com as opções desejadas
+            // Lista de eventos originais
+            var events = [
+                {
+                    title: 'Ano Novo Pokémon',
+                    start: '2025-01-01',
+                    description: 'Celebração de ano novo com Pokémon especiais e bônus de início de ano em todos os jogos.'
+                },
+                {
+                    title: 'Dia dos Iniciantes',
+                    start: '2025-01-25',
+                    description: 'Evento especial em homenagem aos Pokémon(Bulbasaur,Charmander,Squirtle e suas evoluções.'
+                },
+                {
+                    title: 'Festival do Dragão',
+                    start: '2025-02-05',
+                    end: '2025-02-09',
+                    description: 'Pokémon do tipo Dragão aparecem com mais frequência com movesets especiais'
+                },
+                {
+                    title: 'Dia dos Namorados Pokémon',
+                    start: '2025-02-14',
+                    description: 'Pokemón cor-de-rosa e temática romântica.'
+                },
+                {
+                    title: 'Pokemón Day',
+                    start: '2025-02-27',
+                    description: 'Aniversário da franquia com lendários e anúnicios especiais'
+                },
+                {
+                    title: 'Dia do pikachu',
+                    start: '2025-03-01',
+                    description: 'Homenagem ao Pokemón mais famoso com chapéus'
+                },
+                {
+                    title: 'Dia da Terra',
+                    start: '2025-04-22',
+                    description: 'Pokemón do tipo planta e terra com bônus de captura'
+                },
+                {
+                    title: 'Páscoa Pokémon',
+                    start: '2025-04-20',
+                    description: 'Pokemón com ovos e temática da Páscoa'
+                },
+                {
+                    title: 'Dia da Crianças',
+                    start: '2025-05-05',
+                    description: 'Pokemóns bebês e eventos especiais para crianças'
+                },
+                {
+                    title: 'Dia da evolução',
+                    start: '2025-06-01',
+                    description: 'Bonus de evolução e Pokemóns que evoluem'
+                },
+                {
+                    title: 'Go Fest 2025',
+                    start: '2025-06-28',
+                    end: '2025-06-29',
+                    description: 'Maior evento do Pokémon Go com Pokemóns raros e bônus especiais'
+                },
+                {
+                    title: 'Aniversário do Pokémon Go',
+                    start: '2025-07-06',
+                    description: 'Celebração do aniversário do Pokémon Go com eventos e bônus'
+                },
+                {
+                    title: 'Evento de Verão',
+                    start: '2025-06-21',
+                    end: '2025-06-30',
+                    description: 'Pokemóns aquáticos e de verão com bônus de captura'
+                },
+                {
+                    title: 'Mundial de VGC',
+                    start: '2025-08-15',
+                    end: '2025-08-17',
+                    description: 'Camponato mundial de batalhas VGC com transmissões ao vivo e eventos especiais'
+                },
+                {
+                    title: 'Evento de Outono',
+                    start: '2025-09-22',
+                    description: 'Pokemóns de outono e bônus de captura'
+                },
+                {
+                    title: 'Mês do Pokémon Fantasma',
+                    start: '2025-10-01',
+                    end: '2025-10-31',
+                    description: 'Evento prolongado de Halloween com Pokémon fantasma e assustadores'
+                },
+                {
+                    title: 'Halloween Pokémon',
+                    start: '2025-10-31',
+                    description: 'Pokemóns Fantasma e doces especiais.'
+                },
+                {
+                    title: 'Novo Jogo Pokemón',
+                    start: '2025-11-21',
+                    description: 'Possível Lançamento de um novo jogo da franquia Pokemón'
+                },
+                {
+                    title: 'Evento do Tipo Aço',
+                    start: '2025-12-01',
+                    end: '2025-12-05',
+                    description: 'Pokémon do tipo Aço com defesas reforçadas e bônus de metal'
+                },
+                {
+                    title: 'Natal Pokémon',
+                    start: '2025-12-25',
+                    description: 'Pokemóns de gelo e neve com temática natalina e bônus especiais'
+                },
+                {
+                    title: 'Evento de Fim de Ano',
+                    start: '2025-12-28',
+                    end: '2025-12-31',
+                    description: 'Retrospectiva do ano com todos os Pokémon featured em 2025'
+                }
+            ];
+
+            // Função para duplicar eventos por 5 anos para frente e para trás
+            function generateEventYears(events, startYear, endYear) {
+                let allEvents = [];
+                for (let year = startYear; year <= endYear; year++) {
+                    events.forEach(event => {
+                        let newEvent = { ...event };
+                        let eventStartDate = new Date(event.start);
+                        let eventEndDate = new Date(event.end || event.start);
+                        
+                        // Substitui o ano para cada evento
+                        eventStartDate.setFullYear(year);
+                        eventEndDate.setFullYear(year);
+
+                        newEvent.start = eventStartDate.toISOString().split('T')[0];
+                        newEvent.end = eventEndDate.toISOString().split('T')[0];
+                        allEvents.push(newEvent);
+                    });
+                }
+                return allEvents;
+            }
+
+            // Gerar eventos para os anos de 2020 a 2030
+            let allEvents = generateEventYears(events, 2020, 2030);
+
+            // Criar o calendário com as opções desejadas
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
-
-                // ==================
-                // LISTA DE EVENTOS
-                // ==================
-                events: [
-                    {
-                        title: 'Ano Novo Pokémon',
-                        start: '2025-01-01',
-                        description: 'Celebração de ano novo com Pokémon especiais e bônus de início de ano em todos os jogos.'
-                    },
-                    {
-                        title: 'Dia dos Iniciantes',
-                        start: '2025-01-25',
-                        description: 'Evento especial em homenagem aos Pokémon(Bulbasaur,Charmander,Squirtle e suas evoluções.'
-                    },
-                    {
-                        title: 'Festival do Dragão',
-                        start: '2025-02-05',
-                        end: '2025-02-09',
-                        description: 'Pokémon do tipo Dragão aparecem com mais frequência com movesets especiais'
-                    },
-                    {
-                        title: 'Dia dos Namorados Pokémon',
-                        start: '2025-02-14',
-                        description: 'Pokemón cor-de-rosa e temática romântica.'
-                    },
-                    {
-                        title: 'Pokemón Day',
-                        start: '2025-02-27',
-                        description: 'Aniversário da franquia com lendários e anúnicios especiais'
-                    },
-                    {
-                        title: 'Dia do pikachu',
-                        start: '2025-03-01',
-                        description: 'Homenagem ao Pokemón mais famoso com chapéus'
-                    },
-                    {
-                        title: 'Dia da Terra',
-                        start: '2025-04-22',
-                        description: 'Pokemón do tipo planta e terra com bônus de captura'
-                    },
-                    {
-                        title: 'Páscoa Pokémon',
-                        start: '2025-04-20',
-                        description: 'Pokemón com ovos e temática da Páscoa'
-                    },
-                    {
-                        title: 'Dia da Crianças',
-                        start: '2025-05-05',
-                        description: 'Pokemóns bebês e eventos especiais para crianças'
-                    },
-                    {
-                        title: 'Dia da evolução',
-                        start: '2025-06-01',
-                        description: 'Bonus de evolução e Pokemóns que evoluem'
-                    },
-                    {
-                        title: 'Go Fest 2025',
-                        start: '2025-06-28',
-                        end: '2025-06-29',
-                        description: 'Maior evento do Pokémon Go com Pokemóns raros e bônus especiais'
-                    },
-                    {
-                        title: 'Aniversário do Pokémon Go',
-                        start: '2025-07-06',
-                        description: 'Celebração do aniversário do Pokémon Go com eventos e bônus'
-                    },
-                    {
-                        title: 'Evento de Verão',
-                        start: '2025-06-21',
-                        end: '2025-06-30',
-                        description: 'Pokemóns aquáticos e de verão com bônus de captura'
-                    },
-                    {
-                        title: 'Mundial de VGC',
-                        start: '2025-08-15',
-                        end: '2025-08-17',
-                        description: 'Camponato mundial de batalhas VGC com transmissões ao vivo e eventos especiais'
-                    },
-                    {
-                        title: 'Evento de Outono',
-                        start: '2025-09-22',
-                        description: 'Pokemóns de outono e bônus de captura'
-                    },
-                    {
-                        title: 'Mês do Pokémon Fantasma',
-                        start: '2025-10-01',
-                        end: '2025-10-31',
-                        description: 'Evento prolongado de Halloween com Pokémon fantasma e assustadores'
-                    },
-                    {
-                        title: 'Halloween Pokémon',
-                        start: '2025-10-31',
-                        description: 'Pokemóns Fantasma e doces especiais.'
-                    },
-                    {
-                        title: 'Novo Jogo Pokemón',
-                        start: '2025-11-21',
-                        description: 'Possível Lançamento de um novo jogo da franquia Pokemón'
-                    },
-                    {
-                        title: 'Evento do Tipo Aço',
-                        start: '2025-12-01',
-                        end: '2025-12-05',
-                        description: 'Pokémon do tipo Aço com defesas reforçadas e bônus de metal'
-                    },
-                    {
-                        title: 'Natal Pokémon',
-                        start: '2025-12-25',
-                        description: 'Pokemóns de gelo e neve com temática natalina e bônus especiais'
-                    },
-                    {
-                        title: 'Evento de Fim de Ano',
-                        start: '2025-12-28',
-                        end: '2025-12-31',
-                        description: 'Retrospectiva do ano com todos os Pokémon featured em 2025'
-                    }
-                ]
+                events: allEvents
             });
 
-            // 3) Renderizar o calendário na página
+            // Renderizar o calendário
             calendar.render();
         });
     </script>
