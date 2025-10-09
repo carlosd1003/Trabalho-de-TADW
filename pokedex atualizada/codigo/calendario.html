@@ -9,6 +9,14 @@
 
     <!-- FullCalendar via CDN (versão 6.x em um único bundle global) -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script>
+
+    <!-- Fonte Press Start 2P apenas para o título -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+        }
+    </style>
 </head>
 
 <body>
@@ -27,20 +35,11 @@
 
             // 2) Criar o calendário com as opções desejadas
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                // Visão inicial do calendário. Outras opções: 'dayGridWeek', 'dayGridDay'
                 initialView: 'dayGridMonth',
 
                 // ==================
                 // LISTA DE EVENTOS
                 // ==================
-                // Cada evento pode ter:
-                // - title (string): título exibido no calendário
-                // - start (YYYY-MM-DD): data de início (obrigatória)
-                // - end (YYYY-MM-DD): data final (opcional; não-inclusiva)
-                // - description (string): texto livre com observações
-                //
-                // Dica: Para eventos de dia inteiro, use apenas 'start' (e 'end' se for um período).
-                //       Para eventos com horário, use 'start'/'end' com data e hora (ex.: '2025-02-14T18:00:00').
                 events: [
                     {
                         title: 'Ano Novo Pokémon',
@@ -154,23 +153,7 @@
                         end: '2025-12-31',
                         description: 'Retrospectiva do ano com todos os Pokémon featured em 2025'
                     }
-                ],
-
-                // ===========================
-                // EXTRAS (OPCIONAIS, EXEMPLOS)
-                // ===========================
-                // 1) Mostrar a description como tooltip simples usando o atributo title:
-                // eventDidMount: function(info) {
-                //     if (info.event.extendedProps.description) {
-                //         info.el.setAttribute('title', info.event.extendedProps.description);
-                //     }
-                // },
-                //
-                // 2) Alterar idioma/locale (ex.: 'pt-br'):
-                // locale: 'pt-br',
-                //
-                // 3) Carregar eventos de um endpoint em vez de array:
-                // events: '/minha-api-de-eventos'
+                ]
             });
 
             // 3) Renderizar o calendário na página
