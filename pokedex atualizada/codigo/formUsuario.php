@@ -11,7 +11,7 @@
     <script>
         // Programar a validação do formulário
         $(document).ready(function () {
-            $('#formulario').validate({
+            $('#cadastro-formulario').validate({
                 rules: {
                     nome: {
                         required: true,
@@ -47,36 +47,36 @@
     </script>
 </head>
 
-<body id="page-body">
-    <div id="container">
-        <h1 id="page-title">Cadastro De Usuario</h1>
-        <form id="formulario" action="salvarUsuario.php" method="post">
+<body class="cadastro-page-body">
+    <div id="cadastro-container" class="form-container animated-container">
+        <h1 id="cadastro-title">Cadastro De Usuario</h1>
+        <form id="cadastro-formulario" action="salvarUsuario.php" method="post">
             <!-- Campo Nome -->
-            <label for="nome" id="label-nome">Nome:</label>
-            <input type="text" id="nome" name="nome" class="campo-text" required maxlength="45" placeholder="Informe seu nome" />
+            <label for="nome" class="cadastro-label">Nome:</label>
+            <input type="text" id="nome" name="nome" class="cadastro-text-field" required maxlength="45" placeholder="Informe seu nome" />
 
             <!-- Campo E-mail -->
-            <label for="email" id="label-email">E-mail:</label>
-            <input type="email" id="email" name="email" class="campo-text" required maxlength="45" placeholder="Informe seu e-mail" />
+            <label for="email" class="cadastro-label">E-mail:</label>
+            <input type="email" id="email" name="email" class="cadastro-text-field" required maxlength="45" placeholder="Informe seu e-mail" />
 
             <!-- Campo Senha -->
-            <label for="senha" id="label-senha">Senha:</label>
-            <input type="password" id="senha" name="senha" class="campo-text" required minlength="6" maxlength="100" placeholder="Informe sua senha" />
+            <label for="senha" class="cadastro-label">Senha:</label>
+            <input type="password" id="senha" name="senha" class="cadastro-text-field" placeholder="Informe sua senha" />
 
             <!-- Campo Pokémon Favorito -->
-            <label for="pokemon_fav" id="label-pokemon-fav">Pokémon Favorito:</label>
-            <input type="text" id="pokemon_fav" name="pokemon_fav" class="campo-text" maxlength="45" placeholder="Informe seu Pokémon favorito" />
+            <label for="pokemon_fav" class="cadastro-label">Pokémon Favorito:</label>
+            <input type="text" id="pokemon_fav" name="pokemon_fav" class="cadastro-text-field" maxlength="45" placeholder="Informe seu Pokémon favorito" />
 
             <!-- Campo Descrição -->
-            <label for="descricao" id="label-descricao">Descrição:</label>
-            <textarea id="descricao" name="descricao" class="campo-textarea" maxlength="45" placeholder="Fale um pouco sobre você"></textarea>
+            <label for="descricao" class="cadastro-label">Descrição:</label>
+            <textarea id="descricao" name="descricao" class="cadastro-textarea" maxlength="45" placeholder="Fale um pouco sobre você"></textarea>
 
             <!-- Botão de envio -->
-            <input type="submit" id="cadastrar-button" class="botao" value="Cadastrar" />
+            <input type="submit" id="cadastrar-button" class="cadastro-botao" value="Cadastrar" />
         </form>
 
         <!-- Link para voltar -->
-        <a href="index.html" id="back-button">Voltar</a>
+        <a href="index.html" id="cadastro-back-button">Voltar</a>
     </div>
 </body>
 

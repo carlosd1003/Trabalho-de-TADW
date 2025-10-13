@@ -50,12 +50,19 @@ $lista_types = listarTypes($conexao);
     <script>
         // programar a validação do formulário
         $(document).ready(function () {
+        // Passa o valor do último número criado para uma variável JS
+        var ultimoNumeroCriado = <?php echo $ultimo_numero_criado ?? 0; ?>;
+
+        // Cria uma regra personalizada para validar se o número é maior que ultimoNumeroCriado
+        $.validator.addMethod("maiorQueUltimo", function(value, element) {
+            return this.optional(element) || Number(value) > ultimoNumeroCriado;
+        }, "O número deve ser maior que o último criado: " + ultimoNumeroCriado);
             $('#formulario').validate({
                 rules: {
                     national: {
                         required: true,
                         number: true,
-                        min: 152  // aqui indica que tem que ser maior ou igual a 152
+                        maiorQueUltimo: true
                         
                     },
                     nome:{
@@ -105,7 +112,7 @@ $lista_types = listarTypes($conexao);
                     national: {
                         required: "Esse campo não pode ser vazio",
                         number: "Informe um número válido",
-                        min: "O número precisa ser maior que 151"
+                        maiorQueUltimo: "O número deve ser maior que o último criado: " + ultimoNumeroCriado
                     },
                     nome:{
                         required: "Esse campo não pode ser vazio",

@@ -10,12 +10,11 @@
     <script>
         // programar a validação do formulário
         $(document).ready(function () {
-            $('#formulario').validate({
+            $('#login-form').validate({
                 rules: {
                     email: {
                         required: true,
                         email: true
-
                     },
                     senha:{
                         required: true,
@@ -34,21 +33,20 @@
         })
     </script>
 </head>
-<body id="page-body">
-    <div id="container">
-        <h1 id="page-title">Bem Vindo ao Site</h1>
-        <form id="login-form" action="verificarLogin.php" id="formulario" method="post">
-            <label for="user-email" id="label-email">E-mail:</label>
-            <input type="email" id="email" name="email" ...>
+<body class="cadastro-page-body">
+    <div id="login-container" class="form-container animated-container">
+        <h1 id="login-title">Bem Vindo ao Site</h1>
+        <form id="login-form" action="verificarLogin.php" method="post">
+            <label for="email" class="login-label">E-mail:</label>
+            <input type="email" id="email" name="email" class="login-input-field" required placeholder="Informe seu e-mail" />
 
-            <label for="user-password" id="label-password">Senha:</label>
-            <input type="password" id="senha" name="senha" ...>
+            <label for="senha" class="login-label">Senha:</label>
+            <input type="password" id="senha" name="senha" class="login-input-field" required placeholder="Informe sua senha" />
 
             <a href="formUsuario.php" id="first-access-link">Primeiro acesso</a>
 
-            <input type="submit" id="submit-btn" value="Acessar">
+            <input type="submit" id="login-submit-btn" value="Acessar" />
         </form>
     </div>
 </body>
-
 </html>

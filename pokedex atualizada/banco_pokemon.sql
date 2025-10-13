@@ -204,13 +204,16 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
--- Insert para o usuário Daniel
-INSERT INTO `banco_pokemon`.`usuario` (`nome`, `email`, `senha`, `Tipo`, `pokemon_fav`, `descricao`) 
-VALUES ('Daniel', 'daniel@email.com', '123456', 'A', 'Charizard', 'Treinador de fogo e voo');
+-- Inserindo um usuário do tipo 'A' com Carlos
+INSERT INTO `banco_pokemon`.`usuario` (`nome`, `email`, `senha`, `Tipo`, `pokemon_fav`, `descricao`)
+VALUES 
+  ('Carlos', 'carlos@gmail.com', '$2y$10$9gm09Zg6ZouUNtV49WIifemI7y7vGFMTxbIDGKrRP0PG3Ua7VgyzK', 'A', 'Charizard', 'Treinador de Kanto');
 
--- Insert para o usuário João
-INSERT INTO `banco_pokemon`.`usuario` (`nome`, `email`, `senha`, `Tipo`, `pokemon_fav`, `descricao`) 
-VALUES ('Joao', 'joao@email.com', '654321', 'U', 'Pikachu', 'Amo pokémons elétricos');
+-- Inserindo um usuário do tipo 'C' com João
+INSERT INTO `banco_pokemon`.`usuario` (`nome`, `email`, `senha`, `Tipo`, `pokemon_fav`, `descricao`)
+VALUES 
+  ('João', 'joao@gmail.com', '$2y$10$9gm09Zg6ZouUNtV49WIifemI7y7vGFMTxbIDGKrRP0PG3Ua7VgyzK', 'C', 'Lucario', 'Campeão de Sinnoh');
+
 
 INSERT INTO types (nome) VALUES
 ('Normal'),

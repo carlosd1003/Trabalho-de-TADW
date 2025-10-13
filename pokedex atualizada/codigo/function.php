@@ -35,64 +35,13 @@ function criarUsuario($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav = NUL
     return $funcionou;
 }
 
-#=================================================================================================================
-/**
- * Cria um perfil de usuário
- * @param mysqli $conexao Conexão com o banco de dados
- * @param string $nome Nome do perfil
- * @param string $pokemon_fav Pokémon favorito
- * @param string $descricao Descrição do perfil
- * @param int $idusuario ID do usuário associado
- * @return bool True se criado com sucesso, False caso contrário
- */
-
-function criarPerfil($conexao, $nome, $pokemon_fav, $descricao, $idusuario) {
-    $sql = "INSERT INTO perfil (nome, pokemon_fav, descricao, idusuario) VALUES (?, ?, ?, ?)";
-    $comando = mysqli_prepare ($conexao, $sql);
-
-    mysqli_stmt_bind_param($comando, 'sssi', $nome, $pokemon_fav, $descricao, $idusuario);
-    $funcionou = mysqli_stmt_execute($comando);
-
-    mysqli_stmt_close($comando);
-    return $funcionou;
-}
-
-/**
- * Edita um perfil existente
- * @param mysqli $conexao Conexão com o banco de dados
- * @param string $nome Nome do perfil
- * @param string $pokemon_fav Pokémon favorito
- * @param string $descricao Descrição do perfil
- * @param int $idusuario ID do usuário associado
- * @param int $id ID do perfil a ser editado
- * @return bool True se editado com sucesso, False caso contrário
- */
-function editarPerfil($conexao, $nome, $pokemon_fav, $descricao, $idusuario, $id) {
-        $sql = "UPDATE perfil SET nome=?, pokemon_fav=?, descricao=?, idusuario=? WHERE id=?";
-        $comando = mysqli_prepare($conexao, $sql);
-    
-        mysqli_stmt_bind_param($comando, 'sssii', $nome, $pokemon_fav, $descricao, $idusuario, $id);
-        $funcionou = mysqli_stmt_execute($comando);
-    
-        mysqli_stmt_close($comando);
-        return $funcionou;
-    }
-
-/**
- * Deleta um perfil
- * @param mysqli $conexao Conexão com o banco de dados
- * @param int $idperfil ID do perfil a ser deletado
- * @return bool True se deletado com sucesso, False caso contrário
- */
-function deletarPerfil($conexao, $idperfil) {
-    $sql = "DELETE FROM perfil WHERE idperfil = ?";
+function editarUsuario ($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav = NULL, $descricao = NULL){
+    $sql = "UPDATE usuario SET nome=?, email=?, senha=?, Tipo=?, pokemon_fav=? descricao=? WHERE idusuario=?";
     $comando = mysqli_prepare($conexao, $sql);
-    
-    mysqli_stmt_bind_param($comando, 'i', $idperfil);
-
+    mysqli_stmt_bind_param($comando, 'ssssssi', $nome, $email, $senha_hash, $Tipo, $pokemon_fav, $descricao, $id);
     $funcionou = mysqli_stmt_execute($comando);
+
     mysqli_stmt_close($comando);
-    
     return $funcionou;
 }
 

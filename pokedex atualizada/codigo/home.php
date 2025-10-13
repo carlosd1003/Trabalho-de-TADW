@@ -34,7 +34,7 @@ $lista_stats = listarStats($conexao);
             <a class="btn btn-outline-danger" href="listarSuporte.php">Ver Informações do Suporte</a>
             <a class="btn btn-outline-success" href="pesquisarTreinador.php">Procurar Treinadores</a>
         </div>
-        <a class="perfil" href="formPerfil.php"><img src="./img/perfil.png" width="35px" height="35px" alt="Perfil"></a>
+        <a class="perfil" href="formUsuario-home.php"><img src="./img/perfil.png" width="35px" height="35px" alt="Perfil"></a>
     </header> <br>
     <a href="deslogar.php"><img id="porta" src="./img/sair.png" alt="Voltar" width="20px" height="20px"></a> <br> <br>
     <br>

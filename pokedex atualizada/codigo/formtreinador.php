@@ -127,7 +127,7 @@ if (isset($_GET['id'])) {
     require_once "conexao.php";
     require_once "function.php";
     ?>
- <body class="d-flex justify-content-center align-items-center vh-100 bg-light">
+ <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="card p-4 shadow" style="width: 420px;">
         <h1 class="text-center text-danger mb-4">Cadastro De Treinador</h1>
         <form action="salvar_treinador.php?id=<?php echo $id; ?>" method="post" id="formulario" enctype="multipart/form-data" id="formulario-treinador">
