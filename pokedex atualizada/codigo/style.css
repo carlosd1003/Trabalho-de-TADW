@@ -10,6 +10,7 @@ body {
     background-color: #f2f2f7;
     color: #333;
     padding: 20px;
+    background-image: url('img/list_bg.jpg');
 }
 
 h1 {
@@ -401,7 +402,7 @@ h1 {
 
 /* 9. RESPONSIVIDADE - Ajustes para dispositivos móveis */
 @media (max-width: 768px) {
-    body {
+    #body-calendar {
         padding: 10px;
     }
 
@@ -971,11 +972,6 @@ td {
 }
 
 .cadastro-page-body{
-
-    background-image: url('img/list_bg.jpg');
-}
-
-body{
 
     background-image: url('img/list_bg.jpg');
 }

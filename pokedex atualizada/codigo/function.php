@@ -184,8 +184,6 @@ function pegarPokemonPorId($conexao, $idpokemon) {
     return $pokemon; // Retorna um array associativo com os dados do Pokémon
 }
 
-
-
 function pegarStatsPorPokemon($conexao, $idpokemon) {
     $sql = "SELECT * FROM stats WHERE idpokemon = ?";
     $stmt = mysqli_prepare($conexao, $sql);
@@ -207,23 +205,24 @@ function pesquisarPokemonPorTipo($conexao, $tipo) {
             WHERE t.nome LIKE ?";
 
     $tipoParam = '%' . $tipo . '%';
-    $stmt = $conexao->prepare($sql);
+    $stmt = mysqli_prepare($conexao, $sql);
     if (!$stmt) {
-        die("Erro na preparação da query: " . $conexao->error);
+        die("Erro na preparação da query: " . mysqli_error($conexao));
     }
 
-    $stmt->bind_param("s", $tipoParam);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
+    mysqli_stmt_bind_param($stmt, "s", $tipoParam);
+    mysqli_stmt_execute($stmt);
+    $resultado = mysqli_stmt_get_result($stmt);
 
     $pokemons = [];
-    while ($row = $resultado->fetch_assoc()) {
+    while ($row = mysqli_fetch_assoc($resultado)) {
         $pokemons[] = $row;
     }
 
-    $stmt->close();
+    mysqli_stmt_close($stmt);
     return $pokemons;
 }
+
 
 function pesquisarPokemonPorNomeETipo($conexao, $nome, $tipo) {
     $sql = "SELECT DISTINCT p.*
@@ -881,27 +880,20 @@ function pesquisarTreinador($conexao, $nome) {
     $sql = "SELECT * FROM treinador WHERE nome LIKE ?";
     $comando = mysqli_prepare($conexao, $sql);
 
-    // Adicionar "%" para permitir busca por nome parcial
-    $nome_completo = "%$nome%";
+    $nome = "%" . $nome . "%";
     
-    // Associando o parâmetro
-    mysqli_stmt_bind_param($comando, 's', $nome_completo);
-
-    // Executando a consulta
+    mysqli_stmt_bind_param($comando, 's', $nome);
     mysqli_stmt_execute($comando);
     $resultado = mysqli_stmt_get_result($comando);
 
-    // Armazenando o(s) treinador(es) encontrado(s)
-    $treinadores = [];
+    $lista_treinadores = [];
     while ($treinador = mysqli_fetch_assoc($resultado)) {
-        $treinadores[] = $treinador;
+        $lista_treinadores[] = $treinador;
     }
 
-    // Fechar o comando
     mysqli_stmt_close($comando);
 
-    // Retorna um array com todos os treinadores encontrados
-    return $treinadores;
+    return $lista_treinadores;
 }
 
 ?>
