@@ -530,252 +530,506 @@ td {
 
 /* Reset e configurações básicas */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0;                    /* Remove margens padrão de todos os elementos */
+    padding: 0;                   /* Remove paddings padrão de todos os elementos */
+    box-sizing: border-box;       /* Inclui padding e border no cálculo de width/height */
 }
 
 /* ===== ESTILOS PARA PÁGINA DE CADASTRO ===== */
 
 /* Corpo da página - tema vermelho da Pokédex */
 .cadastro-page-body {
-    background: linear-gradient(135deg, #dc0a2d 0%, #b80722 100%);
-    font-family: 'Arial', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background-image: url('img/list_bg.jpg');
+    background: linear-gradient(135deg, #dc0a2d 0%, #b80722 100%); /* Gradiente vermelho diagonal */
+    font-family: 'Arial', sans-serif;    /* Fonte padrão para todo o corpo */
+    min-height: 100vh;                   /* Altura mínima de 100% da viewport */
+    display: flex;                       /* Ativa Flexbox para layout */
+    justify-content: center;             /* Centraliza horizontalmente */
+    align-items: center;                 /* Centraliza verticalmente */
+    padding: 20px;                       /* Espaçamento interno nas bordas */
+    background-image: url('img/list_bg.jpg'); /* Imagem de fundo sobre o gradiente */
 }
 
 /* Container principal - estilo Pokédex */
 #cadastro-container {
-    background: #2d2d2d;
-    border: 8px solid #1a1a1a;
-    border-radius: 20px;
-    padding: 30px;
-    max-width: 500px;
-    width: 100%;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    position: relative;
+    background: #2d2d2d;                 /* Cor de fundo cinza escuro */
+    border: 8px solid #1a1a1a;           /* Borda grossa preta */
+    border-radius: 20px;                 /* Cantos arredondados */
+    padding: 30px;                       /* Espaçamento interno */
+    max-width: 500px;                    /* Largura máxima */
+    width: 100%;                         /* Largura de 100% do container pai */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra externa para profundidade */
+    position: relative;                  /* Permite posicionamento de elementos filhos */
 }
 
 /* Efeito de luz na Pokédex */
 #cadastro-container::before {
-    content: '';
-    position: absolute;
-    top: -4px;
-    left: -4px;
-    right: -4px;
-    bottom: -4px;
-    background: linear-gradient(45deg, #ff6b6b, #dc0a2d, #ff6b6b);
-    border-radius: 24px;
-    z-index: -1;
-    opacity: 0.7;
+    content: '';                         /* Pseudoelemento obrigatório */
+    position: absolute;                  /* Posiciona absolutamente em relação ao container */
+    top: -4px;                          /* Estende 4px para cima */
+    left: -4px;                         /* Estende 4px para esquerda */
+    right: -4px;                        /* Estende 4px para direita */
+    bottom: -4px;                       /* Estende 4px para baixo */
+    background: linear-gradient(45deg, #ff6b6b, #dc0a2d, #ff6b6b); /* Gradiente vermelho */
+    border-radius: 24px;                /* Arredondamento maior que o container */
+    z-index: -1;                        /* Coloca ATRÁS do container */
+    opacity: 0.7;                       /* Transparência para efeito sutil */
 }
 
 /* Título estilo Pokédex */
 #cadastro-title {
-    color: #fff;
-    text-align: center;
-    font-size: 28px;
-    margin-bottom: 30px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    background: linear-gradient(45deg, #dc0a2d, #ff6b6b);
-    padding: 15px;
-    border-radius: 10px;
-    border: 3px solid #1a1a1a;
+    color: #fff;                        /* Texto branco */
+    text-align: center;                 /* Centraliza o texto */
+    font-size: 28px;                    /* Tamanho grande da fonte */
+    margin-bottom: 30px;                /* Espaço abaixo do título */
+    text-transform: uppercase;          /* Transforma texto em MAIÚSCULAS */
+    letter-spacing: 2px;                /* Espaçamento entre letras */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra no texto para legibilidade */
+    background: linear-gradient(45deg, #dc0a2d, #ff6b6b); /* Gradiente de fundo */
+    padding: 15px;                      /* Espaçamento interno */
+    border-radius: 10px;                /* Cantos arredondados */
+    border: 3px solid #1a1a1a;          /* Borda preta */
 }
 
 /* Estilo do formulário de cadastro */
 #cadastro-formulario {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    display: flex;                      /* Ativa Flexbox */
+    flex-direction: column;             /* Organiza itens em coluna */
+    gap: 20px;                         /* Espaço de 20px entre cada item filho */
 }
 
 /* Labels estilo Pokédex */
 .cadastro-label {
-    color: #fff;
-    font-weight: bold;
-    font-size: 16px;
-    margin-bottom: 5px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    color: #fff;                        /* Texto branco */
+    font-weight: bold;                  /* Texto em negrito */
+    font-size: 16px;                    /* Tamanho padrão da fonte */
+    margin-bottom: 5px;                 /* Pequeno espaço abaixo do label */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Sombra sutil no texto */
 }
 
 /* Campos de texto - estilo tela de Pokédex */
 .cadastro-text-field {
-    background: #1a1a1a;
-    border: 3px solid #dc0a2d;
-    border-radius: 10px;
-    padding: 12px 15px;
-    color: #fff;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    outline: none;
+    background: #1a1a1a;                /* Fundo preto */
+    border: 3px solid #dc0a2d;          /* Borda vermelha */
+    border-radius: 10px;                /* Cantos arredondados */
+    padding: 12px 15px;                 /* Espaçamento interno vertical e horizontal */
+    color: #fff;                        /* Texto branco */
+    font-size: 16px;                    /* Tamanho legível da fonte */
+    transition: all 0.3s ease;          /* Transição suave de 0.3s para todas as propriedades */
+    outline: none;                      /* Remove contorno padrão do navegador */
 }
 
 .cadastro-text-field:focus {
-    border-color: #ff6b6b;
-    box-shadow: 0 0 10px rgba(220, 10, 45, 0.5);
-    background: #2a2a2a;
-}
-
-/* Textarea - estilo expandido */
+    border-color: #ff6b6b;              /* Muda borda para vermelho mais claro no foco */
+    box-shadow: 0 0 10px rgba(220, 10, 45, 0.5); /* Sombra vermelha ao redor */
+    background: #2a2a2a;                /* Fundo um pouco mais claro durante o foco */
+}/* Textarea - estilo expandido */
 .cadastro-textarea {
-    background: #1a1a1a;
-    border: 3px solid #dc0a2d;
-    border-radius: 10px;
-    padding: 12px 15px;
-    color: #fff;
-    font-size: 16px;
-    min-height: 100px;
-    resize: vertical;
-    transition: all 0.3s ease;
-    outline: none;
-    font-family: 'Arial', sans-serif;
+    background: #1a1a1a;                /* Fundo preto igual aos inputs */
+    border: 3px solid #dc0a2d;          /* Borda vermelha consistente */
+    border-radius: 10px;                /* Cantos arredondados */
+    padding: 12px 15px;                 /* Espaçamento interno */
+    color: #fff;                        /* Texto branco */
+    font-size: 16px;                    /* Tamanho de fonte legível */
+    min-height: 100px;                  /* Altura mínima para área de texto */
+    resize: vertical;                   /* Permite redimensionar apenas na vertical */
+    transition: all 0.3s ease;          /* Transição suave para hover/focus */
+    outline: none;                      /* Remove outline padrão do navegador */
+    font-family: 'Arial', sans-serif;   /* Define fonte específica para textarea */
 }
 
 .cadastro-textarea:focus {
-    border-color: #ff6b6b;
-    box-shadow: 0 0 10px rgba(220, 10, 45, 0.5);
-    background: #2a2a2a;
+    border-color: #ff6b6b;              /* Borda mais clara no foco */
+    box-shadow: 0 0 10px rgba(220, 10, 45, 0.5); /* Sombra vermelha de destaque */
+    background: #2a2a2a;                /* Fundo levemente mais claro */
 }
 
 /* Placeholders estilizados */
 .cadastro-text-field::placeholder,
 .cadastro-textarea::placeholder {
-    color: #888;
-    font-style: italic;
+    color: #888;                        /* Cor cinza para placeholder */
+    font-style: italic;                 /* Texto em itálico para diferenciar */
 }
 
 /* Botão de cadastro - estilo botão Pokédex */
 .cadastro-botao {
-    background: linear-gradient(45deg, #dc0a2d, #ff6b6b);
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 10px;
-    border: 3px solid #1a1a1a;
+    background: linear-gradient(45deg, #dc0a2d, #ff6b6b); /* Gradiente vermelho */
+    color: white;                       /* Texto branco para contraste */
+    border: none;                       /* Remove borda padrão */
+    padding: 15px 30px;                 /* Espaçamento interno generoso */
+    font-size: 18px;                    /* Fonte maior para destaque */
+    font-weight: bold;                  /* Texto em negrito */
+    border-radius: 25px;                /* Cantos muito arredondados (botão pill) */
+    cursor: pointer;                    /* Cursor de mão ao passar por cima */
+    transition: all 0.3s ease;          /* Transição suave para todos os efeitos */
+    text-transform: uppercase;          /* Texto em maiúsculas */
+    letter-spacing: 1px;                /* Espaçamento entre letras */
+    margin-top: 10px;                   /* Espaço acima do botão */
+    border: 3px solid #1a1a1a;          /* Borda preta definida */
 }
 
 .cadastro-botao:hover {
-    background: linear-gradient(45deg, #ff6b6b, #dc0a2d);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(220, 10, 45, 0.4);
+    background: linear-gradient(45deg, #ff6b6b, #dc0a2d); /* Inverte gradiente no hover */
+    transform: translateY(-2px);        /* Efeito de levantar o botão */
+    box-shadow: 0 5px 15px rgba(220, 10, 45, 0.4); /* Sombra vermelha */
 }
 
 .cadastro-botao:active {
-    transform: translateY(0);
+    transform: translateY(0);           /* Volta à posição original quando clicado */
 }
 
 /* Botão voltar - estilo secundário */
 #cadastro-back-button {
-    display: inline-block;
-    background: linear-gradient(45deg, #4d4d4d, #666);
-    color: white;
-    text-decoration: none;
-    padding: 12px 25px;
-    border-radius: 20px;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 20px;
-    transition: all 0.3s ease;
-    border: 3px solid #1a1a1a;
-    width: 100%;
+    display: inline-block;              /* Permite definir width/padding */
+    background: linear-gradient(45deg, #4d4d4d, #666); /* Gradiente cinza */
+    color: white;                       /* Texto branco */
+    text-decoration: none;              /* Remove sublinhado de link */
+    padding: 12px 25px;                 /* Espaçamento interno */
+    border-radius: 20px;                /* Cantos arredondados */
+    font-weight: bold;                  /* Texto em negrito */
+    text-align: center;                 /* Centraliza texto */
+    margin-top: 20px;                   /* Espaço acima do botão */
+    transition: all 0.3s ease;          /* Transição suave */
+    border: 3px solid #1a1a1a;          /* Borda preta */
+    width: 100%;                        /* Largura total do container */
 }
 
 #cadastro-back-button:hover {
-    background: linear-gradient(45deg, #666, #4d4d4d);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(45deg, #666, #4d4d4d); /* Inverte gradiente */
+    transform: translateY(-2px);        /* Efeito de levantar */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Sombra mais suave */
 }
 
 /* ===== ESTILOS PARA PÁGINA DE LOGIN ===== */
 
 /* Corpo da página de login */
 #login-page-body {
-    background: linear-gradient(135deg, #dc0a2d 0%, #b80722 100%);
-    font-family: 'Arial', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+    background: linear-gradient(135deg, #dc0a2d 0%, #b80722 100%); /* Mesmo gradiente vermelho */
+    font-family: 'Arial', sans-serif;    /* Fonte consistente */
+    min-height: 100vh;                   /* Altura total da viewport */
+    display: flex;                       /* Flexbox para centralização */
+    justify-content: center;             /* Centraliza horizontalmente */
+    align-items: center;                 /* Centraliza verticalmente */
+    padding: 20px;                       /* Espaçamento nas bordas */
 }
 
 /* Container principal do login */
 #login-container {
-    background: #2d2d2d;
-    border: 8px solid #1a1a1a;
-    border-radius: 20px;
-    padding: 40px 30px;
-    max-width: 450px;
-    width: 100%;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    position: relative;
+    background: #2d2d2d;                 /* Fundo cinza escuro igual ao cadastro */
+    border: 8px solid #1a1a1a;           /* Borda grossa preta */
+    border-radius: 20px;                 /* Cantos arredondados */
+    padding: 40px 30px;                  /* Mais padding vertical (40px) que horizontal (30px) */
+    max-width: 450px;                    /* Largura máxima um pouco menor que o cadastro */
+    width: 100%;                         /* Ocupa 100% da largura disponível */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra para efeito de profundidade */
+    position: relative;                  /* Permite posicionar pseudoelementos */
 }
 
 /* Efeito de luz na Pokédex do login */
 #login-container::before {
+    content: '';                         /* Pseudoelemento obrigatório */
+    position: absolute;                  /* Posicionamento absoluto relativo ao container */
+    top: -4px;                          /* Estende para cima além da borda */
+    left: -4px;                         /* Estende para esquerda além da borda */
+    right: -4px;                        /* Estende para direita além da borda */
+    bottom: -4px;                       /* Estende para baixo além da borda */
+    background: linear-gradient(45deg, #ff6b6b, #dc0a2d, #ff6b6b); /* Gradiente vermelho triplo */
+    border-radius: 24px;                /* Border-radius maior que o container */
+    z-index: -1;                        /* Coloca ATRÁS do container principal */
+    opacity: 0.7;                       /* Transparência para efeito sutil */
+}
+
+/* Título estilo Pokédex do login */
+#login-title {
+    color: #fff;                        /* Texto branco */
+    text-align: center;                 /* Centralizado */
+    font-size: 32px;                    /* Fonte maior que o título do cadastro */
+    margin-bottom: 35px;                /* Espaço abaixo maior para mais destaque */
+    text-transform: uppercase;          /* Texto em MAIÚSCULAS */
+    letter-spacing: 2px;                /* Espaçamento entre letras */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra no texto para contraste */
+    background: linear-gradient(45deg, #dc0a2d, #ff6b6b); /* Gradiente de fundo vermelho */
+    padding: 18px;                      /* Padding generoso */
+    border-radius: 15px;                /* Cantos arredondados */
+    border: 3px solid #1a1a1a;          /* Borda preta definindo o container */
+}
+
+/* Estilo do formulário de login */
+#login-form {
+    display: flex;                      /* Ativa Flexbox */
+    flex-direction: column;             /* Organiza elementos em coluna */
+    gap: 25px;                         /* Espaço entre elementos maior que no cadastro */
+}
+
+/* Labels do login */
+.login-label {
+    color: #fff;                        /* Texto branco */
+    font-weight: bold;                  /* Negrito para destaque */
+    font-size: 18px;                    /* Fonte maior que no cadastro (16px) */
+    margin-bottom: 8px;                 /* Espaço abaixo do label */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Sombra sutil no texto */
+    display: block;                     /* Garante que ocupa toda a linha */
+}
+
+/* Campos de texto do login */
+.login-input-field {
+    background: #1a1a1a;                /* Fundo preto */
+    border: 3px solid #dc0a2d;          /* Borda vermelha */
+    border-radius: 12px;                /* Cantos ligeiramente mais arredondados que cadastro */
+    padding: 15px 18px;                 /* Padding maior para campos mais confortáveis */
+    color: #fff;                        /* Texto branco */
+    font-size: 16px;                    /* Tamanho de fonte legível */
+    transition: all 0.3s ease;          /* Transição suave para todos os efeitos */
+    outline: none;                      /* Remove contorno padrão do navegador */
+    width: 100%;                        /* Largura total do container pai */
+}
+
+.login-input-field:focus {
+    border-color: #ff6b6b;              /* Borda mais clara no foco */
+    box-shadow: 0 0 15px rgba(220, 10, 45, 0.6); /* Sombra mais intensa que no cadastro */
+    background: #2a2a2a;                /* Fundo levemente mais claro */
+}
+
+/* Placeholders estilizados do login */
+.login-input-field::placeholder {
+    color: #888;                        /* Cor cinza para diferenciar do texto real */
+    font-style: italic;                 /* Itálico para indicar texto placeholder */
+}
+
+/* Link de primeiro acesso */
+#first-access-link {
+    color: #ff6b6b;                     /* Cor vermelha clara para destaque */
+    text-decoration: none;              /* Remove sublinhado padrão de links */
+    font-weight: bold;                  /* Texto em negrito */
+    text-align: center;                 /* Centralizado */
+    margin: 15px 0;                     /* Margem vertical de 15px, horizontal 0 */
+    padding: 10px;                      /* Espaçamento interno para área clicável */
+    border: 2px solid transparent;      /* Borda transparente (para animação hover) */
+    border-radius: 8px;                 /* Cantos levemente arredondados */
+    transition: all 0.3s ease;          /* Transição suave para hover */
+    display: block;                     /* Ocupa toda a largura disponível */
+}
+/* Efeito hover para link de primeiro acesso */
+#first-access-link:hover {
+    color: #fff;                        /* Muda texto para branco no hover */
+    background: rgba(220, 10, 45, 0.2); /* Fundo vermelho semi-transparente */
+    border-color: #dc0a2d;              /* Borda vermelha sólida */
+    text-decoration: none;              /* Garante que não aparece sublinhado */
+}
+
+/* Botão de acesso - estilo botão Pokédex */
+#login-submit-btn {
+    background: linear-gradient(45deg, #dc0a2d, #ff6b6b); /* Gradiente vermelho */
+    color: white;                       /* Texto branco para contraste */
+    border: none;                       /* Remove borda padrão */
+    padding: 18px 35px;                 /* Padding maior que botão cadastro */
+    font-size: 20px;                    /* Fonte maior para destaque */
+    font-weight: bold;                  /* Texto em negrito */
+    border-radius: 25px;                /* Cantos muito arredondados */
+    cursor: pointer;                    /* Cursor de ponteiro */
+    transition: all 0.3s ease;          /* Transição suave para todos os efeitos */
+    text-transform: uppercase;          /* Texto em maiúsculas */
+    letter-spacing: 1.5px;              /* Espaçamento entre letras */
+    margin-top: 20px;                   /* Espaço acima do botão */
+    border: 3px solid #1a1a1a;          /* Borda preta definida */
+    width: 100%;                        /* Largura total do container */
+}
+
+#login-submit-btn:hover {
+    background: linear-gradient(45deg, #ff6b6b, #dc0a2d); /* Inverte gradiente */
+    transform: translateY(-3px);        /* Efeito de levantar (mais que cadastro) */
+    box-shadow: 0 8px 20px rgba(220, 10, 45, 0.5); /* Sombra mais intensa */
+}
+
+#login-submit-btn:active {
+    transform: translateY(0);           /* Volta à posição original no clique */
+}
+
+/* ===== ESTILOS COMPARTILHADOS ===== */
+
+/* Estilos para mensagens de erro do jQuery Validate */
+.form-error {
+    color: #ff6b6b;                     /* Cor vermelha clara para erros */
+    font-size: 14px;                    /* Fonte menor para não competir com labels */
+    margin-top: 5px;                    /* Pequeno espaço acima da mensagem */
+    font-weight: normal;                /* Peso normal (não bold como labels) */
+    text-shadow: none;                  /* Remove sombra para melhor legibilidade */
+}
+
+.input-error {
+    border-color: #ff6b6b !important;   /* Borda vermelha para campos inválidos */
+    background: #2a1a1a !important;     /* Fundo vermelho escuro para erro */
+}
+
+/* ===== SISTEMA RESPONSIVO ===== */
+
+/* Efeitos responsivos para cadastro - tablets e celulares grandes */
+@media (max-width: 600px) {
+    #cadastro-container {
+        margin: 20px;                   /* Adiciona margem externa */
+        padding: 20px;                  /* Reduz padding interno */
+    }
+
+    #cadastro-title {
+        font-size: 24px;                /* Reduz tamanho da fonte */
+        padding: 12px;                  /* Reduz padding do título */
+    }
+
+    .cadastro-text-field,
+    .cadastro-textarea {
+        padding: 10px 12px;             /* Reduz padding dos campos */
+    }
+}
+
+/* Efeitos responsivos para login - celulares */
+@media (max-width: 500px) {
+    #login-container {
+        margin: 15px;                   /* Margem menor para telas pequenas */
+        padding: 30px 20px;             /* Ajusta padding interno */
+    }
+
+    #login-title {
+        font-size: 26px;                /* Reduz tamanho do título */
+        padding: 15px;                  /* Ajusta padding do título */
+        margin-bottom: 25px;            /* Reduz margem inferior */
+    }
+
+    .login-input-field {
+        padding: 12px 15px;             /* Reduz padding dos inputs */
+    }
+
+    #login-submit-btn {
+        padding: 16px 25px;             /* Reduz padding do botão */
+        font-size: 18px;                /* Reduz tamanho da fonte */
+    }
+}
+
+/* Efeitos responsivos para telas muito pequenas */
+@media (max-width: 380px) {
+    #login-title {
+        font-size: 22px;                /* Título ainda menor */
+    }
+
+    .login-label {
+        font-size: 16px;                /* Labels com fonte menor */
+    }
+}
+
+/* ===== ANIMAÇÕES ===== */
+
+/* Animações de entrada suave */
+.form-container {
+    animation: slideIn 0.5s ease-out;   /* Aplica animação de entrada */
+}
+
+/* Definição da animação de entrada */
+@keyframes slideIn {
+    from {
+        opacity: 0;                     /* Começa invisível */
+        transform: translateY(-20px);   /* Começa 20px acima */
+    }
+
+    to {
+        opacity: 1;                     /* Termina totalmente visível */
+        transform: translateY(0);       /* Termina na posição normal */
+    }
+}
+/* Ícone de perfil */
+.perfil img {
+    position: left;
+    border-radius: 50%;
+    border: solid #333;
+    transition: transform 0.2s;
+    margin: 10px;
+}
+
+.perfil img:hover {
+    transform: scale(0.9);
+}
+
+.cadastro-page-body {
+
+    background-image: url('img/list_bg.jpg');
+}
+
+p{
+    color: white;
+}
+
+/* css do pesquisar */
+/* ===== ESTILOS PARA FORMULÁRIO LARGO COM TEMA AZUL CLARO ===== */
+
+/* Container principal do formulário - ocupando largura total */
+.pokemon-search-container {
+    background: #2d2d2d;
+    border: 8px solid #1a1a1a;
+    border-radius: 20px;
+    padding: 40px;
+    width: 95%;
+    max-width: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    margin: 20px auto;
+}
+
+/* Efeito de luz na Pokédex - AZUL */
+.pokemon-search-container::before {
     content: '';
     position: absolute;
     top: -4px;
     left: -4px;
     right: -4px;
     bottom: -4px;
-    background: linear-gradient(45deg, #ff6b6b, #dc0a2d, #ff6b6b);
+    background: linear-gradient(45deg, #4fc3f7, #0288d1, #4fc3f7);
     border-radius: 24px;
     z-index: -1;
     opacity: 0.7;
 }
 
-/* Título estilo Pokédex do login */
-#login-title {
+/* Título do formulário - AZUL */
+.pokemon-search-title {
     color: #fff;
     text-align: center;
     font-size: 32px;
-    margin-bottom: 35px;
+    margin-bottom: 40px;
     text-transform: uppercase;
     letter-spacing: 2px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    background: linear-gradient(45deg, #dc0a2d, #ff6b6b);
-    padding: 18px;
+    background: linear-gradient(45deg, #0288d1, #4fc3f7);
+    padding: 20px;
     border-radius: 15px;
     border: 3px solid #1a1a1a;
 }
 
-/* Estilo do formulário de login */
-#login-form {
+/* Container para os campos em linha */
+.pokemon-form-row {
     display: flex;
-    flex-direction: column;
-    gap: 25px;
+    gap: 30px;
+    align-items: flex-end;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
 }
 
-/* Labels do login */
-.login-label {
+/* Grupos de formulário flexíveis */
+.pokemon-form-group {
+    flex: 1;
+    min-width: 250px;
+    margin-bottom: 0;
+}
+
+/* Labels do formulário */
+.pokemon-search-label {
     color: #fff;
     font-weight: bold;
     font-size: 18px;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     display: block;
 }
 
-/* Campos de texto do login */
-.login-input-field {
+/* Campos de texto - estilo Pokédex AZUL */
+.pokemon-form-control {
     background: #1a1a1a;
-    border: 3px solid #dc0a2d;
+    border: 3px solid #0288d1;
     border-radius: 12px;
     padding: 15px 18px;
     color: #fff;
@@ -785,21 +1039,110 @@ td {
     width: 100%;
 }
 
-.login-input-field:focus {
-    border-color: #ff6b6b;
-    box-shadow: 0 0 15px rgba(220, 10, 45, 0.6);
+.pokemon-form-control:focus {
+    border-color: #4fc3f7;
+    box-shadow: 0 0 15px rgba(2, 136, 209, 0.6);
     background: #2a2a2a;
 }
 
-/* Placeholders estilizados do login */
-.login-input-field::placeholder {
+/* Dropdown de seleção - estilo Pokédex AZUL */
+.pokemon-form-select {
+    background: #1a1a1a;
+    border: 3px solid #0288d1;
+    border-radius: 12px;
+    padding: 15px 18px;
+    color: #fff;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    outline: none;
+    width: 100%;
+    cursor: pointer;
+}
+
+.pokemon-form-select:focus {
+    border-color: #4fc3f7;
+    box-shadow: 0 0 15px rgba(2, 136, 209, 0.6);
+    background: #2a2a2a;
+}
+
+/* Estilização das opções do dropdown */
+.pokemon-form-select option {
+    background: #2d2d2d;
+    color: #fff;
+    padding: 12px;
+}
+
+.pokemon-form-select option:hover {
+    background: #0288d1;
+}
+
+/* Container do botão centralizado */
+.pokemon-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Botão de busca - estilo Pokédex AZUL */
+.pokemon-search-btn {
+    background: linear-gradient(45deg, #0288d1, #4fc3f7);
+    color: white;
+    border: none;
+    padding: 18px 50px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border: 3px solid #1a1a1a;
+    min-width: 200px;
+}
+
+.pokemon-search-btn:hover {
+    background: linear-gradient(45deg, #4fc3f7, #0288d1);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(2, 136, 209, 0.5);
+}
+
+.pokemon-search-btn:active {
+    transform: translateY(0);
+}
+
+/* Placeholders estilizados */
+.pokemon-form-control::placeholder {
     color: #888;
     font-style: italic;
 }
 
-/* Link de primeiro acesso */
+/* Texto de instrução */
+.pokemon-form-text {
+    color: #ccc;
+    font-size: 14px;
+    margin-top: 8px;
+    font-style: italic;
+}
+
+/* ===== CORES AZUL PARA ELEMENTOS COMPARTILHADOS ===== */
+
+/* Mensagens de erro - AZUL */
+.form-error {
+    color: #4fc3f7;
+    font-size: 14px;
+    margin-top: 5px;
+    font-weight: normal;
+    text-shadow: none;
+}
+
+.input-error {
+    border-color: #4fc3f7 !important;
+    background: #1a2a33 !important;
+}
+
+/* Link de primeiro acesso - AZUL */
 #first-access-link {
-    color: #ff6b6b;
+    color: #4fc3f7;
     text-decoration: none;
     font-weight: bold;
     text-align: center;
@@ -813,108 +1156,80 @@ td {
 
 #first-access-link:hover {
     color: #fff;
-    background: rgba(220, 10, 45, 0.2);
-    border-color: #dc0a2d;
+    background: rgba(2, 136, 209, 0.2);
+    border-color: #0288d1;
     text-decoration: none;
 }
 
-/* Botão de acesso - estilo botão Pokédex */
-#login-submit-btn {
-    background: linear-gradient(45deg, #dc0a2d, #ff6b6b);
-    color: white;
-    border: none;
-    padding: 18px 35px;
-    font-size: 20px;
-    font-weight: bold;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-top: 20px;
-    border: 3px solid #1a1a1a;
-    width: 100%;
-}
+/* ===== RESPONSIVIDADE ===== */
 
-#login-submit-btn:hover {
-    background: linear-gradient(45deg, #ff6b6b, #dc0a2d);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(220, 10, 45, 0.5);
-}
-
-#login-submit-btn:active {
-    transform: translateY(0);
-}
-
-/* ===== ESTILOS COMPARTILHADOS ===== */
-
-/* Estilos para mensagens de erro do jQuery Validate */
-.form-error {
-    color: #ff6b6b;
-    font-size: 14px;
-    margin-top: 5px;
-    font-weight: normal;
-    text-shadow: none;
-}
-
-.input-error {
-    border-color: #ff6b6b !important;
-    background: #2a1a1a !important;
-}
-
-/* Efeitos responsivos para cadastro */
-@media (max-width: 600px) {
-    #cadastro-container {
-        margin: 20px;
-        padding: 20px;
+@media (max-width: 1024px) {
+    .pokemon-search-container {
+        width: 98%;
+        padding: 30px;
     }
-
-    #cadastro-title {
-        font-size: 24px;
-        padding: 12px;
-    }
-
-    .cadastro-text-field,
-    .cadastro-textarea {
-        padding: 10px 12px;
+    
+    .pokemon-form-row {
+        gap: 20px;
     }
 }
 
-/* Efeitos responsivos para login */
-@media (max-width: 500px) {
-    #login-container {
-        margin: 15px;
-        padding: 30px 20px;
+@media (max-width: 768px) {
+    .pokemon-search-container {
+        width: 100%;
+        margin: 10px;
+        padding: 25px 20px;
+        border-radius: 15px;
     }
-
-    #login-title {
+    
+    .pokemon-search-title {
         font-size: 26px;
         padding: 15px;
-        margin-bottom: 25px;
+        margin-bottom: 30px;
     }
-
-    .login-input-field {
-        padding: 12px 15px;
+    
+    .pokemon-form-row {
+        flex-direction: column;
+        gap: 20px;
     }
-
-    #login-submit-btn {
-        padding: 16px 25px;
+    
+    .pokemon-form-group {
+        min-width: 100%;
+    }
+    
+    .pokemon-search-btn {
+        padding: 16px 40px;
         font-size: 18px;
+        width: 100%;
+        min-width: auto;
     }
 }
 
-@media (max-width: 380px) {
-    #login-title {
-        font-size: 22px;
+@media (max-width: 480px) {
+    .pokemon-search-container {
+        padding: 20px 15px;
+        margin: 5px;
+        border-width: 6px;
     }
-
-    .login-label {
+    
+    .pokemon-search-title {
+        font-size: 22px;
+        padding: 12px;
+        margin-bottom: 25px;
+    }
+    
+    .pokemon-form-control,
+    .pokemon-form-select {
+        padding: 12px 15px;
+    }
+    
+    .pokemon-search-label {
         font-size: 16px;
     }
 }
 
-/* Animações de entrada suave */
-.form-container {
+/* Animação de entrada */
+.pokemon-search-container {
     animation: slideIn 0.5s ease-out;
 }
 
@@ -923,57 +1238,40 @@ td {
         opacity: 0;
         transform: translateY(-20px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-/* Efeito de brilho nos containers */
-.animated-container {
+/* Efeito de brilho sutil AZUL */
+.pokemon-search-container {
     position: relative;
     overflow: hidden;
 }
 
-.animated-container::after {
+.pokemon-search-container::after {
     content: '';
     position: absolute;
     top: -50%;
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(45deg,
-            transparent,
-            rgba(255, 255, 255, 0.1),
-            transparent);
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(79, 195, 247, 0.2),
+        transparent
+    );
     transform: rotate(45deg);
-    animation: shine 3s infinite;
+    animation: shine 6s infinite;
 }
 
 @keyframes shine {
     0% {
         transform: rotate(45deg) translateX(-100%);
     }
-
     100% {
         transform: rotate(45deg) translateX(100%);
     }
-}
-
-/* Ícone de perfil */
-.perfil img {
-    position: left;
-    border-radius: 50%;
-    border: solid #333;
-    transition: transform 0.2s;
-}
-
-.perfil img:hover {
-    transform: scale(0.9);
-}
-
-.cadastro-page-body {
-
-    background-image: url('img/list_bg.jpg');
 }
