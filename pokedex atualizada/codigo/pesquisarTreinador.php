@@ -12,11 +12,7 @@ require_once 'verificarLogado.php'; // Seu script de verificação de login
     <title>Lista de Treinadores</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <style>
-        h1 {
-            color: white;
-        }
-    </style>
+
 </head>
 
 <body>
@@ -74,7 +70,6 @@ require_once 'verificarLogado.php'; // Seu script de verificação de login
                     echo "<td><a class='btn btn-danger' href='deletar_treinador.php?id={$treinador['idtreinador']}'>Excluir</a></td>";
                     echo "<td><a class='btn btn-warning' href='formtreinador.php?id={$treinador['idtreinador']}'>Editar</a></td>";
                     echo "</tr>";
-                    // echo "</tr>";
                 }
                 echo "</tbody>";
             }
@@ -82,10 +77,7 @@ require_once 'verificarLogado.php'; // Seu script de verificação de login
         ?>
 
     </div>
-    
-    <!-- <a href="home.php" class="back-button">Voltar</a> -->
-    <a href="home.php">Voltar</a>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script> -->
+     <a href="home.php" class="back-button">Voltar</a>
 </body>
 
 </html>
