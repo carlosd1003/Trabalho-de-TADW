@@ -19,25 +19,7 @@ require_once 'verificarLogado.php';
         crossorigin="anonymous">
     <script src="jquery-3.7.1.min (1).js"></script>
     <script src="jquery.validate.min.js"></script>
-    <script>
-        // programar a validação do formulário
-        $(document).ready(function() {
-            $('#formulario').validate({
-                rules: {
-                idusuario:{
-                    required: true,
-                    email: true 
-                    }
-                },
-                messages: {
-                    idusuario:{
-                        required: "Esse campo não pode ser vazio",
-                        email: "Por favor, informe um email válido"
-                    }
-                }
-            })
-        })
-    </script>
+   
 </head>
 
 <body class="d-flex justify-content-center align-items-center vh-100 bg-light">
