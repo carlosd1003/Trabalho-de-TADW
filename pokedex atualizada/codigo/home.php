@@ -7,8 +7,29 @@ require_once 'function.php';
 $usuario_idusuario = $_SESSION['usuario_idusuario'] ?? null;
 $usuario_tipo = $_SESSION['Tipo'] ?? 'C'; // 'C' é o tipo padrão
 
-$lista_pokemon = listarPokemon($conexao);
+$nome = trim($_GET['nome'] ?? '');
+$tipo = trim($_GET['tipo'] ?? '');
+$buscaAtiva = ($nome !== '' || $tipo !== '');
+
+
+if ($buscaAtiva) {
+    if ($nome !== '' && $tipo !== '') {
+        $lista_pokemon = pesquisarPokemonPorNomeETipo($conexao, $nome, $tipo);
+    } elseif ($nome !== '') {
+        $lista_pokemon = pesquisarPokemonNome($conexao, $nome);
+    } elseif ($tipo !== '') {
+        $lista_pokemon = pesquisarPokemonPorTipo($conexao, $tipo);
+    } else {
+        $lista_pokemon = [];
+    }
+} else {
+    $lista_pokemon = listarPokemon($conexao);
+}
+
+
 $lista_stats = listarStats($conexao);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -21,6 +42,34 @@ $lista_stats = listarStats($conexao);
 </head>
 
 <body>
+    <!-- Formulário para pesquisa por nome e tipo -->
+<form method="get" action="">
+  Nome do Pokémon:<br>
+  <!-- Campo texto para nome do Pokémon, mantém o valor digitado após envio -->
+  <input type="text" name="nome" placeholder="Digite o nome" value="<?= isset($_GET['nome']) ? htmlspecialchars($_GET['nome']) : '' ?>"><br><br>
+
+  Tipo:<br>
+  <!-- Dropdown para selecionar o tipo do Pokémon -->
+  <select name="tipo">
+    <option value="">Selecione um tipo</option>
+    <?php
+    // Inclui conexao e funções para acessar o banco
+    require_once "conexao.php";
+    require_once "function.php";
+
+    // Busca todos os tipos no banco e preenche o select
+    $tipos = listarTypes($conexao);
+    foreach ($tipos as $t) {
+        // Mantém selecionado o tipo escolhido pelo usuário após envio
+        $sel = (isset($_GET['tipo']) && $_GET['tipo'] === $t['nome']) ? "selected" : "";
+        echo "<option value=\"" . htmlspecialchars($t['nome']) . "\" $sel>" . htmlspecialchars($t['nome']) . "</option>";
+    }
+    ?>
+  </select><br><br>
+
+  <!-- Botão para enviar o formulário -->
+  <input type="submit" value="Pesquisar">
+</form>
     <header id="topo">
         <a href="#" id="logo">Pokédex</a>
         <div id="menu-links">
@@ -43,7 +92,7 @@ $lista_stats = listarStats($conexao);
     </a>
     <br><br><br>
     <div class="card-container">
-        <?php
+        <?php    
         foreach ($lista_pokemon as $pokemon) {
             $types = buscarTypesDoPokemon($conexao, $pokemon['idpokemon']); // Pega os tipos
 

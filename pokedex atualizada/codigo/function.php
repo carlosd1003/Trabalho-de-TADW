@@ -199,6 +199,62 @@ function pegarStatsPorPokemon($conexao, $idpokemon) {
 
 
 
+function pesquisarPokemonPorTipo($conexao, $tipo) {
+    $sql = "SELECT p.*
+            FROM pokemon p
+            JOIN pokemon_has_types pht ON p.idpokemon = pht.idpokemon
+            JOIN types t ON pht.idtypes = t.idtypes
+            WHERE t.nome LIKE ?";
+
+    $tipoParam = '%' . $tipo . '%';
+    $stmt = $conexao->prepare($sql);
+    if (!$stmt) {
+        die("Erro na preparação da query: " . $conexao->error);
+    }
+
+    $stmt->bind_param("s", $tipoParam);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    $pokemons = [];
+    while ($row = $resultado->fetch_assoc()) {
+        $pokemons[] = $row;
+    }
+
+    $stmt->close();
+    return $pokemons;
+}
+
+function pesquisarPokemonPorNomeETipo($conexao, $nome, $tipo) {
+    $sql = "SELECT DISTINCT p.*
+            FROM pokemon p
+            JOIN pokemon_has_types pht ON p.idpokemon = pht.idpokemon
+            JOIN types t ON pht.idtypes = t.idtypes
+            WHERE p.nome LIKE ? AND t.nome LIKE ?";
+
+    $nomeParam = '%' . $nome . '%';
+    $tipoParam = '%' . $tipo . '%';
+
+    $stmt = $conexao->prepare($sql);
+    if (!$stmt) {
+        die("Erro na preparação: " . $conexao->error);
+    }
+
+    $stmt->bind_param("ss", $nomeParam, $tipoParam);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    $pokemons = [];
+    while ($row = $resultado->fetch_assoc()) {
+        $pokemons[] = $row;
+    }
+
+    $stmt->close();
+    return $pokemons;
+}
+
+
+
 
 
 
@@ -342,6 +398,32 @@ function pesquisarPokemonId($conexao, $idpokemon) {
     return $pokemon;
 
 }
+
+
+
+function pesquisarPokemonNome($conexao, $nome)
+{
+    $sql = "SELECT * FROM pokemon WHERE nome LIKE ?";
+    $comando = mysqli_prepare($conexao, $sql);
+
+    $nome = "%" . $nome . "%";
+    mysqli_stmt_bind_param($comando, 's', $nome);
+
+    mysqli_stmt_execute($comando);
+
+    $resultados = mysqli_stmt_get_result($comando);
+
+    $lista_pokemons = [];
+    while ($pokemon = mysqli_fetch_assoc($resultados)) {
+        $lista_pokemons[] = $pokemon;
+    }
+    mysqli_stmt_close($comando);
+
+    return $lista_pokemons;
+}
+
+
+
 
 /**
  * Deleta um Pokémon
@@ -507,21 +589,25 @@ function salvarTypes($conexao, $idpokemon, $types) {
  * @param string $nome Nome do tipo
  * @return array|null Dados do tipo ou null se não encontrado
  */
-function pesquisarTypes($conexao, $nome) {
-    $sql = "SELECT * FROM types WHERE nome = ?";
+function pesquisarTypesNome($conexao, $nome) {
+    $sql = "SELECT * FROM types WHERE nome LIKE ?";
     $comando = mysqli_prepare($conexao, $sql);
 
-    mysqli_stmt_bind_param($comando, 's', $nome);
+    $nomeParam = "%" . $nome . "%";
+    mysqli_stmt_bind_param($comando, 's', $nomeParam);
 
     mysqli_stmt_execute($comando);
     $resultado = mysqli_stmt_get_result($comando);
 
-    $types = mysqli_fetch_assoc($resultado);
+    $lista_types = [];
+    while ($type = mysqli_fetch_assoc($resultado)) {
+        $lista_types[] = $type;
+    }
 
     mysqli_stmt_close($comando);
-    return $types;
-
+    return $lista_types;
 }
+
 
 /**
  * Busca tipos associados a um Pokémon
