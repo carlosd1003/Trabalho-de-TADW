@@ -40,17 +40,55 @@ $lista_stats = listarStats($conexao);
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
-
+<style>
+    p {
+        color: white;
+    }
+</style>
 <body>
-    <!-- Formulário para pesquisa por nome e tipo -->
-<form method="get" action="">
-  Nome do Pokémon:<br>
-  <!-- Campo texto para nome do Pokémon, mantém o valor digitado após envio -->
-  <input type="text" name="nome" placeholder="Digite o nome" value="<?= isset($_GET['nome']) ? htmlspecialchars($_GET['nome']) : '' ?>"><br><br>
+</form>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#" id="logo">Pokédex</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarLinks">
+        <div class="navbar-nav me-auto mb-2 mb-lg-0">
+          <a class="nav-link btn btn-outline-primary mx-1 my-1" href="formPokemon.php">Criar Pokémon</a>
+          <a class="nav-link btn btn-outline-secondary mx-1 my-1" href="formtreinador.php">Criar Treinador</a>
+          <a class="nav-link btn btn-outline-success mx-1 my-1" href="listarTreinador.php">Ver Treinadores</a>
+          <a class="nav-link btn btn-outline-danger mx-1 my-1" href="calendario.html">Calendário</a>
+          <a class="nav-link btn btn-outline-warning mx-1 my-1" href="formCriar_build.php">Criar Build</a>
+          <a class="nav-link btn btn-outline-info mx-1 my-1" href="listarBuild.php">Ver Builds</a>
+          <a class="nav-link btn btn-outline-dark mx-1 my-1" href="criarSuporte.php">Acesso Ao Suporte</a>
+          <a class="nav-link btn btn-outline-danger mx-1 my-1" href="listarSuporte.php">Ver Informações do Suporte</a>
+          <a class="nav-link btn btn-outline-success mx-1 my-1" href="pesquisarTreinador.php">Procurar Treinadores</a>
+        </div>
+        <a class="perfil ms-auto" href="formUsuario-home.php">
+            <img src="./img/perfil.png" width="35" height="35" alt="Perfil" class="rounded-circle">
+            <a href="deslogar.php"><img id="porta" src="./img/sair.png" alt="Voltar" width="20px" height="20px"></a> 
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
 
-  Tipo:<br>
+    <br>
+    <a href="quizPokemon.html">
+        <img src="./img/bnr_quiz.png" width="100%" height="120px" alt="quiz">
+    </a>
+    <br><br><br>
+     <!-- Formulário para pesquisa por nome e tipo -->
+<form method="get" action="">
+  <p>Nome do Pokémon:</p>
+  <!-- Campo texto para nome do Pokémon, mantém o valor digitado após envio -->
+  <input class="form-control" type="text" name="nome" placeholder="Digite o nome" value="<?= isset($_GET['nome']) ? htmlspecialchars($_GET['nome']) : '' ?>"><br>   
+
+  <p>Tipo:</p>
   <!-- Dropdown para selecionar o tipo do Pokémon -->
-  <select name="tipo">
+    <select class="form-select" name="tipo">
     <option value="">Selecione um tipo</option>
     <?php
     // Inclui conexao e funções para acessar o banco
@@ -68,30 +106,9 @@ $lista_stats = listarStats($conexao);
   </select><br><br>
 
   <!-- Botão para enviar o formulário -->
-  <input type="submit" value="Pesquisar">
-</form>
-    <header id="topo">
-        <a href="#" id="logo">Pokédex</a>
-        <div id="menu-links">
-            <a class="btn btn-outline-primary" href="formPokemon.php">Criar Pokémon</a>
-            <a class="btn btn-outline-secondary" href="formtreinador.php">Criar Treinador</a>
-            <a class="btn btn-outline-success" href="listarTreinador.php">Ver Treinadores</a>
-            <a class="btn btn-outline-danger" href="calendario.html">Calendário</a>
-            <a class="btn btn-outline-warning" href="formCriar_build.php">Criar Build</a>
-            <a class="btn btn-outline-info" href="listarBuild.php">Ver Builds</a>
-            <a class="btn btn-outline-dark" href="criarSuporte.php">Acesso Ao Suporte</a>
-            <a class="btn btn-outline-danger" href="listarSuporte.php">Ver Informações do Suporte</a>
-            <a class="btn btn-outline-success" href="pesquisarTreinador.php">Procurar Treinadores</a>
-        </div>
-        <a class="perfil" href="formUsuario-home.php"><img src="./img/perfil.png" width="35px" height="35px" alt="Perfil"></a>
-    </header> <br>
-    <a href="deslogar.php"><img id="porta" src="./img/sair.png" alt="Voltar" width="20px" height="20px"></a> <br> <br>
-    <br>
-    <a href="quizPokemon.html">
-        <img src="./img/bnr_quiz.png" width="100%" height="120px" alt="quiz">
-    </a>
-    <br><br><br>
-    <div class="card-container">
+  <input class="btn btn-primary w-100" type="submit" value="Pesquisar"> <br><br>
+    
+  <div class="card-container">
         <?php    
         foreach ($lista_pokemon as $pokemon) {
             $types = buscarTypesDoPokemon($conexao, $pokemon['idpokemon']); // Pega os tipos
@@ -153,6 +170,7 @@ $lista_stats = listarStats($conexao);
         }
         ?>
     </div>
+    
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 

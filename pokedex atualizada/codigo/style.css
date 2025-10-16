@@ -228,7 +228,7 @@ h1 {
 #topo {
     background-color: #ffffff;
     /* Cor escura padrão */
-    height: 60px;
+    height: 100px;
     /* Altura do topo */
     width: 100%;
     /* Ocupa toda a largura da tela */
@@ -868,12 +868,12 @@ td {
         margin: 20px;
         padding: 20px;
     }
-    
+
     #cadastro-title {
         font-size: 24px;
         padding: 12px;
     }
-    
+
     .cadastro-text-field,
     .cadastro-textarea {
         padding: 10px 12px;
@@ -886,17 +886,17 @@ td {
         margin: 15px;
         padding: 30px 20px;
     }
-    
+
     #login-title {
         font-size: 26px;
         padding: 15px;
         margin-bottom: 25px;
     }
-    
+
     .login-input-field {
         padding: 12px 15px;
     }
-    
+
     #login-submit-btn {
         padding: 16px 25px;
         font-size: 18px;
@@ -907,7 +907,7 @@ td {
     #login-title {
         font-size: 22px;
     }
-    
+
     .login-label {
         font-size: 16px;
     }
@@ -923,6 +923,7 @@ td {
         opacity: 0;
         transform: translateY(-20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -942,12 +943,10 @@ td {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(
-        45deg,
-        transparent,
-        rgba(255, 255, 255, 0.1),
-        transparent
-    );
+    background: linear-gradient(45deg,
+            transparent,
+            rgba(255, 255, 255, 0.1),
+            transparent);
     transform: rotate(45deg);
     animation: shine 3s infinite;
 }
@@ -956,6 +955,7 @@ td {
     0% {
         transform: rotate(45deg) translateX(-100%);
     }
+
     100% {
         transform: rotate(45deg) translateX(100%);
     }
@@ -963,16 +963,17 @@ td {
 
 /* Ícone de perfil */
 .perfil img {
-  border-radius: 50%;
-  border: 2px solid #333;
-  transition: transform 0.2s;
-}
-.perfil img:hover {
-  transform: scale(1.1);
+    position: left;
+    border-radius: 50%;
+    border: solid #333;
+    transition: transform 0.2s;
 }
 
-.cadastro-page-body{
+.perfil img:hover {
+    transform: scale(0.9);
+}
+
+.cadastro-page-body {
 
     background-image: url('img/list_bg.jpg');
 }
-
