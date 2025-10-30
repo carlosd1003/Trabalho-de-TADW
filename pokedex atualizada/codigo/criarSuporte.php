@@ -3,6 +3,10 @@
 session_start();
 require_once 'verificarLogado.php';
 
+// Verifica se o usuário está logado e captura o idusuario da sessão
+if (isset($_SESSION['idusuario'])) {
+    $idusuario = $_SESSION['idusuario'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +23,6 @@ require_once 'verificarLogado.php';
         crossorigin="anonymous">
     <script src="jquery-3.7.1.min (1).js"></script>
     <script src="jquery.validate.min.js"></script>
-   
 </head>
 
 <body class="d-flex justify-content-center align-items-center vh-100 bg-light">
@@ -52,11 +55,8 @@ require_once 'verificarLogado.php';
                 <input type="text" name="sugestao" id="sugestao" class="form-control" placeholder="Opcional" />
             </div>
 
-            <!-- Campo obrigatório para identificação do usuário -->
-            <div class="mb-3">
-                <label for="idusuario" class="form-label">Informe o Usuário:</label>
-                <input type="text" name="idusuario" id="idusuario" class="form-control" placeholder="Informe Seu Usuário" required />
-            </div>
+            <!-- O campo de idusuario não é mais necessário, pois estamos pegando da sessão -->
+            <input type="hidden" name="idusuario" value="<?php echo $idusuario; ?>" />
 
             <!-- Botão de envio do formulário -->
             <button type="submit" class="btn btn-primary w-100">Salvar</button>

@@ -13,6 +13,4 @@ $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
 criarUsuario($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav = NULL, $descricao = NULL);
 
-editarUsuario($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav = NULL, $descricao = NULL, $id);
-
 header("Location:index.html");

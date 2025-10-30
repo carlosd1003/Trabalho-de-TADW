@@ -51,22 +51,6 @@ function pesquisarUsuarioId($conexao, $idusuario) {
 
 }
 
-function editarUsuario ($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav = NULL, $descricao = NULL, $id){
-
-    $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-
-    $sql = "UPDATE usuario SET nome=?, email=?, senha=?, Tipo=?, pokemon_fav=? descricao=? WHERE idusuario=?";
-
-    $comando = mysqli_prepare($conexao, $sql);
-
-    mysqli_stmt_bind_param($comando, 'ssssssi', $nome, $email, $senha_hash, $Tipo, $pokemon_fav, $descricao, $id);
-
-    $funcionou = mysqli_stmt_execute($comando);
-
-    mysqli_stmt_close($comando);
-    return $funcionou;
-}
-
 #=================================================================================================================
 
 /**
@@ -721,18 +705,32 @@ function deletarTypes($conexao, $idpokemon) {
  * @param int $idusuario ID do usuário que enviou
  * @return bool True se criado com sucesso, False caso contrário
  */
-function criaSugestao_reclamacao($conexao, $reclamacao, $sugestao, $idusuario) {
-        $sql = "INSERT INTO suporte (reclamacao, sugestao, idusuario) VALUES (?, ?, ?)";
-        $comando = mysqli_prepare($conexao, $sql);
-    
-        mysqli_stmt_bind_param($comando, 'ssi', $reclamacao, $sugestao, $idusuario);
-    
-        $funcionou = mysqli_stmt_execute($comando);
-        mysqli_stmt_close($comando);
-    
-        return $funcionou;
-    
+function criaSugestao_reclamacao($conexao, $reclamacao, $sugestao, $email) {
+    // 1. Buscar o idusuario a partir do email
+    $sql_usuario = "SELECT idusuario FROM usuario WHERE email = ?";
+    $comando_usuario = mysqli_prepare($conexao, $sql_usuario);
+    mysqli_stmt_bind_param($comando_usuario, 's', $email);
+    mysqli_stmt_execute($comando_usuario);
+    mysqli_stmt_bind_result($comando_usuario, $idusuario);
+    mysqli_stmt_fetch($comando_usuario);
+    mysqli_stmt_close($comando_usuario);
+
+    // Se não encontrar o email, retorna falso
+    if (!$idusuario) {
+        return false;
     }
+
+    // 2. Inserir a reclamação e sugestão na tabela suporte
+    $sql = "INSERT INTO suporte (reclamacao, sugestao, idusuario) VALUES (?, ?, ?)";
+    $comando = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param($comando, 'ssi', $reclamacao, $sugestao, $idusuario);
+    
+    $funcionou = mysqli_stmt_execute($comando);
+    mysqli_stmt_close($comando);
+
+    return $funcionou;
+}
+
 
     /**
  * Lista todas as sugestões/reclamações com email do usuário
