@@ -35,19 +35,31 @@ require_once 'verificarLogado.php';
     <!-- Título principal da página -->
     <h1 class="text-center">Lista de Builds</h1>
 
-    <?php
-    // Importa os arquivos de conexão com o banco de dados e de funções auxiliares
-    require_once "conexao.php";
-    require_once "function.php";
+        <!-- Formulário de Pesquisa Integrado -->
+    <form action="listarBuild.php">
+        <div class="input-group mb-3">
+            <input class="form-control" placeholder="Pesquisar build" type="text" name="valor">
+            <input class="btn btn-primary" type="submit" value="pesquisar">
+        </div>
+    </form>
+        </form> <br>
 
-    // Recupera todas as builds cadastradas no banco de dados
+        <?php
+        require_once "conexao.php";
+        require_once "function.php";
+
+        // Verifica se o usuário está logado e pega suas informações da sessão
+        $usuario_tipo = $_SESSION['Tipo'] ?? 'C';
+        $usuario_idusuario = $_SESSION['usuario_idusuario'] ?? null;
+
+        // Verifica se existe pesquisa
+        if (isset($_GET["valor"]) && !empty($_GET["valor"])) {
+            $valor = $_GET["valor"];
+            $lista_build = pesquisarBuild($conexao, $valor);
+        } else {
+            // Busca todos os treinadores
     $lista_build = listarBuild($conexao);
-
-    // Obtém o tipo de usuário logado (A = Admin, C = Cliente)
-    $usuario_tipo = $_SESSION['Tipo'] ?? 'C';
-
-    // Obtém o ID do usuário logado
-    $usuario_idusuario = $_SESSION['usuario_idusuario'] ?? null;
+        }
 
     // Verifica se há builds cadastradas no banco
     if (count($lista_build) == 0) {
@@ -76,7 +88,7 @@ require_once 'verificarLogado.php';
                 // Atribui os valores de cada coluna do banco às variáveis
                 $idbuild = $build['idbuild'];
                 $nome = $build['nome'];
-                $idpokemon = $build['NomeDoPokemon'];
+                $idpokemon = $build['pokemon_nome'];
 
                 // Verifica se o campo 'idusuario' existe antes de acessá-lo
                 $build_idusuario = isset($build['idusuario']) ? $build['idusuario'] : null;
@@ -94,7 +106,7 @@ require_once 'verificarLogado.php';
                  * - Usuários do tipo 'A' (admin) podem editar e excluir qualquer build.
                  * - Usuários do tipo 'C' (cliente) só podem editar/excluir as builds que criaram.
                  */
-                if ($usuario_tipo === 'A' || $usuario_idusuario == $build_idusuario) {
+                if ($usuario_tipo === 'A' or $usuario_idusuario == $build_idusuario) {
                     // Botão para excluir a build (com confirmação)
                     echo "<td>
                             <a href='deletarBuild.php?id=$idbuild' 

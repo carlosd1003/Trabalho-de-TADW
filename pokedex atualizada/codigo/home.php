@@ -67,7 +67,6 @@ $lista_stats = listarStats($conexao);
           <a class="nav-link btn btn-outline-info mx-1 my-1" href="listarBuild.php">Ver Builds</a>
           <a class="nav-link btn btn-outline-dark mx-1 my-1" href="criarSuporte.php">Acesso Ao Suporte</a>
           <a class="nav-link btn btn-outline-danger mx-1 my-1" href="listarSuporte.php">Ver Informações do Suporte</a>
-          <a class="nav-link btn btn-outline-success mx-1 my-1" href="pesquisarTreinador.php">Procurar Treinadores</a>
         </div>
         <a class="perfil ms-auto" href="formUsuario-home.php">
             <img src="./img/perfil.png" width="35" height="35" alt="Perfil" class="rounded-circle">

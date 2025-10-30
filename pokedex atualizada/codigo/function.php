@@ -500,7 +500,7 @@ function listarBuild($conexao) {
     while ($build = mysqli_fetch_assoc($resultados)) {
         $idpokemon = $build['idpokemon'];
         $pokemon = pesquisarPokemonId($conexao, $idpokemon);
-        $build['NomeDoPokemon'] = $pokemon['nome'];
+        $build['pokemon_nome'] = $pokemon['nome'];
 
         $lista_build[] = $build;
     }
@@ -515,21 +515,31 @@ function listarBuild($conexao) {
  * @param int $idbuild ID da build
  * @return array|null Dados da build ou null se não encontrada
  */
-function pesquisarBuild($conexao, $idbuild) {
-    $sql = "SELECT * FROM build WHERE idbuild = ?";
+function pesquisarBuild($conexao, $nome) {
+    $sql = "SELECT build.idbuild,
+                build.nome,
+                pokemon.nome AS pokemon_nome
+            FROM build
+            JOIN pokemon ON build.idpokemon = pokemon.idpokemon
+            WHERE build.nome LIKE ?";
     $comando = mysqli_prepare($conexao, $sql);
 
-    mysqli_stmt_bind_param($comando, 'i', $idbuild);
-
+    $nome = "%" . $nome . "%";
+    
+    mysqli_stmt_bind_param($comando, 's', $nome);
     mysqli_stmt_execute($comando);
     $resultado = mysqli_stmt_get_result($comando);
 
-    $build = mysqli_fetch_assoc($resultado);
+    $lista_builds = [];
+    while ($build = mysqli_fetch_assoc($resultado)) {
+        $lista_builds[] = $build;
+    }
 
     mysqli_stmt_close($comando);
-    return $build;
 
+    return $lista_builds;
 }
+
 
 /**
  * Deleta uma build
@@ -877,7 +887,7 @@ function deletarTreinador($conexao, $idtreinador) {
  */
 function pesquisarTreinador($conexao, $nome) {
     // Usar LIKE para permitir pesquisa por nomes parciais
-    $sql =     $sql = "SELECT 
+    $sql = "SELECT 
                 treinador.idtreinador,
                 treinador.nome,
                 treinador.idade,
