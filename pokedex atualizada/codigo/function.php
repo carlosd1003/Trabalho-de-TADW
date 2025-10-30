@@ -877,7 +877,19 @@ function deletarTreinador($conexao, $idtreinador) {
  */
 function pesquisarTreinador($conexao, $nome) {
     // Usar LIKE para permitir pesquisa por nomes parciais
-    $sql = "SELECT * FROM treinador WHERE nome LIKE ?";
+    $sql =     $sql = "SELECT 
+                treinador.idtreinador,
+                treinador.nome,
+                treinador.idade,
+                treinador.genero,
+                treinador.cidade,
+                treinador.regiao,
+                treinador.time_atual,
+                treinador.data_cadastro,
+                pokemon.nome AS pokemon_nome
+            FROM treinador
+            JOIN pokemon ON treinador.idpokemon = pokemon.idpokemon
+            WHERE treinador.nome LIKE ?";
     $comando = mysqli_prepare($conexao, $sql);
 
     $nome = "%" . $nome . "%";
