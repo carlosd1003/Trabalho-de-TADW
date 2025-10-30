@@ -35,10 +35,32 @@ function criarUsuario($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav = NUL
     return $funcionou;
 }
 
-function editarUsuario ($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav = NULL, $descricao = NULL){
-    $sql = "UPDATE usuario SET nome=?, email=?, senha=?, Tipo=?, pokemon_fav=? descricao=? WHERE idusuario=?";
+function pesquisarUsuarioId($conexao, $idusuario) {
+    $sql = "SELECT * FROM usuario WHERE idusuario = ?";
     $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_bind_param($comando, 'i', $idusuario);
+
+    mysqli_stmt_execute($comando);
+    $resultado = mysqli_stmt_get_result($comando);
+
+    $usuario = mysqli_fetch_assoc($resultado);
+
+    mysqli_stmt_close($comando);
+    return $usuario;
+
+}
+
+function editarUsuario ($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav = NULL, $descricao = NULL, $id){
+
+    $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
+
+    $sql = "UPDATE usuario SET nome=?, email=?, senha=?, Tipo=?, pokemon_fav=? descricao=? WHERE idusuario=?";
+
+    $comando = mysqli_prepare($conexao, $sql);
+
     mysqli_stmt_bind_param($comando, 'ssssssi', $nome, $email, $senha_hash, $Tipo, $pokemon_fav, $descricao, $id);
+
     $funcionou = mysqli_stmt_execute($comando);
 
     mysqli_stmt_close($comando);

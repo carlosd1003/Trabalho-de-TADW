@@ -73,7 +73,7 @@ if (count($lista_suporte) == 0) {
                         echo "<td>$email_usuario</td>";
 
                         // Lógica para exibir botões de ações
-                        if ($usuario_tipo === 'A' || $usuario_idusuario == $suporte_idusuario) {
+                        if ($usuario_tipo === 'A' or $usuario_idusuario == $suporte_idusuario) {
                             echo "<td><a href='deletarSuporte.php?id=$idsuporte' class='btn btn-danger' onclick=\"return confirm('Tem certeza que deseja excluir esta sugestão ou reclamação?');\">Excluir</a></td>";
                         } else {
                             echo "<td></td>"; // Sem ação para usuários não autorizados

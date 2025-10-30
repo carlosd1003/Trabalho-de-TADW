@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
     require_once "function.php";
 
     $id = $_GET['id'];
-    $usuario = pesquisarUsuario($conexao, $id);
+    $usuario = pesquisarUsuarioId($conexao, $id);
     $nome = $usuario['nome'];
     $email = $usuario['email'];
     $senha = $usuario['senha']; // Lembre-se de que a senha será hash
@@ -109,6 +109,8 @@ if (isset($_GET['id'])) {
         </form>
 
         <a href="home.php" class="btn btn-outline-secondary mt-3 w-100">Voltar</a>
+        <a href="formUsuario.php?id=$idusuario' class='btn btn-warning" class="btn btn-outline-secondary mt-3 w-100">Editar</a>
+
     </div>
 </body>
 

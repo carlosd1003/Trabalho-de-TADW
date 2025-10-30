@@ -74,7 +74,7 @@ require_once 'verificarLogado.php';
                     echo "<td>$email_usuario</td>";
 
                     // Exibir botão de exclusão apenas se for admin ou dono da sugestão
-                    if ($usuario_tipo === 'A' || $usuario_idusuario == $idusuario) {
+                    if ($usuario_tipo === 'A' or $usuario_idusuario == $idusuario) {
                         echo "<td><a href='deletarSuporte.php?id=$idsuporte' class='btn btn-danger' onclick=\"return confirm('Tem certeza que deseja excluir esta sugestão ou reclamação?');\">Excluir</a></td>";
                     } else {
                         echo "<td></td>";
