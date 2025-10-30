@@ -44,11 +44,14 @@ $lista_stats = listarStats($conexao);
     p {
         color: white;
     }
+    body {
+        padding-top: 70px; 
+}
 </style>
 <body>
 </form>
-<header>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<header >
+  <nav  class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="#" id="logo">Pokédex</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,32 +84,42 @@ $lista_stats = listarStats($conexao);
     </a>
     <br><br><br>
      <!-- Formulário para pesquisa por nome e tipo -->
-<form method="get" action="">
-  <p>Nome do Pokémon:</p>
-  <!-- Campo texto para nome do Pokémon, mantém o valor digitado após envio -->
-  <input class="form-control" type="text" name="nome" placeholder="Digite o nome" value="<?= isset($_GET['nome']) ? htmlspecialchars($_GET['nome']) : '' ?>"><br>   
+<form method="get" action="" class="row g-2 align-items-end">
+  <div class="col-md-5">
+    <label for="nome" class="form-label visually-hidden">Nome do Pokémon</label>
+    <input 
+      type="text" 
+      class="form-control" 
+      id="nome" 
+      name="nome" 
+      placeholder="Nome do Pokémon" 
+      value="<?= isset($_GET['nome']) ? htmlspecialchars($_GET['nome']) : '' ?>"
+    >
+  </div>
 
-  <p>Tipo:</p>
-  <!-- Dropdown para selecionar o tipo do Pokémon -->
-    <select class="form-select" name="tipo">
-    <option value="">Selecione um tipo</option>
-    <?php
-    // Inclui conexao e funções para acessar o banco
-    require_once "conexao.php";
-    require_once "function.php";
+  <div class="col-md-5">
+    <label for="tipo" class="form-label visually-hidden">Tipo</label>
+    <select class="form-select" id="tipo" name="tipo">
+      <option value="">Tipo</option>
+      <?php
+      require_once "conexao.php";
+      require_once "function.php";
 
-    // Busca todos os tipos no banco e preenche o select
-    $tipos = listarTypes($conexao);
-    foreach ($tipos as $t) {
-        // Mantém selecionado o tipo escolhido pelo usuário após envio
-        $sel = (isset($_GET['tipo']) && $_GET['tipo'] === $t['nome']) ? "selected" : "";
-        echo "<option value=\"" . htmlspecialchars($t['nome']) . "\" $sel>" . htmlspecialchars($t['nome']) . "</option>";
-    }
-    ?>
-  </select><br><br>
+      $tipos = listarTypes($conexao);
+      foreach ($tipos as $t) {
+          $sel = (isset($_GET['tipo']) && $_GET['tipo'] === $t['nome']) ? "selected" : "";
+          echo "<option value=\"" . htmlspecialchars($t['nome']) . "\" $sel>" . htmlspecialchars($t['nome']) . "</option>";
+      }
+      ?>
+    </select>
+  </div>
 
-  <!-- Botão para enviar o formulário -->
-  <input class="btn btn-primary w-100" type="submit" value="Pesquisar"> <br><br>
+  <div class="col-md-2">
+    <button type="submit" class="btn btn-primary w-100">Pesquisar</button>
+  </div>
+</form>
+<br><br>
+
     
   <div class="card-container">
         <?php    
@@ -159,7 +172,7 @@ $lista_stats = listarStats($conexao);
             }
 
             // Mostrar botões se for admin (tipo 'A') ou dono do Pokémon
-            if ($usuario_tipo === 'A' || ($usuario_idusuario && $usuario_idusuario == $pokemon['usuario_idusuario'])) {
+            if ($usuario_tipo === 'A' or ($usuario_idusuario && $usuario_idusuario == $pokemon['usuario_idusuario'])) {
                 echo "<div class='acoes'>";
                 echo "<a href='formPokemon.php?id=" . $pokemon['idpokemon'] . "' class='btn-editar'>Editar</a>";
                 echo "<a href='deletarPokemon.php?idpokemon=" . $pokemon['idpokemon'] . "' class='btn-deletar' onclick=\"return confirm('Tem certeza que quer deletar este Pokémon?');\">Deletar</a>";
