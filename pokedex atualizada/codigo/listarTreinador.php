@@ -99,7 +99,13 @@ require_once 'verificarLogado.php';
                         if ($usuario_tipo === 'A' or $usuario_idusuario == $treinador_idusuario) {
                             echo "<td><a href='deletar_treinador.php?id=$idtreinador' class='btn btn-danger' onclick=\"return confirm('Tem certeza que deseja excluir este treinador?');\">Excluir</a></td>";
                             echo "<td><a href='formtreinador.php?id=$idtreinador' class='btn btn-warning'>Editar</a></td>";
-                        } else {
+                        } 
+                        elseif ($usuario_tipo === 'C' and $idtreinador > 50){
+                                                        echo "<td><a href='deletar_treinador.php?id=$idtreinador' class='btn btn-danger' onclick=\"return confirm('Tem certeza que deseja excluir este treinador?');\">Excluir</a></td>";
+                            echo "<td><a href='formtreinador.php?id=$idtreinador' class='btn btn-warning'>Editar</a></td>";
+                        }
+                        else {
+
                             echo "<td></td><td></td>";
                         }
                         echo "</tr>";
