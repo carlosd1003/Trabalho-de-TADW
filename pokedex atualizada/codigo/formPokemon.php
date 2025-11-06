@@ -17,7 +17,7 @@ if ($idpokemon) {
     $stats = pegarStatsPorPokemon($conexao, (int)$idpokemon);
     $types_do_pokemon = buscarTypesDoPokemon($conexao, (int)$idpokemon);
 
-    if ($pokemon && $pokemon['usuario_idusuario'] == $usuario_idusuario) {
+    if ($pokemon and $pokemon['usuario_idusuario'] == $usuario_idusuario) {
         $ehDono = true;
     }
 } else {
@@ -34,10 +34,10 @@ $lista_types = listarTypes($conexao);
     <meta charset="UTF-8" />
     <title><?php echo $pokemon ? "Editar Pokémon" : "Cadastro de Pokémon"; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    
+
     <link rel="stylesheet" href="style.css" />
     <style>
         /* Para o select múltiplo ficar mais legível */
@@ -45,124 +45,156 @@ $lista_types = listarTypes($conexao);
             height: auto;
         }
     </style>
-    <script src="jquery-3.7.1.min (1).js"></script>
-    <script src="jquery.validate.min.js"></script>
-    <script>
-        // programar a validação do formulário
-        $(document).ready(function () {
-        // Passa o valor do último número criado para uma variável JS
-        var ultimoNumeroCriado = <?php echo $ultimo_numero_criado ?? 0; ?>;
+    <!-- jQuery (carrega primeiro) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-        // Cria uma regra personalizada para validar se o número é maior que ultimoNumeroCriado
-        $.validator.addMethod("maiorQueUltimo", function(value, element) {
-            return this.optional(element) || Number(value) > ultimoNumeroCriado;
-        }, "O número deve ser maior que o último criado: " + ultimoNumeroCriado);
+    <!-- jQuery Validate (depois do jQuery) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+
+    <script>
+        $(function() {
+            const $form = $('#formulario');
+            const isEdit = $('input[name="idpokemon"]').length > 0;
+
             $('#formulario').validate({
+                // evita ignorar selects/hidden etc. se você quiser validar tudo
+                ignore: [],
                 rules: {
                     national: {
                         required: true,
-                        number: true,
-                        maiorQueUltimo: true
-                        
+                        digits: true,
+                        // Só checa remoto se for criação
+                        remote: {
+                            // endpoint que vamos criar já já
+                            url: 'validar_next_national.php',
+                            type: 'get',
+                            // Só chama no modo "create"; em "edit" o server devolve true
+                            data: {
+                                proposed: function() {
+                                    return $('#national').val();
+                                },
+                                mode: function() {
+                                    return isEdit ? 'edit' : 'create';
+                                }
+                            }
+                            // Observação: se o servidor retornar "true" (string),
+                            // o campo é válido; qualquer OUTRA string vira a mensagem de erro.
+                        }
                     },
-                    nome:{
+                    nome: {
                         required: true,
-                        minlength: 3,
-                        
+                        minlength: 3
                     },
-                    gen:{
+                    gen: {
                         required: true,
                         number: true,
                         min: 1
-
                     },
-                    hp:{
+                    hp: {
                         required: true,
                         number: true,
-                        min: 1                       
+                        min: 1
                     },
-                    attack:{
+                    attack: {
                         required: true,
                         number: true,
-                        min: 1                    
+                        min: 1
                     },
-                    defense:{
+                    defense: {
                         required: true,
                         number: true,
-                        min: 1                    
+                        min: 1
                     },
-                    spattack:{
+                    spattack: {
                         required: true,
                         number: true,
-                        min: 1 
+                        min: 1
                     },
-                    spdefense:{
+                    spdefense: {
                         required: true,
                         number: true,
-                        min: 1 
+                        min: 1
                     },
-                    speed:{
+                    speed: {
                         required: true,
                         number: true,
-                        min: 1 
-                    },
-
+                        min: 1
+                    }
                 },
                 messages: {
                     national: {
                         required: "Esse campo não pode ser vazio",
-                        number: "Informe um número válido",
-                        maiorQueUltimo: "O número deve ser maior que o último criado: " + ultimoNumeroCriado
+                        digits: "Informe um número inteiro válido",
+                        // mensagem padrão se o server não mandar uma personalizada
+                        remote: "O valor precisa ser exatamente o próximo disponível."
                     },
-                    nome:{
+                    nome: {
                         required: "Esse campo não pode ser vazio",
                         minlength: "Esse campo tem que ter mais de 3 caracteres"
                     },
-                    gen:{
+                    gen: {
                         required: "Esse campo não pode ser vazio",
                         number: "Informe um número válido",
                         min: "O número precisa ser maior que 0"
                     },
-                    hp:{
+                    hp: {
                         required: "Esse campo não pode ser vazio",
                         number: "Informe um número válido",
                         min: "O número precisa ser maior que 0"
                     },
-                    attack:{
+                    attack: {
                         required: "Esse campo não pode ser vazio",
                         number: "Informe um número válido",
                         min: "O número precisa ser maior que 0"
                     },
-                    defense:{
+                    defense: {
                         required: "Esse campo não pode ser vazio",
                         number: "Informe um número válido",
                         min: "O número precisa ser maior que 0"
                     },
-                    spattack:{
+                    spattack: {
                         required: "Esse campo não pode ser vazio",
                         number: "Informe um número válido",
                         min: "O número precisa ser maior que 0"
                     },
-                    spdefense:{
+                    spdefense: {
                         required: "Esse campo não pode ser vazio",
                         number: "Informe um número válido",
                         min: "O número precisa ser maior que 0"
                     },
-                    speed:{
+                    speed: {
                         required: "Esse campo não pode ser vazio",
                         number: "Informe um número válido",
                         min: "O número precisa ser maior que 0"
                     },
-
+                },
+                // Estilinho do Bootstrap
+                highlight: function(el) {
+                    el.classList.add('is-invalid');
+                    el.classList.remove('is-valid');
+                },
+                unhighlight: function(el) {
+                    el.classList.remove('is-invalid');
+                    el.classList.add('is-valid');
+                },
+                errorElement: 'div',
+                errorClass: 'invalid-feedback',
+                errorPlacement: function(error, element) {
+                    if (element.parent('.input-group').length) {
+                        error.insertAfter(element.parent());
+                    } else {
+                        error.insertAfter(element);
+                    }
                 }
-            })
-        })
+            });
+        });
     </script>
+
 </head>
 
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <div class="card shadow p-4" style="width: 450px;">
-            <h1 class="text-center mb-4 text-danger fw-bold"><?php echo $pokemon ? "Editar Pokémon" : "Cadastro de Pokémon"; ?></h1>
+    <div class="card shadow p-4" style="width: 450px;">
+        <h1 class="text-center mb-4 text-danger fw-bold"><?php echo $pokemon ? "Editar Pokémon" : "Cadastro de Pokémon"; ?></h1>
 
 
         <form method="POST" action="salvarPokemon.php" id="formulario" enctype="multipart/form-data" novalidate>
@@ -172,7 +204,7 @@ $lista_types = listarTypes($conexao);
 
             <div class="mb-3">
                 <label for="national" class="form-label">National Dex:</label>
-                <input type="number" id="national" name="national" class="form-control" 
+                <input type="number" id="national" name="national" class="form-control"
                     value="<?php echo $pokemon ? htmlspecialchars($pokemon['national']) : ''; ?>">
             </div>
 
@@ -191,7 +223,7 @@ $lista_types = listarTypes($conexao);
             <div class="mb-3">
                 <label for="imagem" class="form-label">Imagem (opcional):</label>
                 <input type="file" id="imagem" name="imagem" class="form-control">
-                <?php if ($pokemon && $pokemon['imagem']): ?>
+                <?php if ($pokemon and $pokemon['imagem']): ?>
                     <div class="mt-2">
                         <img src="fotos/<?php echo htmlspecialchars($pokemon['imagem']); ?>" alt="Imagem do Pokémon" width="80" class="img-thumbnail">
                     </div>
@@ -200,31 +232,31 @@ $lista_types = listarTypes($conexao);
 
             <div class="mb-3">
                 <label for="hp" class="form-label">HP:</label>
-                <input type="number" id="hp" name="hp"  class="form-control"
+                <input type="number" id="hp" name="hp" class="form-control"
                     value="<?php echo $stats ? htmlspecialchars($stats['hp']) : ''; ?>">
             </div>
 
             <div class="mb-3">
                 <label for="attack" class="form-label">Attack:</label>
-                <input type="number" id="attack" name="attack"  class="form-control"
+                <input type="number" id="attack" name="attack" class="form-control"
                     value="<?php echo $stats ? htmlspecialchars($stats['attack']) : ''; ?>">
             </div>
 
             <div class="mb-3">
                 <label for="defense" class="form-label">Defense:</label>
-                <input type="number" id="defense" name="defense"  class="form-control"
+                <input type="number" id="defense" name="defense" class="form-control"
                     value="<?php echo $stats ? htmlspecialchars($stats['defense']) : ''; ?>">
             </div>
 
             <div class="mb-3">
                 <label for="spattack" class="form-label">Special Attack:</label>
-                <input type="number" id="spattack" name="spattack"  class="form-control"
+                <input type="number" id="spattack" name="spattack" class="form-control"
                     value="<?php echo $stats ? htmlspecialchars($stats['sp_attack']) : ''; ?>">
             </div>
 
             <div class="mb-3">
                 <label for="spdefense" class="form-label">Special Defense:</label>
-                <input type="number" id="spdefense" name="spdefense"  class="form-control"
+                <input type="number" id="spdefense" name="spdefense" class="form-control"
                     value="<?php echo $stats ? htmlspecialchars($stats['sp_defense']) : ''; ?>">
             </div>
 
@@ -269,6 +301,111 @@ $lista_types = listarTypes($conexao);
             }
         });
     </script>
-</body>
+
+    <!-- ChatGPT que fez isso ai -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('formulario');
+            const nationalInput = document.getElementById('national');
+
+            // Se existir o hidden idpokemon, estamos editando (não travar o número)
+            const isEdit = !!document.querySelector('input[name="idpokemon"]');
+
+            // Cria/usa um aviso visual abaixo do campo
+            let hint = document.getElementById('national-help');
+            if (!hint) {
+                hint = document.createElement('div');
+                hint.id = 'national-help';
+                hint.className = 'form-text';
+                nationalInput.insertAdjacentElement('afterend', hint);
+            }
+
+            let maxId = null; // maior já existente no BD
+
+            async function fetchMaxId() {
+                try {
+                    const r = await fetch('obter_max_id.php', {
+                        cache: 'no-store'
+                    });
+                    const data = await r.json();
+                    maxId = Number(data.maxId) || 0;
+                    renderHint();
+                } catch (e) {
+                    console.error('Falha ao obter maxId:', e);
+                    // fallback: considera 0
+                    maxId = 0;
+                    renderHint();
+                }
+            }
+
+            function renderHint() {
+                if (isEdit) {
+                    hint.textContent = '';
+                    nationalInput.classList.remove('is-invalid', 'is-valid');
+                    return;
+                }
+                const nextId = maxId + 1;
+                hint.textContent = `Último criado: ${maxId}. O próximo permitido é exatamente: ${nextId}.`;
+                validateNow();
+            }
+
+            function validateNow() {
+                if (isEdit) return; // não valida em edição
+
+                const val = Number(nationalInput.value);
+                const nextId = maxId + 1;
+
+                if (!Number.isInteger(val)) {
+                    nationalInput.setCustomValidity('Digite um número inteiro válido.');
+                    nationalInput.classList.add('is-invalid');
+                    nationalInput.classList.remove('is-valid');
+                    return false;
+                }
+
+                if (val !== nextId) {
+                    // Se digitou menor ou maior, travar e mostrar a dica
+                    nationalInput.setCustomValidity(`O valor precisa ser exatamente ${nextId}.`);
+                    nationalInput.classList.add('is-invalid');
+                    nationalInput.classList.remove('is-valid');
+                    return false;
+                }
+
+                // ok
+                nationalInput.setCustomValidity('');
+                nationalInput.classList.remove('is-invalid');
+                nationalInput.classList.add('is-valid');
+                return true;
+            }
+
+            // Quando o usuário digitar, validar e informar
+            nationalInput.addEventListener('input', () => {
+                // Se digitou menor que o existente, destacar e “mostrar o já existente”
+                if (!isEdit && maxId !== null) {
+                    const val = Number(nationalInput.value);
+                    if (Number.isInteger(val) && val <= maxId) {
+                        hint.textContent = `⚠️ Você digitou ${val}, mas o último já existente é ${maxId}. O próximo permitido é ${maxId + 1}.`;
+                    } else {
+                        // volta para o hint padrão
+                        renderHint();
+                    }
+                }
+                validateNow();
+            });
+
+            // Impedir envio se não for exatamente o próximo permitido
+            form.addEventListener('submit', (e) => {
+                if (isEdit) return; // em edição, deixa enviar
+                if (!validateNow()) {
+                    e.preventDefault();
+                    nationalInput.reportValidity(); // mostra o balão nativo
+                    nationalInput.focus();
+                }
+            });
+
+            // Carrega o maxId ao abrir
+            fetchMaxId();
+        });
+    </script>
+    </body>
 
 </html>

@@ -35,6 +35,9 @@
         $sel = (isset($_GET['tipo']) && $_GET['tipo'] === $t['nome']) ? "selected" : "";
         echo "<option value=\"" . htmlspecialchars($t['nome']) . "\" $sel>" . htmlspecialchars($t['nome']) . "</option>";
     }
+    // \ Isso quer dizer: “essa aspa faz parte do texto, não fecha a string”.
+    // echo "Ele disse: \"Oi\"";
+    // Ele disse: "Oi"
     ?>
   </select><br><br>
 
@@ -44,17 +47,18 @@
 
 <?php
 // Verifica se pelo menos um dos filtros (nome ou tipo) foi preenchido
-if ((!empty($_GET['nome']) && trim($_GET['nome']) !== "") || (!empty($_GET['tipo']) && trim($_GET['tipo']) !== "")) {
+if ((!empty($_GET['nome']) and trim($_GET['nome']) !== "") or (!empty($_GET['tipo']) and trim($_GET['tipo']) !== "")) {
     // Recebe e limpa os valores enviados
     $nome = trim($_GET['nome'] ?? '');
     $tipo = trim($_GET['tipo'] ?? '');
+    // $_GET['tipo'] ?? '' é uma forma concisa de tratar valores que podem não estar definidos.
 
     // Inclui novamente conexao e funções (pode otimizar para incluir só uma vez)
     require_once "conexao.php";
     require_once "function.php";
 
     // Busca os pokémons conforme os filtros aplicados
-    if ($nome !== '' && $tipo !== '') {
+    if ($nome !== '' and $tipo !== '') {
         // Pesquisa por nome e tipo juntos
         $resultados = pesquisarPokemonPorNomeETipo($conexao, $nome, $tipo);
     } elseif ($nome !== '') {

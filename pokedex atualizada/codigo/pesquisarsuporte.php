@@ -32,7 +32,7 @@ require_once 'verificarLogado.php';
 
     <div class="container">
         <?php
-        if (isset($_GET["valor"]) && !empty($_GET["valor"])) {
+        if (isset($_GET["valor"]) and !empty($_GET["valor"])) {
             $valor = $_GET["valor"];
 
             require_once "conexao.php";
@@ -41,11 +41,12 @@ require_once 'verificarLogado.php';
             // Verifica o tipo e o ID do usuário logado
             $usuario_tipo = $_SESSION['Tipo'] ?? 'C';
             $usuario_idusuario = $_SESSION['usuario_idusuario'] ?? null;
+            // $_SESSION['tipo'] ?? 'C' é uma forma concisa de tratar valores que podem não estar definidos.
 
             // Chama a função de pesquisa
             $resultados = pesquisarSugestao_reclamacao($conexao, $valor);
 
-            if (!isset($resultados) || !is_array($resultados) || count($resultados) == 0) {
+            if (!isset($resultados) or !is_array($resultados) or count($resultados) == 0) {
                 echo "<div class='alert alert-warning text-center' role='alert'>Nenhum resultado encontrado.</div>";
             } else {
                 echo "<table class='table table-bordered table-striped'>";
@@ -66,6 +67,7 @@ require_once 'verificarLogado.php';
                     $sugestao = $sup['sugestao'];
                     $email_usuario = $sup['email_usuario'];
                     $idusuario = isset($sup['idusuario']) ? $sup['idusuario'] : null;
+                    // A sintaxe $sup['nome_do_campo'] está acessando o valor do campo ‘nome_do_campo’ dentro desse array associativo que representa o registro.
 
                     echo "<tr>";
                     echo "<td>$idsuporte</td>";

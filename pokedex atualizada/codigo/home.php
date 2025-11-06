@@ -19,13 +19,15 @@ if ($resultado) {
 $usuario_idusuario = $_SESSION['usuario_idusuario'] ?? null;
 $usuario_tipo = $_SESSION['Tipo'] ?? 'C'; // 'C' é o tipo padrão
 
+// A função trim() em PHP serve para remover espaços em branco (e alguns outros caracteres invisíveis) do início e do fim de uma string.
 $nome = trim($_GET['nome'] ?? '');
 $tipo = trim($_GET['tipo'] ?? '');
-$buscaAtiva = ($nome !== '' || $tipo !== '');
+$buscaAtiva = ($nome !== '' or $tipo !== '');
 
 
+// !== Compara se é diferente ou seja, só considera que o usuário fez uma busca se pelo menos um campo tiver sido preenchido.
 if ($buscaAtiva) {
-    if ($nome !== '' && $tipo !== '') {
+    if ($nome !== '' and $tipo !== '') {
         $lista_pokemon = pesquisarPokemonPorNomeETipo($conexao, $nome, $tipo);
     } elseif ($nome !== '') {
         $lista_pokemon = pesquisarPokemonNome($conexao, $nome);
@@ -110,6 +112,7 @@ $lista_stats = listarStats($conexao);
       placeholder="Nome do Pokémon" 
       value="<?= isset($_GET['nome']) ? htmlspecialchars($_GET['nome']) : '' ?>"
     >
+    <!-- A função isset() serve para verificar se uma variável está definida (existe) e não é null. -->
   </div>
 
   <div class="col-md-5">
@@ -119,12 +122,16 @@ $lista_stats = listarStats($conexao);
       <?php
       require_once "conexao.php";
       require_once "function.php";
-
       $tipos = listarTypes($conexao);
+      // Se a condição for verdadeira, usa o valor à direita do ?
+      // Se a condição for falsa, usa o valor à direita do :
       foreach ($tipos as $t) {
-          $sel = (isset($_GET['tipo']) && $_GET['tipo'] === $t['nome']) ? "selected" : "";
+          $sel = (isset($_GET['tipo']) and $_GET['tipo'] === $t['nome']) ? "selected" : "";
           echo "<option value=\"" . htmlspecialchars($t['nome']) . "\" $sel>" . htmlspecialchars($t['nome']) . "</option>";
       }
+      // \ Isso quer dizer: “essa aspa faz parte do texto, não fecha a string”.
+      // echo "Ele disse: \"Oi\"";
+      // Ele disse: "Oi"
       ?>
     </select>
   </div>
@@ -187,7 +194,7 @@ $lista_stats = listarStats($conexao);
             }
 
             // Mostrar botões se for admin (tipo 'A') ou dono do Pokémon
-            if ($usuario_tipo === 'A' or ($usuario_idusuario && $usuario_idusuario == $pokemon['usuario_idusuario'])) {
+            if ($usuario_tipo === 'A' or ($usuario_idusuario and $usuario_idusuario == $pokemon['usuario_idusuario'])) {
                 echo "<div class='acoes'>";
                 echo "<a href='formPokemon.php?id=" . $pokemon['idpokemon'] . "' class='btn-editar'>Editar</a>";
                 echo "<a href='deletarPokemon.php?idpokemon=" . $pokemon['idpokemon'] . "' class='btn-deletar' onclick=\"return confirm('Tem certeza que quer deletar este Pokémon?');\">Deletar</a>";

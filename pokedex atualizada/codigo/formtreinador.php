@@ -52,80 +52,81 @@ if (isset($_GET['id'])) {
     <script>
         // programar a validação do formulário
         $(document).ready(function() {
-                    $('#formulario').validate({
-                            rules: {
-                                nome: {
-                                    required: true,
-                                    minlength: 3,
-                                },
-                                idade: {
-                                    required: true,
-                                    number: true,
-                                    min: 12
-                                },
-                                genero: {
-                                    required: true,
-                                    generoValido: true
-                                },
-                                cidade: {
-                                    required: true,
-                                    minlength: 5
-                                },
-                                regiao: {
-                                    required: true,
-                                    minlength: 5
-                                },
-                                time_atual: {
-                                    required: true,
-                                    minlength: 10
-                                },
-                                data: {
-                                    required: true,
-                                    dataValida: true
-                                },
-                                idpokemon: {
-                                    required: true,
-                                    notDefault: true
-                                }
-                            },
-                                messages: {
-                                    nome: {
-                                        required: "Esse campo não pode ser vazio",
-                                        minlength: "Tamanho mínimo de 3 símbolos"
-                                    },
-                                    idade: {
-                                        required: "Esse campo não pode ser vazio",
-                                        number: "Informe um número válido",
-                                        min: "O número precisa ser maior que 11"
-                                    },
-                                    genero: {
-                                        required: "Esse campo não pode ser vazio",
-                                        generoValido: "Informe masculino ou feminino"
-                                    },
-                                    cidade: {
-                                        required: "Esse campo não pode ser vazio",
-                                        minlength: "Tamanho mínimo de 5 símbolos"
-                                    },
-                                    regiao: {
-                                        required: "Esse campo não pode ser vazio",
-                                        minlength: "Tamanho mínimo de 5 símbolos"
-                                    },
-                                    time_atual: {
-                                        required: "Esse campo não pode ser vazio",
-                                        minlength: "Tamanho mínimo de 10 símbolos"
-                                    },
-                                    data: {
-                                        required: "Esse campo não pode ser vazio",
-                                        dataValida: "Informe uma data válida"
-                                    },
-                                    idpokemon: {
-                                        required: "Esse campo não pode ser vazio",
-                                        notDefault: "Por favor, selecione um Pokémon"
-                                    }
+            $('#formulario').validate({
+                rules: {
+                    nome: {
+                        required: true,
+                        minlength: 3,
+                    },
+                    idade: {
+                        required: true,
+                        number: true,
+                        min: 12
+                    },
+                    genero: {
+                        required: true,
+                        generoValido: true
+                    },
+                    cidade: {
+                        required: true,
+                        minlength: 5
+                    },
+                    regiao: {
+                        required: true,
+                        minlength: 5
+                    },
+                    time_atual: {
+                        required: true,
+                        minlength: 10
+                    },
+                    data: {
+                        required: true,
+                        dataValida: true
+                    },
+                    idpokemon: {
+                        required: true,
+                        notDefault: true
+                    }
+                },
+                messages: {
+                    nome: {
+                        required: "Esse campo não pode ser vazio",
+                        minlength: "Tamanho mínimo de 3 símbolos"
+                    },
+                    idade: {
+                        required: "Esse campo não pode ser vazio",
+                        number: "Informe um número válido",
+                        min: "O número precisa ser maior que 11"
+                    },
+                    genero: {
+                        required: "Esse campo não pode ser vazio",
+                        generoValido: "Informe masculino ou feminino"
+                    },
+                    cidade: {
+                        required: "Esse campo não pode ser vazio",
+                        minlength: "Tamanho mínimo de 5 símbolos"
+                    },
+                    regiao: {
+                        required: "Esse campo não pode ser vazio",
+                        minlength: "Tamanho mínimo de 5 símbolos"
+                    },
+                    time_atual: {
+                        required: "Esse campo não pode ser vazio",
+                        minlength: "Tamanho mínimo de 10 símbolos"
+                    },
+                    data: {
+                        required: "Esse campo não pode ser vazio",
+                        dataValida: "Informe uma data válida"
+                    },
+                    idpokemon: {
+                        required: "Esse campo não pode ser vazio",
+                        notDefault: "Por favor, selecione um Pokémon"
+                    }
 
-                                }
-                            })
-                    })
+                    
+                }
+            })
+        })
     </script>
 </head>
 
@@ -189,7 +190,11 @@ if (isset($_GET['id'])) {
                         foreach ($lista_pokemon as $pokemon) {
                             $pokeId = $pokemon['idpokemon'];
                             $nome_pokemon = $pokemon['nome'];
-                            $selected = ($pokeId == $idpokemon) ? "selected" : "";
+                            if ($pokeId == $idpokemon) {
+                                $selected = "selected";
+                            } else {
+                                $selected = "";
+                            }
                             echo "<option value='$pokeId' $selected>$nome_pokemon</option>";
                         }
                         ?>

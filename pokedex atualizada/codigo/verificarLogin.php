@@ -5,7 +5,7 @@ require_once "conexao.php";
 $email = $_POST['email'] ?? '';
 $senha = $_POST['senha'] ?? '';
 
-if (!$email || !$senha) {
+if (!$email or !$senha) {
     header("Location: index.html");
     exit;
 }

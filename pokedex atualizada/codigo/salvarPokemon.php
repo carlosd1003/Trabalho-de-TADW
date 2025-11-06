@@ -39,7 +39,7 @@ if ($idpokemon) {
 
 // Upload de imagem
 $novo_nome = null;
-if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+if (isset($_FILES['imagem']) and $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
     $nome_arquivo = $_FILES['imagem']['name'];
     $caminho_temporario = $_FILES['imagem']['tmp_name'];
     $extensao = strtolower(pathinfo($nome_arquivo, PATHINFO_EXTENSION));

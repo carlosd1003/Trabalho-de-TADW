@@ -5,7 +5,8 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== 'sim') {
+if (!isset($_SESSION['logado']) or $_SESSION['logado'] !== 'sim') {
     header("Location: index.html");
     exit;
 }
+// Se o valor de $_SESSION['logado'] não for exatamente a string 'sim' (em tipo e conteúdo), redirecione para index.html
