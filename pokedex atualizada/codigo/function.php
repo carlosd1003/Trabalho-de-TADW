@@ -35,6 +35,32 @@ function criarUsuario($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav = NUL
     return $funcionou;
 }
 
+function editarUsuario($conexao, $nome, $email, $senha, $tipo, $id, $pokemon_fav = NULL, $descricao = NULL) {
+    $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
+
+    $sql = "UPDATE usuario 
+            SET nome=?, email=?, senha=?, tipo=?, pokemon_fav=?, descricao=? 
+            WHERE idusuario=?";
+
+    $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_bind_param($comando, 'ssssssi', 
+        $nome, 
+        $email, 
+        $senha_hash, 
+        $tipo, 
+        $pokemon_fav, 
+        $descricao, 
+        $id
+    );
+
+    $funcionou = mysqli_stmt_execute($comando);
+    mysqli_stmt_close($comando);
+
+    return $funcionou;
+}
+
+
 function pesquisarUsuarioId($conexao, $idusuario) {
     $sql = "SELECT * FROM usuario WHERE idusuario = ?";
     $comando = mysqli_prepare($conexao, $sql);
@@ -229,7 +255,6 @@ function pesquisarPokemonPorTipo($conexao, $tipo) {
     return $pokemons;
 }
 
-
 function pesquisarPokemonPorNomeETipo($conexao, $nome, $tipo) {
     $sql = "SELECT DISTINCT p.*
             FROM pokemon p
@@ -240,29 +265,24 @@ function pesquisarPokemonPorNomeETipo($conexao, $nome, $tipo) {
     $nomeParam = '%' . $nome . '%';
     $tipoParam = '%' . $tipo . '%';
 
-    $stmt = $conexao->prepare($sql);
+    $stmt = mysqli_prepare($conexao, $sql);
     if (!$stmt) {
-        die("Erro na preparação: " . $conexao->error);
+        die("Erro na preparação: " . mysqli_error($conexao));
     }
 
-    $stmt->bind_param("ss", $nomeParam, $tipoParam);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
+    mysqli_stmt_bind_param($stmt, "ss", $nomeParam, $tipoParam);
+    mysqli_stmt_execute($stmt);
 
+    $resultado = mysqli_stmt_get_result($stmt);
     $pokemons = [];
-    while ($row = $resultado->fetch_assoc()) {
+
+    while ($row = mysqli_fetch_assoc($resultado)) {
         $pokemons[] = $row;
     }
 
-    $stmt->close();
+    mysqli_stmt_close($stmt);
     return $pokemons;
 }
-
-
-
-
-
-
 
 /**
  * Pesquisa Pokémon incluindo informações do dono
@@ -403,8 +423,6 @@ function pesquisarPokemonId($conexao, $idpokemon) {
     return $pokemon;
 
 }
-
-
 
 function pesquisarPokemonNome($conexao, $nome)
 {
@@ -635,24 +653,26 @@ function buscarTypesDoPokemon($conexao, $idpokemon) {
             FROM types t
             JOIN pokemon_has_types pht ON pht.idtypes = t.idtypes
             WHERE pht.idpokemon = ?";
-    
-    $stmt = $conexao->prepare($sql);
+
+    $stmt = mysqli_prepare($conexao, $sql);
     if (!$stmt) {
-        die("Erro na preparação da query: " . $conexao->error);
+        die("Erro na preparação da query: " . mysqli_error($conexao));
     }
-    
-    $stmt->bind_param("i", $idpokemon);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
+
+    mysqli_stmt_bind_param($stmt, "i", $idpokemon);
+    mysqli_stmt_execute($stmt);
+
+    $resultado = mysqli_stmt_get_result($stmt);
 
     $types = [];
-    while ($row = $resultado->fetch_assoc()) {
+    while ($row = mysqli_fetch_assoc($resultado)) {
         $types[] = $row['nome'];
     }
-    
-    $stmt->close();
+
+    mysqli_stmt_close($stmt);
     return $types;
 }
+
 
 /**
  * Lista todos os tipos disponíveis
@@ -792,6 +812,36 @@ function pesquisarSugestao_reclamacao($conexao, $idusuario) {
 
     mysqli_stmt_execute($comando);
     $resultado = mysqli_stmt_get_result($comando);
+
+    $suporte = mysqli_fetch_assoc($resultado);
+
+    mysqli_stmt_close($comando);
+    return $suporte;
+
+}
+
+function pesquisarSugestao_reclamacao_nome($conexao, $reclamacao) {
+        $sql = "SELECT 
+                suporte.idsuporte, 
+                suporte.reclamacao, 
+                suporte.sugestao, 
+                usuario.email AS email_usuario
+            FROM suporte
+            JOIN usuario ON suporte.idusuario = usuario.idusuario
+            WHERE suporte.reclamcao LIKE ?";
+    $comando = mysqli_prepare($conexao, $sql);
+
+    $reclamacao = "%" . $reclamacao . "%";
+
+    mysqli_stmt_bind_param($comando, 's', $reclamacao);
+
+    mysqli_stmt_execute($comando);
+    $resultado = mysqli_stmt_get_result($comando);
+
+    $lista_suporte = [];
+    while ($suporte = mysqli_fetch_assoc($resultado)) {
+        $lista_suporte[] = $suporte;
+    }
 
     $suporte = mysqli_fetch_assoc($resultado);
 

@@ -36,8 +36,14 @@ require_once "function.php";
     $usuario_tipo = $_SESSION['Tipo'] ?? 'C'; // 'A' = Admin, 'C' = Cliente
     $usuario_idusuario = $_SESSION['usuario_idusuario'] ?? null; // ID do usuário logado
 
-    // Busca as sugestões e reclamações
-$lista_suporte = listarSugestao_reclamacao($conexao);
+        // Verifica se existe pesquisa
+    if (isset($_GET["valor"]) && !empty($_GET["valor"])) {
+        $valor = $_GET["valor"];
+        $lista_suporte = pesquisarSugestao_reclamacao_nome($conexao, $valor);
+    } else {
+        // Busca todos os treinadores
+        $lista_suporte = listarSugestao_reclamacao($conexao);
+    }
 
     // Se não houver nenhum suporte, exibe uma mensagem
 if (count($lista_suporte) == 0) {

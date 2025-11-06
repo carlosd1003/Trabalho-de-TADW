@@ -11,6 +11,8 @@ $descricao = $_POST['descricao'];
 
 $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
-criarUsuario($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav = NULL, $descricao = NULL);
+criarUsuario($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav, $descricao);
+
+editarUsuario($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav, $descricao, $id);
 
 header("Location:index.html");

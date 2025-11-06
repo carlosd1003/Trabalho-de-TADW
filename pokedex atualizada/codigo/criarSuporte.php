@@ -4,9 +4,12 @@ session_start();
 require_once 'verificarLogado.php';
 
 // Verifica se o usuário está logado e captura o idusuario da sessão
-if (isset($_SESSION['idusuario'])) {
-    $idusuario = $_SESSION['idusuario'];
+if (!isset($_SESSION['idusuario'])) {
+    die("Usuário não está logado.");
 }
+
+$idusuario = $_SESSION['idusuario'];
+$email = $_SESSION['email'] ?? ''; // só se você precisar do email
 ?>
 
 <!DOCTYPE html>

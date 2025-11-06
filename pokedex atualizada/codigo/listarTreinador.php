@@ -65,7 +65,7 @@ require_once 'verificarLogado.php';
                         <th>Região</th>
                         <th>Time Atual</th>
                         <th>Data</th>
-                        <th>Pokémons</th>
+                        <th>Pokémon Favorito</th>
                         <th colspan="2">Ações</th>
                     </tr>
                 </thead>
