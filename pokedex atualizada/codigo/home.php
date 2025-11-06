@@ -65,14 +65,14 @@ $lista_stats = listarStats($conexao);
 <body>
 </form>
 <header >
-  <nav  class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+<nav  class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="#" id="logo">Pokédex</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarLinks">
-        
+        <div class="navbar-nav me-auto mb-2 mb-lg-0">
           <a class="nav-link btn btn-outline-primary mx-1 my-1" href="formPokemon.php">Criar Pokémon</a>
           <a class="nav-link btn btn-outline-secondary mx-1 my-1" href="formtreinador.php">Criar Treinador</a>
           <a class="nav-link btn btn-outline-success mx-1 my-1" href="listarTreinador.php">Ver Treinadores</a>
@@ -81,13 +81,13 @@ $lista_stats = listarStats($conexao);
           <a class="nav-link btn btn-outline-info mx-1 my-1" href="listarBuild.php">Ver Builds</a>
           <a class="nav-link btn btn-outline-dark mx-1 my-1" href="criarSuporte.php">Acesso Ao Suporte</a>
           <a class="nav-link btn btn-outline-danger mx-1 my-1" href="listarSuporte.php">Ver Informações do Suporte</a>
-          <a class="nav-link btn btn-outline-primary mx-1 my-1" href="pvp.html"> PvP </a>
-
-      </div>
-           <a class="perfil ms-auto" href="formUsuario-home.php">
+          <a class="nav-link btn btn-outline-success mx-1 my-1" href="pesquisarTreinador.php">Procurar Treinadores</a>
+        </div>
+        <a class="perfil ms-auto" href="formUsuario-home.php">
             <img src="./img/perfil.png" width="35" height="35" alt="Perfil" class="rounded-circle">
             <a href="deslogar.php"><img id="porta" src="./img/sair.png" alt="Voltar" width="20px" height="20px"></a> 
         </a>
+      </div>
     </div>
   </nav>
 </header>
@@ -109,7 +109,6 @@ $lista_stats = listarStats($conexao);
       placeholder="Nome do Pokémon" 
       value="<?= isset($_GET['nome']) ? htmlspecialchars($_GET['nome']) : '' ?>"
     >
-    <!-- A função isset() serve para verificar se uma variável está definida (existe) e não é null. -->
   </div>
 
   <div class="col-md-5">
@@ -119,16 +118,12 @@ $lista_stats = listarStats($conexao);
       <?php
       require_once "conexao.php";
       require_once "function.php";
+
       $tipos = listarTypes($conexao);
-      // Se a condição for verdadeira, usa o valor à direita do ?
-      // Se a condição for falsa, usa o valor à direita do :
       foreach ($tipos as $t) {
-          $sel = (isset($_GET['tipo']) and $_GET['tipo'] === $t['nome']) ? "selected" : "";
+          $sel = (isset($_GET['tipo']) && $_GET['tipo'] === $t['nome']) ? "selected" : "";
           echo "<option value=\"" . htmlspecialchars($t['nome']) . "\" $sel>" . htmlspecialchars($t['nome']) . "</option>";
       }
-      // \ Isso quer dizer: “essa aspa faz parte do texto, não fecha a string”.
-      // echo "Ele disse: \"Oi\"";
-      // Ele disse: "Oi"
       ?>
     </select>
   </div>
@@ -138,6 +133,7 @@ $lista_stats = listarStats($conexao);
   </div>
 </form>
 <br><br>
+
 
     
   <div class="card-container">
