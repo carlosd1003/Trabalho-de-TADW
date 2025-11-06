@@ -3,13 +3,6 @@
 session_start();
 require_once 'verificarLogado.php';
 
-// Verifica se o usuário está logado e captura o idusuario da sessão
-if (!isset($_SESSION['idusuario'])) {
-    die("Usuário não está logado.");
-}
-
-$idusuario = $_SESSION['idusuario'];
-$email = $_SESSION['email'] ?? ''; // só se você precisar do email
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +52,10 @@ $email = $_SESSION['email'] ?? ''; // só se você precisar do email
             </div>
 
             <!-- O campo de idusuario não é mais necessário, pois estamos pegando da sessão -->
-            <input type="hidden" name="idusuario" value="<?php echo $idusuario; ?>" />
+            <div class="mb-3">
+                <label for="sugestao" class="form-label">Informe o email:</label>
+                <input type="text" name="idusuario" id="idusuario" class="form-control" placeholder="Informe seu E-mail" />
+            </div>
 
             <!-- Botão de envio do formulário -->
             <button type="submit" class="btn btn-primary w-100">Salvar</button>

@@ -1,18 +1,25 @@
 <?php
-require_once "./function.php";
-require_once "./conexao.php";
+session_start();
+require_once 'conexao.php';
+require_once 'function.php';
 
+$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+
+// Recebe os dados do formulário
 $nome = $_POST['nome'];
 $email = $_POST['email'];
 $senha = $_POST['senha'];
-$Tipo = 'C';
 $pokemon_fav = $_POST['pokemon_fav'];
 $descricao = $_POST['descricao'];
 
-$senha_hash = password_hash($senha, PASSWORD_DEFAULT);
+if ($id > 0) {
+    // Edita usuário existente
+    editarUsuario($conexao, $id, $nome, $email, $senha, $pokemon_fav, $descricao);
+} else {
+    // Cria novo usuário
+    criarUsuario($conexao, $nome, $email, $senha, 'C', $pokemon_fav, $descricao);
+}
 
-criarUsuario($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav, $descricao);
-
-editarUsuario($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav, $descricao, $id);
-
-header("Location:index.html");
+header("Location: home.php");
+exit;
+?>

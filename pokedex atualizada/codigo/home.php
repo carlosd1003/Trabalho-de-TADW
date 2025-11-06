@@ -3,6 +3,18 @@ session_start();
 require_once 'conexao.php';
 require_once 'function.php';
 
+// Buscar todos os usuários
+$sql = "SELECT * FROM usuario";
+$resultado = mysqli_query($conexao, $sql);
+
+$usuarios = [];
+if ($resultado) {
+    while ($row = mysqli_fetch_assoc($resultado)) {
+        $usuarios[] = $row;
+    }
+}
+
+
 // Corrigido aqui para usar o nome da chave certa da sessão
 $usuario_idusuario = $_SESSION['usuario_idusuario'] ?? null;
 $usuario_tipo = $_SESSION['Tipo'] ?? 'C'; // 'C' é o tipo padrão
@@ -69,10 +81,13 @@ $lista_stats = listarStats($conexao);
           <a class="nav-link btn btn-outline-danger mx-1 my-1" href="listarSuporte.php">Ver Informações do Suporte</a>
           <a class="nav-link btn btn-outline-primary mx-1 my-1" href="pvp.html"> PvP </a>
         </div>
-        <a class="perfil ms-auto" href="formUsuario-home.php">
-            <img src="./img/perfil.png" width="35" height="35" alt="Perfil" class="rounded-circle">
-            <a href="deslogar.php"><img id="porta" src="./img/sair.png" alt="Voltar" width="20px" height="20px"></a> 
-        </a>
+<?php foreach ($usuarios as $usuario): ?>
+    <div>
+        <span><?php echo htmlspecialchars($usuario['nome']); ?></span>
+        <a href="formUsuario-home.php?id=<?php echo $usuario['idusuario']; ?>" class="btn btn-warning">Editar</a>
+    </div>
+<?php endforeach; ?>
+
       </div>
     </div>
   </nav>

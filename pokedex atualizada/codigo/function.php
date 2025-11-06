@@ -820,36 +820,6 @@ function pesquisarSugestao_reclamacao($conexao, $idusuario) {
 
 }
 
-function pesquisarSugestao_reclamacao_nome($conexao, $reclamacao) {
-        $sql = "SELECT 
-                suporte.idsuporte, 
-                suporte.reclamacao, 
-                suporte.sugestao, 
-                usuario.email AS email_usuario
-            FROM suporte
-            JOIN usuario ON suporte.idusuario = usuario.idusuario
-            WHERE suporte.reclamcao LIKE ?";
-    $comando = mysqli_prepare($conexao, $sql);
-
-    $reclamacao = "%" . $reclamacao . "%";
-
-    mysqli_stmt_bind_param($comando, 's', $reclamacao);
-
-    mysqli_stmt_execute($comando);
-    $resultado = mysqli_stmt_get_result($comando);
-
-    $lista_suporte = [];
-    while ($suporte = mysqli_fetch_assoc($resultado)) {
-        $lista_suporte[] = $suporte;
-    }
-
-    $suporte = mysqli_fetch_assoc($resultado);
-
-    mysqli_stmt_close($comando);
-    return $suporte;
-
-}
-
 #=================================================================================================================
 
 /**

@@ -1,42 +1,37 @@
 <?php
 session_start();
 require_once 'verificarLogado.php';
-?>
-<?php
-if (isset($_GET['id'])) {
-    // Editando usuário existente
-    require_once "conexao.php";
-    require_once "function.php";
+require_once 'conexao.php';
+require_once 'function.php';
 
-    $id = $_GET['id'];
-    $usuario = pesquisarUsuarioId($conexao, $id);
+$id = $_SESSION['idusuario']; // pega o usuário da sessão
+
+// Busca os dados do usuário logado
+$usuario = pesquisarUsuarioId($conexao, $id);
+
+if ($usuario) {
     $nome = $usuario['nome'];
     $email = $usuario['email'];
-    $senha = $usuario['senha']; // Lembre-se de que a senha será hash
+    $senha = $usuario['senha']; // hash
     $pokemon_fav = $usuario['pokemon_fav'];
     $descricao = $usuario['descricao'];
-
     $botao = "Atualizar";
 } else {
-    // Novo usuário
-    $id = 0;
-    $nome = "";
-    $email = "";
-    $senha = "";
-    $pokemon_fav = "";
-    $descricao = "";
-
+    // Caso improvável, se usuário não existir
+    $nome = $email = $senha = $pokemon_fav = $descricao = "";
     $botao = "Cadastrar";
 }
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro De Usuário</title>
+    <title><?php echo $botao; ?> de Usuário</title>
+    <link href="style.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script src="jquery-3.7.1.min.js"></script>
     <script src="jquery.validate.min.js"></script>
@@ -44,32 +39,14 @@ if (isset($_GET['id'])) {
         $(document).ready(function () {
             $('#cadastro-formulario').validate({
                 rules: {
-                    nome: {
-                        required: true,
-                        maxlength: 45
-                    },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    senha: {
-                        required: true,
-                        minlength: 6
-                    }
+                    nome: { required: true, maxlength: 45 },
+                    email: { required: true, email: true },
+                    senha: { minlength: 6 }
                 },
                 messages: {
-                    nome: {
-                        required: "Esse campo não pode ser vazio",
-                        maxlength: "O nome deve ter no máximo 45 caracteres"
-                    },
-                    email: {
-                        required: "Esse campo não pode ser vazio",
-                        email: "Por favor, informe um e-mail válido"
-                    },
-                    senha: {
-                        required: "Esse campo não pode ser vazio",
-                        minlength: "A senha deve ter pelo menos 6 caracteres"
-                    }
+                    nome: { required: "Esse campo não pode ser vazio", maxlength: "O nome deve ter no máximo 45 caracteres" },
+                    email: { required: "Esse campo não pode ser vazio", email: "Por favor, informe um e-mail válido" },
+                    senha: { minlength: "A senha deve ter pelo menos 6 caracteres" }
                 }
             });
         });
@@ -79,6 +56,7 @@ if (isset($_GET['id'])) {
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="card p-4 shadow" style="width: 420px;">
         <h1 class="text-center text-danger mb-4"><?php echo $botao; ?> de Usuário</h1>
+
         <form action="salvarUsuario.php?id=<?php echo $id; ?>" method="post" id="cadastro-formulario" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome:</label>
@@ -92,7 +70,7 @@ if (isset($_GET['id'])) {
 
             <div class="mb-3">
                 <label for="senha" class="form-label">Senha:</label>
-                <input type="password" id="senha" name="senha" class="form-control" placeholder="Informe Sua Senha" required minlength="6" />
+                <input type="password" id="senha" name="senha" class="form-control" placeholder="Informe uma nova senha (opcional)" minlength="6" />
             </div>
 
             <div class="mb-3">
@@ -108,11 +86,11 @@ if (isset($_GET['id'])) {
             <button type="submit" class="btn btn-primary w-100"><?php echo $botao; ?></button>
         </form>
 
-        <a href="home.php" class="btn btn-outline-secondary mt-3 w-100">Voltar</a>
-        <a href="formUsuario.php?id=$idusuario' class='btn btn-warning" class="btn btn-outline-secondary mt-3 w-100">Editar</a>
+<a href="home.php"class="btn btn-warning mt-3 w-100">voltar</a>
 
     </div>
-</body>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
 </html>
