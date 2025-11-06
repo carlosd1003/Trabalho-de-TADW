@@ -72,7 +72,7 @@ $lista_stats = listarStats($conexao);
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarLinks">
-        <div class="navbar-nav me-auto mb-2 mb-lg-0">
+        
           <a class="nav-link btn btn-outline-primary mx-1 my-1" href="formPokemon.php">Criar Pokémon</a>
           <a class="nav-link btn btn-outline-secondary mx-1 my-1" href="formtreinador.php">Criar Treinador</a>
           <a class="nav-link btn btn-outline-success mx-1 my-1" href="listarTreinador.php">Ver Treinadores</a>
@@ -82,15 +82,12 @@ $lista_stats = listarStats($conexao);
           <a class="nav-link btn btn-outline-dark mx-1 my-1" href="criarSuporte.php">Acesso Ao Suporte</a>
           <a class="nav-link btn btn-outline-danger mx-1 my-1" href="listarSuporte.php">Ver Informações do Suporte</a>
           <a class="nav-link btn btn-outline-primary mx-1 my-1" href="pvp.html"> PvP </a>
-        </div>
-<?php foreach ($usuarios as $usuario): ?>
-    <div>
-        <span><?php echo htmlspecialchars($usuario['nome']); ?></span>
-        <a href="formUsuario-home.php?id=<?php echo $usuario['idusuario']; ?>" class="btn btn-warning">Editar</a>
-    </div>
-<?php endforeach; ?>
 
       </div>
+           <a class="perfil ms-auto" href="formUsuario-home.php">
+            <img src="./img/perfil.png" width="35" height="35" alt="Perfil" class="rounded-circle">
+            <a href="deslogar.php"><img id="porta" src="./img/sair.png" alt="Voltar" width="20px" height="20px"></a> 
+        </a>
     </div>
   </nav>
 </header>

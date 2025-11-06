@@ -9,15 +9,16 @@ $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $nome = $_POST['nome'];
 $email = $_POST['email'];
 $senha = $_POST['senha'];
+$Tipo = 'C';
 $pokemon_fav = $_POST['pokemon_fav'];
 $descricao = $_POST['descricao'];
 
-if ($id > 0) {
-    // Edita usuário existente
-    editarUsuario($conexao, $id, $nome, $email, $senha, $pokemon_fav, $descricao);
-} else {
+if ($id == 0) {
     // Cria novo usuário
-    criarUsuario($conexao, $nome, $email, $senha, 'C', $pokemon_fav, $descricao);
+    criarUsuario($conexao, $id, $nome, $email, $senha, $Tipo, $pokemon_fav, $descricao);
+} else {
+    // Edita usuário existente
+    editarUsuario($conexao, $nome, $email, $senha, $pokemon_fav, $descricao);
 }
 
 header("Location: home.php");
