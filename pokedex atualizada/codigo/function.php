@@ -35,30 +35,22 @@ function criarUsuario($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav = NUL
     return $funcionou;
 }
 
-function editarUsuario($conexao, $nome, $email, $senha, $tipo, $id, $pokemon_fav = NULL, $descricao = NULL) {
-    $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-
-    $sql = "UPDATE usuario 
-            SET nome=?, email=?, senha=?, tipo=?, pokemon_fav=?, descricao=? 
-            WHERE idusuario=?";
-
-    $comando = mysqli_prepare($conexao, $sql);
-
-    mysqli_stmt_bind_param($comando, 'ssssssi', 
-        $nome, 
-        $email, 
-        $senha_hash, 
-        $tipo, 
-        $pokemon_fav, 
-        $descricao, 
-        $id
-    );
-
-    $funcionou = mysqli_stmt_execute($comando);
-    mysqli_stmt_close($comando);
-
-    return $funcionou;
+function editarUsuario($conexao, $id, $nome, $email, $senha, $pokemon_fav, $descricao) {
+    if ($senha) {
+        // atualiza senha se fornecida
+        $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
+        $sql = "UPDATE usuario SET nome=?, email=?, senha=?, pokemon_fav=?, descricao=? WHERE idusuario=?";
+        $stmt = mysqli_prepare($conexao, $sql);
+        mysqli_stmt_bind_param($stmt, "sssssi", $nome, $email, $senha_hash, $pokemon_fav, $descricao, $id);
+    } else {
+        // sem alterar a senha
+        $sql = "UPDATE usuario SET nome=?, email=?, pokemon_fav=?, descricao=? WHERE idusuario=?";
+        $stmt = mysqli_prepare($conexao, $sql);
+        mysqli_stmt_bind_param($stmt, "ssssi", $nome, $email, $pokemon_fav, $descricao, $id);
+    }
+    mysqli_stmt_execute($stmt);
 }
+
 
 
 function pesquisarUsuarioId($conexao, $idusuario) {

@@ -1,0 +1,49 @@
+<?php
+    session_start();
+
+?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login - Pokédex</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="jquery-3.7.1.min.js"></script>
+    <script src="jquery.validate.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#login-form').validate({
+                rules: {
+                    email: { required: true, email: true },
+                    senha: { required: true }
+                },
+                messages: {
+                    email: {
+                        required: "Esse campo não pode ser vazio",
+                        email: "Por favor, informe um e-mail válido"
+                    },
+                    senha: { required: "Esse campo não pode ser vazio" }
+                }
+            });
+        });
+    </script>
+</head>
+<body class="cadastro-page-body">
+    <div id="login-container" class="form-container animated-container">
+        <h1 id="login-title">Bem-vindo ao Site</h1>
+        <form id="login-form" action="verificarLogin.php" method="post">
+            <label for="email" class="login-label">E-mail:</label>
+            <input type="email" id="email" name="email" class="login-input-field" required placeholder="Informe seu e-mail" />
+
+            <label for="senha" class="login-label">Senha:</label>
+            <input type="password" id="senha" name="senha" class="login-input-field" required placeholder="Informe sua senha" />
+
+            <a href="formUsuario.php" id="first-access-link">Primeiro acesso</a>
+
+            <input type="submit" id="login-submit-btn" value="Acessar" />
+        </form>
+    </div>
+</body>
+</html>

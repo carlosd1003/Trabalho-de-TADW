@@ -4,23 +4,32 @@ require_once 'verificarLogado.php';
 require_once 'conexao.php';
 require_once 'function.php';
 
-$id = $_SESSION['idusuario']; // pega o usuário da sessão
+// Corrigido: pegar o ID correto da sessão
+if (!isset($_SESSION['usuario_idusuario'])) {
+    header("Location: index.php");
+    exit();
+}
 
-// Busca os dados do usuário logado
+$id = $_SESSION['usuario_idusuario']; // <- aqui estava 'idusuario' antes
+$usuario = pesquisarUsuarioId($conexao, $id);
+
+// Agora $usuario deve conter os dados corretos
+
 $usuario = pesquisarUsuarioId($conexao, $id);
 
 if ($usuario) {
     $nome = $usuario['nome'];
     $email = $usuario['email'];
-    $senha = $usuario['senha']; // hash
+    $senha = $usuario['senha']; // hash, opcional
     $pokemon_fav = $usuario['pokemon_fav'];
     $descricao = $usuario['descricao'];
     $botao = "Atualizar";
 } else {
-    // Caso improvável, se usuário não existir
     $nome = $email = $senha = $pokemon_fav = $descricao = "";
     $botao = "Cadastrar";
 }
+
+
 ?>
 
 
@@ -57,7 +66,8 @@ if ($usuario) {
     <div class="card p-4 shadow" style="width: 420px;">
         <h1 class="text-center text-danger mb-4"><?php echo $botao; ?> de Usuário</h1>
 
-        <form action="salvarUsuario.php?id=<?php echo $id; ?>" method="post" id="cadastro-formulario" enctype="multipart/form-data">
+        <form action="salvarUsuario.php?id=<?php echo $id; ?>" method="post" id="cadastro-formulario">
+
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome:</label>
                 <input type="text" id="nome" name="nome" class="form-control" placeholder="Informe Seu Nome" value="<?php echo htmlspecialchars($nome); ?>" required maxlength="45" />
