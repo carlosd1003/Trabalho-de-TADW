@@ -123,10 +123,42 @@ if (isset($_GET['id'])) {
                         notDefault: "Por favor, selecione um Pokémon"
                     }
 
-                    
+
+                },
+                // Estilinho do Bootstrap
+                highlight: function(el) {
+                    // Quando o campo for inválido, adiciona a classe 'is-invalid'
+                    // e remove a classe 'is-valid' (para mudar o estilo visual conforme o Bootstrap)
+                    el.classList.add('is-invalid');
+                    el.classList.remove('is-valid');
+                },
+                unhighlight: function(el) {
+                    // Quando o campo for válido, remove 'is-invalid'
+                    // e adiciona 'is-valid' para mostrar o campo com aparência correta
+                    el.classList.remove('is-invalid');
+                    el.classList.add('is-valid');
+                },
+                errorElement: 'div',
+                // Define que as mensagens de erro serão colocadas dentro de uma <div>
+
+                errorClass: 'invalid-feedback',
+                // Define a classe CSS usada nas mensagens de erro (Bootstrap usa essa para estilizar)
+
+                errorPlacement: function(error, element) {
+                    // Define onde a mensagem de erro será exibida no HTML
+
+                    if (element.parent('.input-group').length) {
+                        // Se o campo estiver dentro de um grupo de inputs (como ícones ou botões),
+                        // insere o erro logo depois do grupo inteiro
+                        error.insertAfter(element.parent());
+                    } else {
+                        // Caso contrário, insere o erro logo depois do campo de formulário
+                        error.insertAfter(element);
+                    }
                 }
-            })
-        })
+            });
+
+        });
     </script>
 </head>
 

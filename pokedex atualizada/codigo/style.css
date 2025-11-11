@@ -939,3 +939,8 @@ td {
 p{
     color: white;
 }
+
+
+.invalid-feedback {
+    color: #ff0000 ; /* vermelho padrão */
+}

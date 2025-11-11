@@ -7,7 +7,7 @@
  * @param string $Tipo Tipo de usuário (ex: 'admin', 'usuario')
  * @return bool True se criado com sucesso, False caso contrário
  */
-function criarUsuario($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav = NULL, $descricao = NULL) {
+function criarUsuario($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav, $descricao) {
     // Hash da senha
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 

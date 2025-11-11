@@ -175,31 +175,6 @@ CREATE TABLE IF NOT EXISTS `banco_pokemon`.`treinador` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `banco_pokemon`.`category`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `banco_pokemon`.`category` (
-  `category_id` INT NOT NULL,
-  `name` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`category_id`));
-
-
--- -----------------------------------------------------
--- Table `banco_pokemon`.`timestamps`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `banco_pokemon`.`timestamps` (
-  `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` TIMESTAMP NULL);
-
-
--- -----------------------------------------------------
--- Table `banco_pokemon`.`timestamps_1`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `banco_pokemon`.`timestamps_1` (
-  `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` TIMESTAMP NULL);
-
-
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

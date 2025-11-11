@@ -45,21 +45,89 @@ if ($usuario) {
     <script src="jquery-3.7.1.min.js"></script>
     <script src="jquery.validate.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#cadastro-formulario').validate({
-                rules: {
-                    nome: { required: true, maxlength: 45 },
-                    email: { required: true, email: true },
-                    senha: { minlength: 6 }
+    // Quando o documento estiver pronto
+    $(document).ready(function () {
+
+        // Inicializa a validação do formulário
+        $('#cadastro-formulario').validate({
+            // Regras de validação para cada campo
+            rules: {
+                nome: {
+                    required: true,
+                    maxlength: 45
                 },
-                messages: {
-                    nome: { required: "Esse campo não pode ser vazio", maxlength: "O nome deve ter no máximo 45 caracteres" },
-                    email: { required: "Esse campo não pode ser vazio", email: "Por favor, informe um e-mail válido" },
-                    senha: { minlength: "A senha deve ter pelo menos 6 caracteres" }
+                email: {
+                    required: true,
+                    email: true,
+                    maxlength: 45
+                },
+                senha: {
+                    required: true,
+                    minlength: 6
+                },
+                pokemon_fav: {
+                    maxlength: 45
+                },
+                descricao: {
+                    maxlength: 45
                 }
-            });
+            },
+
+            // Mensagens personalizadas para cada campo
+            messages: {
+                nome: {
+                    required: "Esse campo não pode ser vazio",
+                    maxlength: "O nome deve ter no máximo 45 caracteres"
+                },
+                email: {
+                    required: "Esse campo não pode ser vazio",
+                    email: "Por favor, informe um e-mail válido",
+                    maxlength: "O e-mail deve ter no máximo 45 caracteres"
+                },
+                senha: {
+                    required: "Esse campo não pode ser vazio",
+                    minlength: "A senha deve ter pelo menos 6 caracteres"
+                },
+                pokemon_fav: {
+                    maxlength: "O nome do Pokémon deve ter no máximo 45 caracteres"
+                },
+                descricao: {
+                    maxlength: "A descrição deve ter no máximo 45 caracteres"
+                }
+            },
+
+            // Configuração visual (Bootstrap style)
+            highlight: function (el) {
+                el.classList.add('is-invalid');
+                el.classList.remove('is-valid');
+            },
+            unhighlight: function (el) {
+                el.classList.remove('is-invalid');
+                el.classList.add('is-valid');
+            },
+
+            // Define o elemento e a classe das mensagens de erro
+            errorElement: 'div',
+            errorClass: 'invalid-feedback',
+
+            // Define onde as mensagens aparecerão
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+
+            // Impede o envio se o formulário for inválido
+            submitHandler: function (form) {
+                alert("Cadastro realizado com sucesso!");
+                form.submit(); // Submete o formulário após validação
+            }
         });
-    </script>
+    });
+</script>
+
 </head>
 <body>
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
