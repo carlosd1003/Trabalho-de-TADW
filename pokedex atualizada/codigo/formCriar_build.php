@@ -12,7 +12,7 @@ if (isset($_GET['id'])) {
 
     $id = $_GET['id'];
 
-    $build = pesquisarBuild($conexao, $id);
+    $build = pesquisarBuildId($conexao, $id);
     $nome = $build['nome'];
     $idpokemon = $build['idpokemon'];
 
@@ -111,7 +111,7 @@ if (isset($_GET['id'])) {
             <form id="formulario" action="salvarBuild.php?id=<?php echo $id; ?>" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="nome" class="form-label">Nome:</label>
-                    <input type="text" name="nome" id="nome" class="form-control" value="<?php echo htmlspecialchars($nome); ?>" required minlength="3" />
+                    <input type="text" name="nome" id="nome" class="form-control" value="<?php echo ($nome); ?>" required minlength="3" />
                 </div>
                 <div class="mb-3">
                     <label for="idpokemon" class="form-label">Selecione Um Pokemon:</label>

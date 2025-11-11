@@ -86,7 +86,6 @@ if ($idpokemon) {
     // Atualiza types: delete e insert
     deletarTypes($conexao, $idpokemon);
     salvarTypes($conexao, $idpokemon, $types);
-
 } else {
     // CRIAR Pokémon
     // O usuário logado será o dono do Pokémon

@@ -11,7 +11,7 @@ if (isset($_GET['id'])) {
 
     $id = $_GET['id'];
 
-    $treinador = pesquisarTreinador($conexao, $id);
+    $treinador = pesquisarTreinadorId($conexao, $id);
     $nome = $treinador['nome'];
     $idade = $treinador['idade'];
     $genero = $treinador['genero'];
@@ -174,12 +174,12 @@ if (isset($_GET['id'])) {
             <form action="salvar_treinador.php?id=<?php echo $id; ?>" method="post" id="formulario" enctype="multipart/form-data" id="formulario-treinador">
                 <div class="mb-3">
                     <label for="nome" class="form-label">Nome:</label>
-                    <input type="text" id="nome" name="nome" class="form-control" placeholder="Informe Seu Nome" value="<?php echo htmlspecialchars($nome); ?>" />
+                    <input type="text" id="nome" name="nome" class="form-control" placeholder="Informe Seu Nome" value="<?php echo ($nome); ?>" />
                 </div>
 
                 <div class="mb-3">
                     <label for="idade" class="form-label">Idade:</label>
-                    <input type="number" id="idade" name="idade" class="form-control" placeholder="Informe Sua Idade" value="<?php echo htmlspecialchars($idade); ?>" min="1" />
+                    <input type="number" id="idade" name="idade" class="form-control" placeholder="Informe Sua Idade" value="<?php echo ($idade); ?>" min="1" />
                 </div>
 
                 <div class="mb-3">
@@ -195,22 +195,22 @@ if (isset($_GET['id'])) {
 
                 <div class="mb-3">
                     <label for="cidade" class="form-label">Cidade:</label>
-                    <input type="text" id="cidade" name="cidade" class="form-control" placeholder="Informe Sua Cidade" value="<?php echo htmlspecialchars($cidade); ?>" />
+                    <input type="text" id="cidade" name="cidade" class="form-control" placeholder="Informe Sua Cidade" value="<?php echo ($cidade); ?>" />
                 </div>
 
                 <div class="mb-3">
                     <label for="regiao" class="form-label">Região:</label>
-                    <input type="text" id="regiao" name="regiao" class="form-control" placeholder="Informe Uma Região Escolhida" value="<?php echo htmlspecialchars($regiao); ?>" />
+                    <input type="text" id="regiao" name="regiao" class="form-control" placeholder="Informe Uma Região Escolhida" value="<?php echo ($regiao); ?>" />
                 </div>
 
                 <div class="mb-3">
                     <label for="time_atual" class="form-label">Time Atual:</label>
-                    <input type="text" id="time_atual" name="time_atual" class="form-control" placeholder="Informe Seu Time Desejado" value="<?php echo htmlspecialchars($time_atual); ?>" />
+                    <input type="text" id="time_atual" name="time_atual" class="form-control" placeholder="Informe Seu Time Desejado" value="<?php echo ($time_atual); ?>" />
                 </div>
 
                 <div class="mb-3">
                     <label for="data" class="form-label">Data Cadastro:</label>
-                    <input type="date" id="data" name="data" class="form-control" value="<?php echo htmlspecialchars($data_cadastro); ?>" />
+                    <input type="date" id="data" name="data" class="form-control" value="<?php echo ($data_cadastro); ?>" />
                 </div>
 
                 <div class="mb-3">

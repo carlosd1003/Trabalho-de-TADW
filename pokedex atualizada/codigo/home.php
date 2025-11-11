@@ -58,86 +58,86 @@ $lista_stats = listarStats($conexao);
     p {
         color: white;
     }
+
     body {
-        padding-top: 70px; 
-}
+        padding-top: 70px;
+    }
 </style>
+
 <body>
-</form>
-<header >
-<nav  class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#" id="logo">Pokédex</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarLinks">
-        <div class="navbar-nav me-auto mb-2 mb-lg-0">
-          <a class="nav-link btn btn-outline-primary mx-1 my-1" href="formPokemon.php">Criar Pokémon</a>
-          <a class="nav-link btn btn-outline-secondary mx-1 my-1" href="formtreinador.php">Criar Treinador</a>
-          <a class="nav-link btn btn-outline-success mx-1 my-1" href="listarTreinador.php">Ver Treinadores</a>
-          <a class="nav-link btn btn-outline-danger mx-1 my-1" href="calendario.html">Calendário</a>
-          <a class="nav-link btn btn-outline-warning mx-1 my-1" href="formCriar_build.php">Criar Build</a>
-          <a class="nav-link btn btn-outline-info mx-1 my-1" href="listarBuild.php">Ver Builds</a>
-          <a class="nav-link btn btn-outline-dark mx-1 my-1" href="criarSuporte.php">Acesso Ao Suporte</a>
-          <a class="nav-link btn btn-outline-danger mx-1 my-1" href="listarSuporte.php">Ver Informações do Suporte</a>
-          <a class="nav-link btn btn-outline-success mx-1 my-1" href="pesquisarTreinador.php">Procurar Treinadores</a>
-        </div>
-        <a class="perfil ms-auto" href="formUsuario-home.php">
-            <img src="./img/perfil.png" width="35" height="35" alt="Perfil" class="rounded-circle">
-            <a href="deslogar.php"><img id="porta" src="./img/sair.png" alt="Voltar" width="20px" height="20px"></a> 
-        </a>
-      </div>
-    </div>
-  </nav>
-</header>
+    </form>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#" id="logo">Pokédex</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarLinks">
+                    <div class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <a class="nav-link btn btn-outline-primary mx-1 my-1" href="formPokemon.php">Criar Pokémon</a>
+                        <a class="nav-link btn btn-outline-secondary mx-1 my-1" href="formtreinador.php">Criar Treinador</a>
+                        <a class="nav-link btn btn-outline-success mx-1 my-1" href="listarTreinador.php">Ver Treinadores</a>
+                        <a class="nav-link btn btn-outline-danger mx-1 my-1" href="calendario.html">Calendário</a>
+                        <a class="nav-link btn btn-outline-warning mx-1 my-1" href="formCriar_build.php">Criar Build</a>
+                        <a class="nav-link btn btn-outline-info mx-1 my-1" href="listarBuild.php">Ver Builds</a>
+                        <a class="nav-link btn btn-outline-dark mx-1 my-1" href="criarSuporte.php">Acesso Ao Suporte</a>
+                        <a class="nav-link btn btn-outline-danger mx-1 my-1" href="listarSuporte.php">Ver Informações do Suporte</a>
+                    </div>
+                    <a class="perfil ms-auto" href="formUsuario-home.php">
+                        <img src="./img/perfil.png" width="35" height="35" alt="Perfil" class="rounded-circle">
+                        <a href="deslogar.php"><img id="porta" src="./img/sair.png" alt="Voltar" width="20px" height="20px"></a>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
 
     <br>
     <a href="quizPokemon.html">
         <img src="./img/bnr_quiz.png" width="100%" height="120px" alt="quiz">
     </a>
     <br><br><br>
-     <!-- Formulário para pesquisa por nome e tipo -->
-<form method="get" action="" class="row g-2 align-items-end">
-  <div class="col-md-5">
-    <label for="nome" class="form-label visually-hidden">Nome do Pokémon</label>
-    <input 
-      type="text" 
-      class="form-control" 
-      id="nome" 
-      name="nome" 
-      placeholder="Nome do Pokémon" 
-      value="<?= isset($_GET['nome']) ? htmlspecialchars($_GET['nome']) : '' ?>"
-    >
-  </div>
+    <!-- Formulário para pesquisa por nome e tipo -->
+    <form method="get" action="" class="row g-2 align-items-end">
+        <div class="col-md-5">
+            <label for="nome" class="form-label visually-hidden">Nome do Pokémon</label>
+            <input
+                type="text"
+                class="form-control"
+                id="nome"
+                name="nome"
+                placeholder="Nome do Pokémon"
+                value="<?= isset($_GET['nome']) ? htmlspecialchars($_GET['nome']) : '' ?>">
+        </div>
 
-  <div class="col-md-5">
-    <label for="tipo" class="form-label visually-hidden">Tipo</label>
-    <select class="form-select" id="tipo" name="tipo">
-      <option value="">Tipo</option>
-      <?php
-      require_once "conexao.php";
-      require_once "function.php";
+        <div class="col-md-5">
+            <label for="tipo" class="form-label visually-hidden">Tipo</label>
+            <select class="form-select" id="tipo" name="tipo">
+                <option value="">Tipo</option>
+                <?php
+                require_once "conexao.php";
+                require_once "function.php";
 
-      $tipos = listarTypes($conexao);
-      foreach ($tipos as $t) {
-          $sel = (isset($_GET['tipo']) && $_GET['tipo'] === $t['nome']) ? "selected" : "";
-          echo "<option value=\"" . htmlspecialchars($t['nome']) . "\" $sel>" . htmlspecialchars($t['nome']) . "</option>";
-      }
-      ?>
-    </select>
-  </div>
+                $tipos = listarTypes($conexao);
+                foreach ($tipos as $t) {
+                    $sel = (isset($_GET['tipo']) && $_GET['tipo'] === $t['nome']) ? "selected" : "";
+                    echo "<option value=\"" . htmlspecialchars($t['nome']) . "\" $sel>" . htmlspecialchars($t['nome']) . "</option>";
+                }
+                ?>
+            </select>
+        </div>
 
-  <div class="col-md-2">
-    <button type="submit" class="btn btn-primary w-100">Pesquisar</button>
-  </div>
-</form>
-<br><br>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Pesquisar</button>
+        </div>
+    </form>
+    <br><br>
 
 
-    
-  <div class="card-container">
-        <?php    
+
+    <div class="card-container">
+        <?php
         foreach ($lista_pokemon as $pokemon) {
             $types = buscarTypesDoPokemon($conexao, $pokemon['idpokemon']); // Pega os tipos
 
@@ -198,7 +198,7 @@ $lista_stats = listarStats($conexao);
         }
         ?>
     </div>
-    
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 

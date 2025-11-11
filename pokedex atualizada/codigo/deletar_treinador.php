@@ -24,10 +24,7 @@ $id = $_GET['id'];
 if (deletarTreinador($conexao, $id)) {
     // Se a exclusão for concluída com sucesso, o usuário é redirecionado para a lista de treinadores.
     header("Location: listarTreinador.php");
-} 
-else {
+} else {
     // Caso ocorra algum erro na exclusão, o usuário é redirecionado para uma página de erro.
     header("Location: erro.php");
 }
-
-?>

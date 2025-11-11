@@ -39,4 +39,3 @@ if (password_verify($senha, $senha_banco)) {
     header("Location: index.html");
     exit;
 }
-?>

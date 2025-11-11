@@ -22,10 +22,7 @@ $id = $_GET['id'];
 if (deletarSugestao_reclamacao($conexao, $id)) {
     // Se a exclusão for bem-sucedida, redireciona o usuário para a página de listagem.
     header("Location: listarSuporte.php");
-} 
-else {
+} else {
     // Se ocorrer algum erro na exclusão, redireciona o usuário para uma página de erro.
     header("Location: erro.php");
 }
-
-?>

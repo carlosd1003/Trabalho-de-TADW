@@ -9,6 +9,7 @@ if (!isset($_GET['idpokemon'])) {
     exit;
 }
 
+
 $idpokemon = (int)$_GET['idpokemon'];
 $usuario_id = $_SESSION['usuario_idusuario'] ?? null;
 
@@ -40,4 +41,3 @@ deletarPokemon($conexao, $idpokemon);
 // Redireciona para a home
 header("Location: home.php");
 exit;
-?>

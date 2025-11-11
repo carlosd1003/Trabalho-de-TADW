@@ -23,10 +23,7 @@ $id = $_GET['id'];
 if (deletarBuild($conexao, $id)) {
     // Se a exclusão ocorrer com sucesso, o usuário é redirecionado para a página de listagem de builds.
     header("Location: listarBuild.php");
-} 
-else {
+} else {
     // Caso ocorra um erro na exclusão, o usuário é redirecionado para uma página de erro.
     header("Location: erro.php");
 }
-
-?>

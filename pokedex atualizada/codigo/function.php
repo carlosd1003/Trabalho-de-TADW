@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Cria um novo usuário no sistema
  * @param mysqli $conexao Conexão com o banco de dados
@@ -7,7 +8,8 @@
  * @param string $Tipo Tipo de usuário (ex: 'admin', 'usuario')
  * @return bool True se criado com sucesso, False caso contrário
  */
-function criarUsuario($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav, $descricao) {
+function criarUsuario($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav, $descricao)
+{
     // Hash da senha
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
@@ -35,7 +37,8 @@ function criarUsuario($conexao, $nome, $email, $senha, $Tipo, $pokemon_fav, $des
     return $funcionou;
 }
 
-function editarUsuario($conexao, $id, $nome, $email, $senha, $pokemon_fav, $descricao) {
+function editarUsuario($conexao, $id, $nome, $email, $senha, $pokemon_fav, $descricao)
+{
     if ($senha) {
         // atualiza senha se fornecida
         $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
@@ -53,7 +56,8 @@ function editarUsuario($conexao, $id, $nome, $email, $senha, $pokemon_fav, $desc
 
 
 
-function pesquisarUsuarioId($conexao, $idusuario) {
+function pesquisarUsuarioId($conexao, $idusuario)
+{
     $sql = "SELECT * FROM usuario WHERE idusuario = ?";
     $comando = mysqli_prepare($conexao, $sql);
 
@@ -66,7 +70,6 @@ function pesquisarUsuarioId($conexao, $idusuario) {
 
     mysqli_stmt_close($comando);
     return $usuario;
-
 }
 
 #=================================================================================================================
@@ -83,15 +86,16 @@ function pesquisarUsuarioId($conexao, $idusuario) {
  * @param int $speed Velocidade
  * @return bool True se criado com sucesso, False caso contrário
  */
-function criarStats($conexao, $idpokemon, $hp, $attack, $defense, $sp_attack, $sp_defense, $speed) {
+function criarStats($conexao, $idpokemon, $hp, $attack, $defense, $sp_attack, $sp_defense, $speed)
+{
     $sql = "INSERT INTO stats (idpokemon, hp, attack, defense, sp_attack, sp_defense, speed) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $comando = mysqli_prepare($conexao, $sql);
-    
+
     mysqli_stmt_bind_param($comando, 'iiiiiii', $idpokemon, $hp, $attack, $defense, $sp_attack, $sp_defense, $speed);
-    
+
     $funcionou = mysqli_stmt_execute($comando);
     mysqli_stmt_close($comando);
-    
+
     return $funcionou;
 }
 
@@ -107,7 +111,8 @@ function criarStats($conexao, $idpokemon, $hp, $attack, $defense, $sp_attack, $s
  * @param int $id ID das estatísticas a editar
  * @return bool True se editado com sucesso, False caso contrário
  */
-function editarStats($conexao, $idpokemon, $hp, $attack, $defense, $spattack, $spdefense, $speed) {
+function editarStats($conexao, $idpokemon, $hp, $attack, $defense, $spattack, $spdefense, $speed)
+{
     $sql = "UPDATE stats SET 
                 hp = ?, 
                 attack = ?, 
@@ -116,15 +121,15 @@ function editarStats($conexao, $idpokemon, $hp, $attack, $defense, $spattack, $s
                 sp_defense = ?, 
                 speed = ? 
             WHERE idpokemon = ?";
-    
+
     $stmt = mysqli_prepare($conexao, $sql);
     mysqli_stmt_bind_param($stmt, 'iiiiiii', $hp, $attack, $defense, $spattack, $spdefense, $speed, $idpokemon);
     $ok = mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    
+
     return $ok;
 }
-    
+
 
 /**
  * Lista todas as estatísticas com nome do Pokémon
@@ -132,10 +137,11 @@ function editarStats($conexao, $idpokemon, $hp, $attack, $defense, $spattack, $s
  * @return array Lista de estatísticas com informações do Pokémon
  */
 
-function listarStats ($conexao) {
+function listarStats($conexao)
+{
     $sql = "SELECT * FROM stats";
     $comando = mysqli_prepare($conexao, $sql);
-    
+
     mysqli_stmt_execute($comando);
     $resultados = mysqli_stmt_get_result($comando);
 
@@ -160,15 +166,16 @@ function listarStats ($conexao) {
  * @param int $idstats ID das estatísticas a deletar
  * @return bool True se deletado com sucesso, False caso contrário
  */
-function deletarStats($conexao, $idpokemon) {
+function deletarStats($conexao, $idpokemon)
+{
     $sql = "DELETE FROM stats WHERE idpokemon = ?";
     $comando = mysqli_prepare($conexao, $sql);
-    
+
     mysqli_stmt_bind_param($comando, 'i', $idpokemon);
 
     $funcionou = mysqli_stmt_execute($comando);
     mysqli_stmt_close($comando);
-    
+
     return $funcionou;
 }
 
@@ -185,19 +192,21 @@ function deletarStats($conexao, $idpokemon) {
  * @param int $usuario_idusuario ID do usuário dono do Pokémon
  * @return bool Retorna true se a inserção for bem-sucedida, false caso contrário
  */
-function criarPokemon($conexao, $national, $nome, $gen, $imagem, $usuario_idusuario) {
+function criarPokemon($conexao, $national, $nome, $gen, $imagem, $usuario_idusuario)
+{
     $sql = "INSERT INTO pokemon (national, nome, gen, imagem, usuario_idusuario) VALUES (?, ?, ?, ?, ?)";
     $comando = mysqli_prepare($conexao, $sql);
-    
+
     mysqli_stmt_bind_param($comando, 'isisi', $national, $nome, $gen, $imagem, $usuario_idusuario);
-    
+
     $funcionou = mysqli_stmt_execute($comando);
     mysqli_stmt_close($comando);
-    
+
     return $funcionou;
 }
 
-function pegarPokemonPorId($conexao, $idpokemon) {
+function pegarPokemonPorId($conexao, $idpokemon)
+{
     $sql = "SELECT * FROM pokemon WHERE idpokemon = ?";
     $stmt = mysqli_prepare($conexao, $sql);
     mysqli_stmt_bind_param($stmt, "i", $idpokemon);
@@ -208,7 +217,8 @@ function pegarPokemonPorId($conexao, $idpokemon) {
     return $pokemon; // Retorna um array associativo com os dados do Pokémon
 }
 
-function pegarStatsPorPokemon($conexao, $idpokemon) {
+function pegarStatsPorPokemon($conexao, $idpokemon)
+{
     $sql = "SELECT * FROM stats WHERE idpokemon = ?";
     $stmt = mysqli_prepare($conexao, $sql);
     mysqli_stmt_bind_param($stmt, "i", $idpokemon);
@@ -221,7 +231,8 @@ function pegarStatsPorPokemon($conexao, $idpokemon) {
 
 
 
-function pesquisarPokemonPorTipo($conexao, $tipo) {
+function pesquisarPokemonPorTipo($conexao, $tipo)
+{
     $sql = "SELECT p.*
             FROM pokemon p
             JOIN pokemon_has_types pht ON p.idpokemon = pht.idpokemon
@@ -247,7 +258,8 @@ function pesquisarPokemonPorTipo($conexao, $tipo) {
     return $pokemons;
 }
 
-function pesquisarPokemonPorNomeETipo($conexao, $nome, $tipo) {
+function pesquisarPokemonPorNomeETipo($conexao, $nome, $tipo)
+{
     $sql = "SELECT DISTINCT p.*
             FROM pokemon p
             JOIN pokemon_has_types pht ON p.idpokemon = pht.idpokemon
@@ -282,7 +294,8 @@ function pesquisarPokemonPorNomeETipo($conexao, $nome, $tipo) {
  * @param int $idpokemon ID do Pokémon
  * @return array|null Dados do Pokémon ou null se não encontrado
  */
-function pesquisarPokemonComDono($conexao, $idpokemon) {
+function pesquisarPokemonComDono($conexao, $idpokemon)
+{
     $sql = "SELECT * FROM pokemon WHERE idpokemon = ?";
     $comando = mysqli_prepare($conexao, $sql);
 
@@ -308,7 +321,8 @@ function pesquisarPokemonComDono($conexao, $idpokemon) {
  * @param mysqli $conexao Conexão com o banco de dados
  * @return array Lista de números nacionais
  */
-function nationalExiste($conexao, $national) {
+function nationalExiste($conexao, $national)
+{
     $sql = "SELECT idpokemon FROM pokemon WHERE national = ?";
     $stmt = mysqli_prepare($conexao, $sql);
     mysqli_stmt_bind_param($stmt, "i", $national);
@@ -322,7 +336,8 @@ function nationalExiste($conexao, $national) {
 }
 
 
-function listarNationals($conexao) {
+function listarNationals($conexao)
+{
     $sql = "SELECT national FROM pokemon";
     $result = mysqli_query($conexao, $sql);
     $nationals = [];
@@ -337,7 +352,8 @@ function listarNationals($conexao) {
  * @param mysqli $conexao Conexão com o banco de dados
  * @return int Maior número nacional ou 0 se não houver registros
  */
-function pegarMaiorNational($conexao) {
+function pegarMaiorNational($conexao)
+{
     $sql = "SELECT MAX(national) AS maior FROM pokemon";
     $result = mysqli_query($conexao, $sql);
     $row = mysqli_fetch_assoc($result);
@@ -353,7 +369,8 @@ function pegarMaiorNational($conexao) {
  * @param int $id ID do Pokémon a editar
  * @return bool True se editado com sucesso, False caso contrário
  */
-function editarPokemon($conexao, $national, $nome, $gen, $idpokemon, $imagem = null) {
+function editarPokemon($conexao, $national, $nome, $gen, $idpokemon, $imagem = null)
+{
     if ($imagem) {
         // Atualiza TUDO, incluindo a imagem
         $sql = "UPDATE pokemon SET national = ?, nome = ?, gen = ?, imagem = ? WHERE idpokemon = ?";
@@ -368,7 +385,7 @@ function editarPokemon($conexao, $national, $nome, $gen, $idpokemon, $imagem = n
 
     $funcionou = mysqli_stmt_execute($comando);
     mysqli_stmt_close($comando);
-    
+
     return $funcionou;
 }
 
@@ -377,13 +394,14 @@ function editarPokemon($conexao, $national, $nome, $gen, $idpokemon, $imagem = n
  * @param mysqli $conexao Conexão com o banco de dados
  * @return array Lista de Pokémon
  */
-function listarPokemon($conexao) {
+function listarPokemon($conexao)
+{
     $sql = "SELECT * FROM pokemon";
     $comando = mysqli_prepare($conexao, $sql);
-    
+
     mysqli_stmt_execute($comando);
     $resultados = mysqli_stmt_get_result($comando);
-    
+
     $lista_pokemon = [];
     while ($pokemon = mysqli_fetch_assoc($resultados)) {
         $lista_pokemon[] = $pokemon;
@@ -391,7 +409,6 @@ function listarPokemon($conexao) {
     mysqli_stmt_close($comando);
 
     return $lista_pokemon;
-
 }
 
 /**
@@ -400,7 +417,8 @@ function listarPokemon($conexao) {
  * @param int $idpokemon ID do Pokémon
  * @return array|null Dados do Pokémon ou null se não encontrado
  */
-function pesquisarPokemonId($conexao, $idpokemon) {
+function pesquisarPokemonId($conexao, $idpokemon)
+{
     $sql = "SELECT * FROM pokemon WHERE idpokemon = ?";
     $comando = mysqli_prepare($conexao, $sql);
 
@@ -413,7 +431,6 @@ function pesquisarPokemonId($conexao, $idpokemon) {
 
     mysqli_stmt_close($comando);
     return $pokemon;
-
 }
 
 function pesquisarPokemonNome($conexao, $nome)
@@ -446,17 +463,25 @@ function pesquisarPokemonNome($conexao, $nome)
  * @param int $idpokemon ID do Pokémon a deletar
  * @return bool True se deletado com sucesso, False caso contrário
  */
-function deletarPokemon($conexao, $idpokemon) {
-    $sql = "DELETE FROM pokemon WHERE idpokemon = ?";
-    $comando = mysqli_prepare($conexao, $sql);
-    
-    mysqli_stmt_bind_param($comando, 'i', $idpokemon);
+function deletarPokemon($mysqli, $idpokemon) {
+    if (empty($idpokemon)) {
+        throw new Exception("ID do Pokémon não pode ser nulo ou vazio.");
+    }
 
-    $funcionou = mysqli_stmt_execute($comando);
-    mysqli_stmt_close($comando);
-    
-    return $funcionou;
+    $stmt = $mysqli->prepare("DELETE FROM pokemon WHERE idpokemon = ?");
+    if (!$stmt) {
+        throw new Exception("Erro na preparação da query: " . $mysqli->error);
+    }
+
+    $stmt->bind_param("i", $idpokemon);
+
+    if (!$stmt->execute()) {
+        throw new Exception("Erro ao deletar Pokémon: " . $stmt->error);
+    }
+
+    $stmt->close();
 }
+
 
 #=================================================================================================================
 
@@ -468,7 +493,8 @@ function deletarPokemon($conexao, $idpokemon) {
  * @return bool True se criado com sucesso, False caso contrário
  */
 
-function criarBuild($conexao, $nome, $idpokemon) {
+function criarBuild($conexao, $nome, $idpokemon)
+{
     $sql = "INSERT INTO build (nome, idpokemon) VALUES (?, ?)";
     $comando = mysqli_prepare($conexao, $sql);
 
@@ -478,7 +504,6 @@ function criarBuild($conexao, $nome, $idpokemon) {
     mysqli_stmt_close($comando);
 
     return $funcionou;
-
 }
 
 /**
@@ -489,11 +514,12 @@ function criarBuild($conexao, $nome, $idpokemon) {
  * @param int $id ID da build a editar
  * @return bool True se editado com sucesso, False caso contrário
  */
-function editarBuild($conexao, $nome, $idpokemon, $id) {
+function editarBuild($conexao, $nome, $idpokemon, $id)
+{
     $sql = "UPDATE build SET nome=?, idpokemon=? WHERE idbuild=?";
     $comando = mysqli_prepare($conexao, $sql);
 
-    mysqli_stmt_bind_param($comando, 'sii', $nome, $idpokemon, $id); 
+    mysqli_stmt_bind_param($comando, 'sii', $nome, $idpokemon, $id);
     $funcionou = mysqli_stmt_execute($comando);
 
     mysqli_stmt_close($comando);
@@ -505,7 +531,8 @@ function editarBuild($conexao, $nome, $idpokemon, $id) {
  * @param mysqli $conexao Conexão com o banco de dados
  * @return array Lista de builds com informações do Pokémon
  */
-function listarBuild($conexao) {
+function listarBuild($conexao)
+{
     $sql = "SELECT * FROM build";
     $comando = mysqli_prepare($conexao, $sql);
 
@@ -531,7 +558,24 @@ function listarBuild($conexao) {
  * @param int $idbuild ID da build
  * @return array|null Dados da build ou null se não encontrada
  */
-function pesquisarBuild($conexao, $nome) {
+function pesquisarBuildId($conexao, $idbuild)
+{
+    $sql = "SELECT * FROM build WHERE idbuild = ?";
+    $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_bind_param($comando, 'i', $idbuild);
+
+    mysqli_stmt_execute($comando);
+    $resultado = mysqli_stmt_get_result($comando);
+
+    $build = mysqli_fetch_assoc($resultado);
+
+    mysqli_stmt_close($comando);
+    return $build;
+}
+
+function pesquisarBuild($conexao, $nome)
+{
     $sql = "SELECT build.idbuild,
                 build.nome,
                 pokemon.nome AS pokemon_nome
@@ -541,7 +585,7 @@ function pesquisarBuild($conexao, $nome) {
     $comando = mysqli_prepare($conexao, $sql);
 
     $nome = "%" . $nome . "%";
-    
+
     mysqli_stmt_bind_param($comando, 's', $nome);
     mysqli_stmt_execute($comando);
     $resultado = mysqli_stmt_get_result($comando);
@@ -550,6 +594,7 @@ function pesquisarBuild($conexao, $nome) {
     while ($build = mysqli_fetch_assoc($resultado)) {
         $lista_builds[] = $build;
     }
+
 
     mysqli_stmt_close($comando);
 
@@ -563,15 +608,16 @@ function pesquisarBuild($conexao, $nome) {
  * @param int $idbuild ID da build a deletar
  * @return bool True se deletado com sucesso, False caso contrário
  */
-function deletarBuild($conexao, $idbuild) {
+function deletarBuild($conexao, $idbuild)
+{
     $sql = "DELETE FROM build WHERE idbuild = ?";
     $comando = mysqli_prepare($conexao, $sql);
-    
+
     mysqli_stmt_bind_param($comando, 'i', $idbuild);
 
     $funcionou = mysqli_stmt_execute($comando);
     mysqli_stmt_close($comando);
-    
+
     return $funcionou;
 }
 
@@ -584,7 +630,8 @@ function deletarBuild($conexao, $idbuild) {
  * @param array|int $types ID(s) do(s) tipo(s) a associar
  * @return void
  */
-function salvarTypes($conexao, $idpokemon, $types) {
+function salvarTypes($conexao, $idpokemon, $types)
+{
     // Primeiro, remove os tipos antigos do Pokémon
     $sqlDelete = "DELETE FROM pokemon_has_types WHERE idpokemon = ?";
     $stmtDelete = mysqli_prepare($conexao, $sqlDelete);
@@ -614,7 +661,8 @@ function salvarTypes($conexao, $idpokemon, $types) {
  * @param string $nome Nome do tipo
  * @return array|null Dados do tipo ou null se não encontrado
  */
-function pesquisarTypesNome($conexao, $nome) {
+function pesquisarTypesNome($conexao, $nome)
+{
     $sql = "SELECT * FROM types WHERE nome LIKE ?";
     $comando = mysqli_prepare($conexao, $sql);
 
@@ -640,7 +688,8 @@ function pesquisarTypesNome($conexao, $nome) {
  * @param int $idpokemon ID do Pokémon
  * @return array Lista de nomes dos tipos
  */
-function buscarTypesDoPokemon($conexao, $idpokemon) {
+function buscarTypesDoPokemon($conexao, $idpokemon)
+{
     $sql = "SELECT t.nome
             FROM types t
             JOIN pokemon_has_types pht ON pht.idtypes = t.idtypes
@@ -671,7 +720,8 @@ function buscarTypesDoPokemon($conexao, $idpokemon) {
  * @param mysqli $conexao Conexão com o banco de dados
  * @return array Lista de tipos com ID e nome
  */
-function listarTypes($conexao) {
+function listarTypes($conexao)
+{
     $sql = "SELECT idtypes, nome FROM types";
     $comando = mysqli_prepare($conexao, $sql);
 
@@ -698,7 +748,8 @@ function listarTypes($conexao) {
  * @param int $idtypes ID do tipo a deletar
  * @return bool True se deletado com sucesso, False caso contrário
  */
-function deletarTypes($conexao, $idpokemon) {
+function deletarTypes($conexao, $idpokemon)
+{
     $sql = "DELETE FROM pokemon_has_types WHERE idpokemon = ?";
     $comando = mysqli_prepare($conexao, $sql);
     mysqli_stmt_bind_param($comando, 'i', $idpokemon);
@@ -717,7 +768,8 @@ function deletarTypes($conexao, $idpokemon) {
  * @param int $idusuario ID do usuário que enviou
  * @return bool True se criado com sucesso, False caso contrário
  */
-function criaSugestao_reclamacao($conexao, $reclamacao, $sugestao, $email) {
+function criaSugestao_reclamacao($conexao, $reclamacao, $sugestao, $email)
+{
     // 1. Buscar o idusuario a partir do email
     $sql_usuario = "SELECT idusuario FROM usuario WHERE email = ?";
     $comando_usuario = mysqli_prepare($conexao, $sql_usuario);
@@ -736,7 +788,7 @@ function criaSugestao_reclamacao($conexao, $reclamacao, $sugestao, $email) {
     $sql = "INSERT INTO suporte (reclamacao, sugestao, idusuario) VALUES (?, ?, ?)";
     $comando = mysqli_prepare($conexao, $sql);
     mysqli_stmt_bind_param($comando, 'ssi', $reclamacao, $sugestao, $idusuario);
-    
+
     $funcionou = mysqli_stmt_execute($comando);
     mysqli_stmt_close($comando);
 
@@ -744,50 +796,51 @@ function criaSugestao_reclamacao($conexao, $reclamacao, $sugestao, $email) {
 }
 
 
-    /**
+/**
  * Lista todas as sugestões/reclamações com email do usuário
  * @param mysqli $conexao Conexão com o banco de dados
  * @return array Lista de registros de suporte
  */
-function listarSugestao_reclamacao($conexao) {
-        $sql = "SELECT 
+function listarSugestao_reclamacao($conexao)
+{
+    $sql = "SELECT 
                 suporte.idsuporte, 
                 suporte.reclamacao, 
                 suporte.sugestao, 
                 usuario.email AS email_usuario
             FROM suporte
             JOIN usuario ON suporte.idusuario = usuario.idusuario";
-        $comando = mysqli_prepare($conexao, $sql);
-        
-        mysqli_stmt_execute($comando);
-        $resultados = mysqli_stmt_get_result($comando);
-        
-        $lista_suporte = [];
-        while ($suporte = mysqli_fetch_assoc($resultados)) {
-            $lista_suporte[] = $suporte;
-        }
-        mysqli_stmt_close($comando);
-    
-        return $lista_suporte;
-    
+    $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_execute($comando);
+    $resultados = mysqli_stmt_get_result($comando);
+
+    $lista_suporte = [];
+    while ($suporte = mysqli_fetch_assoc($resultados)) {
+        $lista_suporte[] = $suporte;
     }
-   
-    /**
+    mysqli_stmt_close($comando);
+
+    return $lista_suporte;
+}
+
+/**
  * Deleta um registro de suporte
  * @param mysqli $conexao Conexão com o banco de dados
  * @param int $idsuporte ID do registro a deletar
  * @return bool True se deletado com sucesso, False caso contrário
  */
-function deletarSugestao_reclamacao($conexao, $idsuporte) {
-        $sql = "DELETE FROM suporte WHERE idsuporte = ?";
-        $comando = mysqli_prepare($conexao, $sql);
-        
-        mysqli_stmt_bind_param($comando, 'i', $idsuporte);
-    
-        $funcionou = mysqli_stmt_execute($comando);
-        mysqli_stmt_close($comando);
-        
-        return $funcionou;
+function deletarSugestao_reclamacao($conexao, $idsuporte)
+{
+    $sql = "DELETE FROM suporte WHERE idsuporte = ?";
+    $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_bind_param($comando, 'i', $idsuporte);
+
+    $funcionou = mysqli_stmt_execute($comando);
+    mysqli_stmt_close($comando);
+
+    return $funcionou;
 }
 
 /**
@@ -796,7 +849,8 @@ function deletarSugestao_reclamacao($conexao, $idsuporte) {
  * @param int $idusuario ID do usuário
  * @return array|null Dados do registro ou null se não encontrado
  */
-function pesquisarSugestao_reclamacao($conexao, $idusuario) {
+function pesquisarSugestao_reclamacao($conexao, $idusuario)
+{
     $sql = "SELECT * FROM suporte WHERE idusuario = ?";
     $comando = mysqli_prepare($conexao, $sql);
 
@@ -809,7 +863,6 @@ function pesquisarSugestao_reclamacao($conexao, $idusuario) {
 
     mysqli_stmt_close($comando);
     return $suporte;
-
 }
 
 #=================================================================================================================
@@ -827,7 +880,8 @@ function pesquisarSugestao_reclamacao($conexao, $idusuario) {
  * @param int $idpokemon ID do Pokémon associado
  * @return bool True se criado com sucesso, False caso contrário
  */
-function criarTreinador($conexao, $nome, $idade, $genero, $cidade, $regiao, $time_atual, $data_cadastro, $idpokemon) {
+function criarTreinador($conexao, $nome, $idade, $genero, $cidade, $regiao, $time_atual, $data_cadastro, $idpokemon)
+{
     $sql = "INSERT INTO treinador (nome, idade, genero, cidade, regiao, time_atual, data_cadastro, idpokemon) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
     $comando = mysqli_prepare($conexao, $sql);
@@ -838,7 +892,6 @@ function criarTreinador($conexao, $nome, $idade, $genero, $cidade, $regiao, $tim
     mysqli_stmt_close($comando);
 
     return $funcionou;
-
 }
 
 
@@ -856,8 +909,9 @@ function criarTreinador($conexao, $nome, $idade, $genero, $cidade, $regiao, $tim
  * @param int $id ID do treinador a editar
  * @return bool True se editado com sucesso, False caso contrário
  */
-function editarTreinador($conexao, $nome, $idade, $genero, $cidade, $regiao, $time_atual, $data_cadastro, $idpokemon, $id) {
-     $sql = "UPDATE treinador SET nome=?, idade=?, genero=?, cidade=?, regiao=?, time_atual=?, data_cadastro=?, idpokemon=? WHERE idtreinador=?";
+function editarTreinador($conexao, $nome, $idade, $genero, $cidade, $regiao, $time_atual, $data_cadastro, $idpokemon, $id)
+{
+    $sql = "UPDATE treinador SET nome=?, idade=?, genero=?, cidade=?, regiao=?, time_atual=?, data_cadastro=?, idpokemon=? WHERE idtreinador=?";
     $comando = mysqli_prepare($conexao, $sql);
 
     mysqli_stmt_bind_param($comando, 'sisssssii', $nome, $idade, $genero, $cidade, $regiao, $time_atual, $data_cadastro, $idpokemon, $id);
@@ -872,7 +926,8 @@ function editarTreinador($conexao, $nome, $idade, $genero, $cidade, $regiao, $ti
  * @param mysqli $conexao Conexão com o banco de dados
  * @return array Lista de treinadores
  */
-function listarTreinador($conexao) {
+function listarTreinador($conexao)
+{
     $sql = "SELECT idtreinador, treinador.nome, treinador.idade, treinador.genero, treinador.cidade, 
             treinador.regiao, treinador.time_atual, treinador.data_cadastro, pokemon.nome 
             AS pokemon_nome
@@ -880,10 +935,10 @@ function listarTreinador($conexao) {
             JOIN pokemon ON treinador.idpokemon = pokemon.idpokemon
             ORDER BY treinador.idtreinador ASC";
     $comando = mysqli_prepare($conexao, $sql);
-    
+
     mysqli_stmt_execute($comando);
     $resultados = mysqli_stmt_get_result($comando);
-    
+
     $lista_treinador = [];
     while ($treinador = mysqli_fetch_assoc($resultados)) {
         $lista_treinador[] = $treinador;
@@ -891,7 +946,6 @@ function listarTreinador($conexao) {
     mysqli_stmt_close($comando);
 
     return $lista_treinador;
-
 }
 
 /**
@@ -900,15 +954,16 @@ function listarTreinador($conexao) {
  * @param int $idtreinador ID do treinador a deletar
  * @return bool True se deletado com sucesso, False caso contrário
  */
-function deletarTreinador($conexao, $idtreinador) {
+function deletarTreinador($conexao, $idtreinador)
+{
     $sql = "DELETE FROM treinador WHERE idtreinador = ?";
     $comando = mysqli_prepare($conexao, $sql);
-    
+
     mysqli_stmt_bind_param($comando, 'i', $idtreinador);
 
     $funcionou = mysqli_stmt_execute($comando);
     mysqli_stmt_close($comando);
-    
+
     return $funcionou;
 }
 
@@ -918,7 +973,8 @@ function deletarTreinador($conexao, $idtreinador) {
  * @param string $nome Nome do treinador
  * @return array|null Dados do treinador ou null se não encontrado
  */
-function pesquisarTreinador($conexao, $nome) {
+function pesquisarTreinador($conexao, $nome)
+{
     // Usar LIKE para permitir pesquisa por nomes parciais
     $sql = "SELECT 
                 treinador.idtreinador,
@@ -936,7 +992,7 @@ function pesquisarTreinador($conexao, $nome) {
     $comando = mysqli_prepare($conexao, $sql);
 
     $nome = "%" . $nome . "%";
-    
+
     mysqli_stmt_bind_param($comando, 's', $nome);
     mysqli_stmt_execute($comando);
     $resultado = mysqli_stmt_get_result($comando);
@@ -951,4 +1007,19 @@ function pesquisarTreinador($conexao, $nome) {
     return $lista_treinadores;
 }
 
-?>
+
+function pesquisarTreinadorId($conexao, $idtreinador)
+{
+    $sql = "SELECT * FROM treinador WHERE idtreinador = ?";
+    $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_bind_param($comando, 'i', $idtreinador);
+
+    mysqli_stmt_execute($comando);
+    $resultado = mysqli_stmt_get_result($comando);
+
+    $treinador = mysqli_fetch_assoc($resultado);
+
+    mysqli_stmt_close($comando);
+    return $treinador;
+}

@@ -11,7 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <script>
-        $(function () {
+        $(function() {
             $("#cadastro-formulario").validate({
                 rules: {
                     nome: {
@@ -58,10 +58,10 @@
                 errorElement: 'div',
                 errorClass: 'invalid-feedback',
 
-                highlight: function (el) {
+                highlight: function(el) {
                     $(el).addClass('is-invalid').removeClass('is-valid');
                 },
-                unhighlight: function (el) {
+                unhighlight: function(el) {
                     $(el).removeClass('is-invalid').addClass('is-valid');
                 },
             });
@@ -95,6 +95,7 @@
         <a href="index.html" id="cadastro-back-button">Voltar</a>
     </div>
 
-    
+
 </body>
+
 </html>
