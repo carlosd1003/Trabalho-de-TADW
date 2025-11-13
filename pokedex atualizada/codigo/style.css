@@ -267,7 +267,48 @@ h1 {
     margin-top: 20px;
     padding: 0 20px;
 }
+.navbar-collapse {
+    width: 100%;
+}
 
+.navbar-nav {
+    display: flex;
+    justify-content: space-between; /* Distribui os botões igualmente */
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap; /* Permite quebra de linha se necessário */
+}
+
+.nav-link {
+    flex: 1; /* Faz cada botão ocupar espaço igual */
+    min-width: 120px; /* Largura mínima para cada botão */
+    margin: 4px !important; /* Espaçamento reduzido entre botões */
+    text-align: center;
+    white-space: nowrap; /* Impede quebra de texto */
+    padding: 8px 12px; /* Ajuste no padding interno */
+    font-size: 14px; /* Tamanho de fonte ajustado */
+}
+
+/* Versão com flex-wrap para melhor responsividade */
+.navbar-nav {
+    display: flex;
+    justify-content: space-around; /* Distribui espaço ao redor */
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 8px; /* Espaço consistente entre botões */
+}
+
+.nav-link {
+    flex: 1 1 auto; /* Cresce e encolhe conforme necessário */
+    min-width: 130px;
+    max-width: 200px;
+    margin: 2px !important;
+    text-align: center;
+    white-space: nowrap;
+    padding: 8px 10px;
+    font-size: 13px;
+}
 
 
 /*css do calendario */
@@ -919,16 +960,67 @@ td {
 }
 
 /* Ícone de perfil */
-.perfil img {
-    position: left;
+
+/* Botão de Perfil */
+.perfil {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #1e3a8a;
+    padding: 10px;
     border-radius: 50%;
-    border: solid #333;
-    transition: transform 0.2s;
-    margin: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    border: 2px solid #ffffff;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.perfil img:hover {
-    transform: scale(0.9);
+/* Aumentando a imagem dentro do botão perfil */
+.perfil img {
+    display: block;
+    filter: brightness(0) invert(1);
+    width: 30px; /* Aumentado de 20px para 30px */
+    height: 30px; /* Aumentado de 20px para 30px */
+}
+
+/* Botão de Sair - mantém o tamanho original */
+a[href="deslogar.php"] img {
+    display: block;
+    filter: brightness(0) invert(1);
+    width: 20px; /* Mantém 20px para o botão sair */
+    height: 20px; /* Mantém 20px para o botão sair */
+}
+
+/* Botão de Sair */
+a[href="deslogar.php"] {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    background-color: #1e3a8a;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    border: 2px solid #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    text-decoration: none;
+}
+
+/* Efeitos hover para ambos */
+.perfil:hover, a[href="deslogar.php"]:hover {
+    background-color: #1e40af;
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
 .cadastro-page-body {
@@ -944,3 +1036,4 @@ p{
 .invalid-feedback {
     color: #ff0000 ; /* vermelho padrão */
 }
+

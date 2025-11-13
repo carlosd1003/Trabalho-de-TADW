@@ -157,8 +157,14 @@ if (isset($_GET['id'])) {
                     }
                 }
             });
-
-        });
+    // Submissão do formulário
+    $form.on('submit', function(e) {
+        if (!$form.valid()) {
+            e.preventDefault();
+            return false; // Impede o envio se o formulário não for válido
+        }
+    });
+});
     </script>
 </head>
 

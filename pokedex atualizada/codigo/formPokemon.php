@@ -145,23 +145,37 @@ $lista_types = listarTypes($conexao);
                 min: "O número precisa ser maior que 0"
             }
         },
-        highlight: function(el) {
-            el.classList.add('is-invalid');
-            el.classList.remove('is-valid');
-        },
-        unhighlight: function(el) {
-            el.classList.remove('is-invalid');
-            el.classList.add('is-valid');
-        },
-        errorElement: 'div',
-        errorClass: 'invalid-feedback',
-        errorPlacement: function(error, element) {
-            if (element.parent('.input-group').length) {
-                error.insertAfter(element.parent());
-            } else {
-                error.insertAfter(element);
-            }
-        }
+                // Estilinho do Bootstrap
+                highlight: function(el) {
+                    // Quando o campo for inválido, adiciona a classe 'is-invalid'
+                    // e remove a classe 'is-valid' (para mudar o estilo visual conforme o Bootstrap)
+                    el.classList.add('is-invalid');
+                    el.classList.remove('is-valid');
+                },
+                unhighlight: function(el) {
+                    // Quando o campo for válido, remove 'is-invalid'
+                    // e adiciona 'is-valid' para mostrar o campo com aparência correta
+                    el.classList.remove('is-invalid');
+                    el.classList.add('is-valid');
+                },
+                errorElement: 'div',
+                // Define que as mensagens de erro serão colocadas dentro de uma <div>
+
+                errorClass: 'invalid-feedback',
+                // Define a classe CSS usada nas mensagens de erro (Bootstrap usa essa para estilizar)
+
+                errorPlacement: function(error, element) {
+                    // Define onde a mensagem de erro será exibida no HTML
+
+                    if (element.parent('.input-group').length) {
+                        // Se o campo estiver dentro de um grupo de inputs (como ícones ou botões),
+                        // insere o erro logo depois do grupo inteiro
+                        error.insertAfter(element.parent());
+                    } else {
+                        // Caso contrário, insere o erro logo depois do campo de formulário
+                        error.insertAfter(element);
+                    }
+                }
     });
 
     // Condicionando a validação de tipos (permitir mais de 2 tipos somente se em edição)

@@ -166,7 +166,7 @@ if ($usuario) {
                 <button type="submit" class="btn btn-primary w-100"><?php echo $botao; ?></button>
             </form>
 
-            <a href="home.php" class="btn btn-warning mt-3 w-100">voltar</a>
+            <a href="home.php" class="btn btn-outline-secondary mt-3 w-100">voltar</a>
 
         </div>
     </div>
