@@ -316,7 +316,6 @@ $lista_types = listarTypes($conexao);
         });
     </script>
 
-    <!-- ChatGPT que fez isso ai -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('formulario');

@@ -220,7 +220,7 @@ if (isset($_GET['id'])) {
                 </div>
 
                 <div class="mb-3">
-                    <label for="idpokemon" class="form-label">Selecione Um Pokémon:</label>
+                    <label for="idpokemon" class="form-label">Selecione Um Pokémon Favorito:</label>
                     <select id="idpokemon" name="idpokemon" class="form-select">
                         <option value="">Selecione um pokemon</option>
                         <?php
