@@ -13,9 +13,9 @@ $types_do_pokemon = [];
 $ehDono = false;
 
 if ($idpokemon) {
-    $pokemon = pegarPokemonPorId($conexao, (int)$idpokemon);
-    $stats = pegarStatsPorPokemon($conexao, (int)$idpokemon);
-    $types_do_pokemon = buscarTypesDoPokemon($conexao, (int)$idpokemon);
+    $pokemon = pegarPokemonPorId($conexao, $idpokemon);
+    $stats = pegarStatsPorPokemon($conexao, $idpokemon);
+    $types_do_pokemon = buscarTypesDoPokemon($conexao, $idpokemon);
 
     if ($pokemon and $pokemon['usuario_idusuario'] == $usuario_idusuario) {
         $ehDono = true;
@@ -50,8 +50,7 @@ $lista_types = listarTypes($conexao);
 
     <!-- jQuery Validate (depois do jQuery) -->
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
-
-    <script>
+        <script>
         $(function() {
     const $form = $('#formulario');
     const isEdit = $('input[name="idpokemon"]').length > 0;  // Verifica se estamos em modo de edição
@@ -60,21 +59,6 @@ $lista_types = listarTypes($conexao);
     $('#formulario').validate({
         ignore: [],  // Não ignorar campos ocultos, selects, etc.
         rules: {
-            national: {
-                required: true,
-                digits: true,
-                // Se estiver editando, não valida o próximo número
-                remote: isEdit ? null : {
-                    url: 'validar_next_national.php',
-                    type: 'get',
-                    data: {
-                        proposed: function() {
-                            return $('#national').val();
-                        },
-                        mode: 'create'  // Define que a validação é apenas para criação
-                    }
-                }
-            },
             nome: {
                 required: true,
                 minlength: 3
@@ -202,6 +186,7 @@ $lista_types = listarTypes($conexao);
 });
 
     </script>
+
 
 </head>
 <!-- O "?" preenche o input com o nome do Pokémon se $pokemon existir; caso contrário, deixa vazio -->
